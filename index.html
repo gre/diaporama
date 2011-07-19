@@ -3,399 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <title>Flickr Slideshow with CSS Transitions</title>
-    <style>
-
-        .flickr-slider.loading > * {
-            display: none;
-        }
-        .flickr-slider .loader {
-            display: none;
-        }
-        .flickr-slider.loading .loader {
-            display: block;
-            text-align: center;
-            margin: 10px;
-            color: white;
-            font-size: 1.8em;
-        }
-
-      .slide-image, .slide-image img {
-        -moz-transition-duration: 1.5s;
-        -webkit-transition-duration: 1.5s;
-        -o-transition-duration: 1.5s;
-      }
-      
-      .slide-image {
-        opacity: 0;
-        -moz-transform: scale(1.5) rotate(20deg);
-        -webkit-transform: scale(1.5) rotate(20deg);
-        -o-transform: scale(1.5) rotate(20deg);
-        transform: scale(1.5) rotate(20deg);
-        -moz-transform-origin: 50% 50%; -webkit-transform-origin: 50% 50%; -o-transform-origin: 50% 50%; -ms-transform-origin: 50% 50%; transform-origin: 50% 50%;
-      }
-      .slide-image.current {
-        opacity: 1;
-        -moz-transform: scale(1) rotate(0deg);
-        -webkit-transform: scale(1) rotate(0deg);
-        -o-transform: scale(1) rotate(0deg);
-        transform: scale(1) rotate(0deg);
-      }
-
-      /* slide globals style */
-      .slide-images {
-        height: 430px;
-        position: relative;
-        list-style: none;
-        padding: 0;
-        overflow: hidden;
-      }
-      .slide-image {
-        position: absolute;
-        padding: 0;
-        margin: 0;
-        z-index: 0;
-      }
-      .slide-image.current {
-        z-index: 10;
-      }
-      .slide-image.current img {
-        z-index: 12;
-      }
-      .slide-image.current figcaption {
-        z-index: 13;
-      }
-      .slide-image figcaption a {
-        color: white;
-        z-index: 14;
-      }
-      .slide-image img {
-        z-index: 2;
-      }
-      .slide-image figcaption {
-        position: absolute;
-        right: 0;
-        top: 4px;
-        padding: 5px 10px;
-        color: rgba(255,255,255,0.8);
-        font-weight: bold;
-        font-size: 14px;
-        background-color: rgba(0,0,0,0.3);
-        -moz-border-radius: 5px 0 0 5px;
-        -webkit-border-radius: 5px 0 0 5px;
-        z-index: 3;
-      }
-      
-      /* demo specific styles */
-      body {
-        font-size: 80%;
-      }
-      .demoSliderContainer .options {
-        padding: 3px 10px;
-        text-align: center;
-      }
-      .demoSliderContainer .options a {
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 12px;
-        font-family: Georgia,Serif;
-        color: #91BECC;
-        margin: 0 2px;
-      }
-      .demoSliderContainer .options a:hover {
-        color: #D3E5EB;
-      }
-      
-      .demoSliderContainer .slide-pager a {
-        -moz-transition-duration: 0.5s;
-        -webkit-transition-duration: 0.5s;
-        -o-transition-duration: 0.5s;
-      }
-      .demoSliderContainer .slide-pager a.current {
-        background-color: #91BECC;
-        color: black;
-        padding: 0 4px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        
-      }
-      
-      .demoSliderContainer .options .prevSlide {
-        float: left;
-      }
-      .demoSliderContainer .options .nextSlide {
-        float: right;
-      }
-      
-      .demoSliderContainer {
-        margin: 5px auto;
-        padding: 0;
-        background: black;
-        overflow: auto;
-        -moz-box-shadow: 1px 1px 5px black;
-        -webkit-box-shadow: 1px 1px 5px black;
-      }
-
-      .demoSliderContainer, .demoSliderContainer .slide-image img {
-        width: 640px;
-      }
-      
-      .demoSlider {
-        margin: 0 auto;
-        padding: 0;
-        border: 5px solid black;
-        border-bottom: 0;
-        height: 220px;
-        width: 550px;
-      }
-      
-      footer {
-        margin-top: 40px;
-        padding-top: 5px;
-        border-top: 1px dashed #aaa;
-        color: #777;
-      }
-      
-    </style>
+    <link href="slider.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.tmpl.min.js"></script>
-    <script type="text/javascript">
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
-// Inspired by base2 and Prototype
-(function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
- 
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
-    var _super = this.prototype;
-   
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-   
-    // Copy the properties over onto the new prototype
-    for (var name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" &&
-        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-           
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-           
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);       
-            this._super = tmp;
-           
-            return ret;
-          };
-        })(name, prop[name]) :
-        prop[name];
-    }
-   
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing && this.init )
-        this.init.apply(this, arguments);
-    }
-   
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-   
-    // Enforce the constructor to be what we expect
-    Class.constructor = Class;
-
-    // And make this class extendable
-    Class.extend = arguments.callee;
-   
-    return Class;
-  };
-})();
-    </script>
+    <script type="text/javascript" src="class.js"></script>
+    <script type="text/javascript" src="slider.js"></script>
   </head>
 
   <body>
-
-  <div class="demoSliderContainer">
-    <div class="flickr-slider">
-        <div class="loader"><img src="load.gif" /> Loading Flickr recent photos... (<span class="percent">0</span>%)</div>
-    </div>
-  </div>
-
-    <footer>CSS transition - slider demo - by Gaetan Renaudeau - 2011 - 
-<a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
-
-<script type="text/javascript">
-$(function(){
-
-/// Slider - a lightweight slider
-/// -----------------------------
-var Slider = Class.extend({
-    init: function(node) {
-        this.node = $(node);
-        this.current = 0; // Current slide number
-    },
     
-    // Go to slide num
-    // ---------------
-    slide: function(num) {
-        var self = this;
-        self.slides.eq(self.current).removeClass('current');
-        self.slides.eq(num).addClass('current');
-        self.pages.each(function(){
-            var pages = $('a', this);
-            pages.eq(self.current).removeClass('current');
-            pages.eq(num).addClass('current');
-        });
-        self.current = num;
-    },
+    <h1>Flickr Slideshow with jQuery and CSS Transitions</h1>
+    <form id="options">
+      <fieldset>
+        <legend>Options</legend>
+        <p>
+            <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
+            <label for="method_recent">Recent photos</label>
+        </p>
+        <p>
+            <input type="radio" name="method" value="search" id="method_search" />
+            <label for="method_search">Search photos</label>
+            <input type="text" name="search" id="search" />
+        </p>
+        <p class="buttons">
+            <button type="submit">Refresh</button>
+        </p>
+      </fieldset>
+    </form>
+    <div id="demo" class="demoSliderContainer"></div>
+    
+    <script type="text/javascript">
+(function(){
+    var slider = new FlickrSlider($('#demo'));
 
-    // Go to next slide
-    // ----------------
-    next: function() {
-        var next = this.current + 1;
-        if(next >= this.slides.size())
-            next = 0;
-        this.slide(next);
-    },
-
-    // Go to prev slide
-    // ---------------
-    prev: function() {
-        var prev = this.current - 1;
-        if(prev < 0)
-            prev = this.slides.size() - 1;
-        this.slide(prev);
-    },
-
-    // Bind slider events
-    // ------------------
-    bind: function() {
-        var self = this;
-        var slider = self.node;
-        self.slides = slider.find('.slide-image');
-        self.pages = slider.find('.slide-pager');
-      
-        // Slide Navigation
-        // ----------------
-        self.slides.removeClass('current');
-        self.slides.eq(self.current).addClass('current');
-        self.pages.each(function(){
-            var pages = $('a', this);
-            pages.removeClass('current');
-            pages.eq(self.current).addClass('current');
-        });
-             
-        // Navigation binding
-        // -------------------
-        slider.find('.prevSlide').click(function(){ self.prev() });
-        slider.find('.nextSlide').click(function(){ self.next() });
-        slider.find('.slide-pager a').each(function(i){
-            if(i>=self.slides.size()) return false;
-            $(this).click(function(){
-                self.slide(i);
+    $('#method_search').change(function(e){
+        $('#search').focus();
+    });
+    $('#search').focus(function(){
+        $('#method_search:not(:checked)').attr('checked', 'checked');
+    });
+    $('#options').submit(function(e){
+        e.preventDefault();
+        var opt;
+        var search = $('#search').val();
+        if(!search) $('#method_recent').attr('checked', 'checked');
+        if($('#method_search').is(':checked')) {
+            slider.fetch({
+               method: 'flickr.photos.search',
+               text: search
             });
-        });
-    },
-
-    // Start the slider
-    // ----------------
-    start: function() {
-        this.bind();
-        var self = this;
-        var now = function(){ return  new Date().getTime(); }
-        // Auto Next Slide
-        //----------------
-        var lastHumanNav = 0;
-        $('.prevSlide, .nextSlide, .slide-pager a').click(function(){
-            lastHumanNav = now();
-        });
-        setInterval(function() {
-            //  human interact is prioritary
-            if(now()-lastHumanNav > 5000) self.next();
-        }, 5000);
-    }
-});
-
-// Template of a slide
-$.template('slide', '<figure class="slide-image"><a href="${link}" target="_blank"><img src="${src}"><figcaption>${name}</figcaption></a></figure>');
-// Template of options (navigation)
-$.template('options', '<div class="options"><a class="prevSlide" href="javascript:;">prev</a><span class="slide-pager">{{each pages}}<a href="javascript:;" class="current">${$value}</a>{{/each}}</span><a class="nextSlide" href="javascript:;">next</a></div>');
-
-// FlickrSlider
-// ------------
-var FlickrSlider = Slider.extend({
-    init: function(node) {
-        this._super(node);
-        this.node = $(node);
-    },
-    startSlider: function() {
-        this.node.removeClass('loading');
-        this.start();
-    },
-    fetch: function() {
-        var self = this;
-        self.node.addClass('loading');
-        $.getJSON('http://www.flickr.com/services/rest/?jsoncallback=?', {
-            method: 'flickr.photos.getRecent',
-            per_page: 10,
-            format: 'json',
-            api_key: 'be902d7f912ea43230412619cb9abd52'
-        }, function(json){
-            self.onResult(json);
-        });
-
-    },
-    onResult: function(json) {
-        var self = this;
-        var slides = $.map(json.photos.photo, function(photo){
-            return {
-                link: 'http://www.flickr.com/photos/'+photo.owner+'/'+photo.id,
-                src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
-                name: photo.title.substring(0,20)
-            }
-        });
-        var photosContainer = $('<div class="slide-images" />');
-        $.tmpl('slide', slides).appendTo(photosContainer);
-        self.node.append(photosContainer);
-
-        var options = $.tmpl('options', { 
-            pages: $.map(slides, function(slide, i){ return i+1; })
-        });
-        self.node.append(options);
-
-        var nbLoad = 0;
-        var imgs = self.node.find('.slide-image img').bind('load', function(){
-            var total = imgs.size();
-            if (++nbLoad == total) {
-                self.startSlider();
-            }
-            self.node.find('.loader .percent').text( Math.floor(100*nbLoad/total) );
-        });
-
-    }
-
-});
-
-// For each flickr slider, fetch photos and init slider
-$('.flickr-slider').each(function(){
-    new FlickrSlider(this).fetch();
-});
-
-});
-</script>
+        }
+        slider.fetch(opt);
+    }).submit();
+}());
+    </script>
+    <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
   </body>
 </html>
 
