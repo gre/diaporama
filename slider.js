@@ -51,11 +51,12 @@ this.Slider = Class.extend({
         });
 
         var now = function(){ return  new Date().getTime(); }
-        self.node.find('.prevSlide, .nextSlide, .slide-pager a').click(function(){
+        self.node.find('.options a').click(function(){
             self.lastHumanNav = now();
         });
         if(!self.interval) {
-            // Auto switch to next slide (but wait a moment if recent human interaction)
+            // Auto switch to next slide 
+            // but wait a while if recent human interaction
             self.interval = setInterval(function() {
                 if(now()-self.lastHumanNav > 5000) self.next();
             }, 5000);
@@ -98,19 +99,26 @@ this.Slider = Class.extend({
 // Slider template
 // ---------------
 $.template('flickrSlider', '<div class="slider flickr-slider">'+
-    '<div class="loader"><span class="spinner"></span> Loading Flickr photos... (<span class="percent">0</span>%)</div>'+
-    '<div class="slide-images">'+
-        '{{each(i, slide) slides}}'+
-            '<figure class="slide-image">'+
-            '<a href="${slide.link}" target="_blank"><img src="${slide.src}"><figcaption>${slide.name}</figcaption></a>'+
-            '</figure>'+
-        '{{/each}}'+
-    '</div>'+
-    '<div class="options">'+
-        '<a class="prevSlide" href="javascript:;">prev</a>'+
-        '<span class="slide-pager">{{each slides}}<a href="javascript:;">${$index+1}</a>{{/each}}</span>'+
-        '<a class="nextSlide" href="javascript:;">next</a>'+
-    '</div>'+
+  '<div class="loader"><span class="spinner"></span> '+
+    'Loading Flickr photos... '+
+    '(<span class="percent">0</span>%)</div>'+
+  '<div class="slide-images">'+
+    '{{each(i, slide) slides}}'+
+      '<figure class="slide-image">'+
+        '<a href="${slide.link}" target="_blank">'+
+          '<img src="${slide.src}">'+
+          '<figcaption>${slide.name}</figcaption>'+
+        '</a>'+
+      '</figure>'+
+    '{{/each}}'+
+  '</div>'+
+  '<div class="options">'+
+    '<a class="prevSlide" href="#">prev</a>'+
+    '<span class="slide-pager">'+
+      '{{each slides}}<a href="#">${$index+1}</a>{{/each}}'+
+    '</span>'+
+    '<a class="nextSlide" href="#">next</a>'+
+  '</div>'+
 '</div>');
 
 // FlickrSlider extends Slider
@@ -132,9 +140,10 @@ this.FlickrSlider = Slider.extend({
         }, options);
         var self = this;
         // Retrieve JSON flickr recent photos
-        $.getJSON('http://www.flickr.com/services/rest/?jsoncallback=?', options, function(json){
-            self.onResult(json);
-        });
+        $.getJSON('http://www.flickr.com/services/rest/?jsoncallback=?', options, 
+            function(json){
+                self.onResult(json);
+            });
     },
     
     // On flickr photos fetched
@@ -145,7 +154,8 @@ this.FlickrSlider = Slider.extend({
         var slides = $.map(json.photos.photo, function(photo){
             return {
                 link: 'http://www.flickr.com/photos/'+photo.owner+'/'+photo.id,
-                src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
+                src: 'http://farm'+photo.farm+'.static.flickr.com/'+
+                        photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
                 name: photo.title.substring(0,20)
             }
         });
