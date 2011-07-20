@@ -3,37 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Flickr Slideshow with CSS Transitions</title>
-    <link href="slider.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet/less" type="text/css" href="slider.less">
+    <!-- <link href="slider.css" rel="stylesheet" type="text/css" /> -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="class.js"></script>
     <script type="text/javascript" src="slider.js"></script>
-  </head>
-
-  <body>
-    
-    <h1>Flickr Slideshow with jQuery and CSS Transitions</h1>
-    <form id="options">
-      <fieldset>
-        <legend>Options</legend>
-        <p>
-            <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
-            <label for="method_recent">Recent photos</label>
-        </p>
-        <p>
-            <input type="radio" name="method" value="search" id="method_search" />
-            <label for="method_search">Search photos</label>
-            <input type="text" name="search" id="search" />
-        </p>
-        <p class="buttons">
-            <button type="submit">Refresh</button>
-        </p>
-      </fieldset>
-    </form>
-    <div id="demo" class="demoSliderContainer"></div>
-    
+    <script type="text/javascript" src="less.js"></script>
     <script type="text/javascript">
-(function(){
+$(function(){
     var slider = new FlickrSlider($('#demo'));
 
     $('#method_search').change(function(e){
@@ -42,9 +20,15 @@
     $('#search').focus(function(){
         $('#method_search:not(:checked)').attr('checked', 'checked');
     });
-    $('#options').submit(function(e){
+    $('#themes').change(function(){
+        slider.setTheme($(this).val());
+    }).change();
+    $('#transitions').change(function(){
+        slider.setTransition($(this).val());
+    }).change();
+    $('#flickr_options').submit(function(e){
         e.preventDefault();
-        var opt;
+        var opt = { per_page: $('#options_nb').val() };
         var search = $('#search').val();
         if(!search) $('#method_recent').attr('checked', 'checked');
         if($('#method_search').is(':checked')) {
@@ -55,9 +39,90 @@
         }
         slider.fetch(opt);
     }).submit();
-}());
+});
     </script>
+
+  </head>
+
+<body>
+  <div id="wrapper">
+
+    <h1>Flickr Slideshow with jQuery and CSS Transitions</h1>
+
+    <form class="options">
+      <fieldset id="flickr_options">
+        <legend>Flickr options</legend>
+        <dl>
+          <dt>
+            <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
+            <label for="method_recent">Recent photos</label>
+          </dt>
+        </dl>
+        <dl>
+          <dt>
+            <input type="radio" name="method" value="search" id="method_search" />
+            <label for="method_search">Search photos</label>
+          </dt>
+          <dd>
+            <input type="text" name="search" id="search" />
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <label for="options_nb">Number of slides : </label>
+          </dt>
+          <dd>
+            <select id="options_nb" name="options_nb">
+                <option value="5">5</option>
+                <option value="10" selected="selected">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+          </dd>
+        </dl>
+      </fieldset>
+      <fieldset id="slider_options">
+      <legend>Slider options</legend>
+      <dl>
+        <dt>
+          <label for="transitions">Transition effect :</label>
+        </dt>
+        <dd>
+          <select id="transitions">
+            <option value="transition-rotate2">Rotate and scale out</option>
+            <option value="transition-rotate1">Rotate and scale in</option>
+            <option value="transition-zoomin">Zoom in</option>
+            <option value="transition-zoomout">Zoom out</option>
+            <option value="transition-flip">Flip</option>
+            <option value="transition-left">Left</option>
+            <option value="transition-top">Top</option>        
+            <option value="transition-simple1">Simple</option>
+          </select>
+        </dd>
+      </dl>
+      <dl>
+        <dt>
+          <label for="themes">Theme :</label>
+        </dt>
+        <dd>
+          <select id="themes">
+            <option value="theme-dark">Dark</option>
+          </select>
+        </dd>
+      </dl>
+    </fieldset>
+    <p class="buttons">
+      <button type="submit">Refresh</button>
+    </p>
+    </form>
+
+    <div id="demo"></div>
+
+
     <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
-  </body>
+  
+  </div>
+</body>
 </html>
 

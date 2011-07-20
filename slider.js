@@ -5,8 +5,8 @@
 // -----------------------------
 this.Slider = Class.extend({
     // Constructor : init container node and current slide number
-    init: function(node) {
-        this.node = $(node);
+    init: function(container) {
+        this.container = $(container);
         this.current = 0;
         this.lastHumanNav = 0;
     },
@@ -62,6 +62,24 @@ this.Slider = Class.extend({
         }
     },
 
+    // Change the slider transition CSS class
+    setTransition: function(transition) {
+        if(this.node) {
+            this.transition && this.node.removeClass(this.transition);
+            transition && this.node.addClass(transition);
+        }
+        this.transition = transition;
+    },
+
+    // Change the slider theme CSS class
+    setTheme: function(theme) {
+        if(this.node) {
+            this.theme && this.node.removeClass(this.theme);
+            theme && this.node.addClass(theme);
+        }
+        this.theme = theme;
+    },
+
     // Start the slider
     start: function() {
         var self = this;
@@ -79,7 +97,7 @@ this.Slider = Class.extend({
 
 // Slider template
 // ---------------
-$.template('flickrSlider', '<div class="flickr-slider">'+
+$.template('flickrSlider', '<div class="slider flickr-slider">'+
     '<div class="loader"><img src="load.gif"> Loading Flickr photos... (<span class="percent">0</span>%)</div>'+
     '<div class="slide-images">'+
         '{{each(i, slide) slides}}'+
@@ -102,7 +120,6 @@ this.FlickrSlider = Slider.extend({
     // Constructor
     init: function(container) {
         this._super(container);
-        this.container = $(container);
     },
     
     // Fetch flickr photos. You can override flickr params with the `options` arg
@@ -134,8 +151,10 @@ this.FlickrSlider = Slider.extend({
         });
         
         // Templating and appending to DOM
-        this.node = $.tmpl('flickrSlider', { slides: slides }).addClass('loading');
+        self.node = $.tmpl('flickrSlider', { slides: slides }).addClass('loading');
         self.container.empty().append(this.node);
+        self.setTransition(self.transition);
+        self.setTheme(self.theme || "theme-dark");
 
         // Loading all images before showing the slider
         var nbLoad = 0;
