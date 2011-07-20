@@ -98,7 +98,7 @@ this.Slider = Class.extend({
 // Slider template
 // ---------------
 $.template('flickrSlider', '<div class="slider flickr-slider">'+
-    '<div class="loader"><img src="load.gif"> Loading Flickr photos... (<span class="percent">0</span>%)</div>'+
+    '<div class="loader"><span class="spinner"></span> Loading Flickr photos... (<span class="percent">0</span>%)</div>'+
     '<div class="slide-images">'+
         '{{each(i, slide) slides}}'+
             '<figure class="slide-image">'+
@@ -154,6 +154,7 @@ this.FlickrSlider = Slider.extend({
         self.node = $.tmpl('flickrSlider', { slides: slides }).addClass('loading');
         self.container.empty().append(this.node);
         self.setTransition(self.transition);
+        console.log(self.theme);
         self.setTheme(self.theme || "theme-dark");
 
         // Loading all images before showing the slider

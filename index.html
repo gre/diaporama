@@ -26,7 +26,7 @@ $(function(){
     $('#transitions').change(function(){
         slider.setTransition($(this).val());
     }).change();
-    $('#flickr_options').submit(function(e){
+    $('#options').submit(function(e){
         e.preventDefault();
         var opt = { per_page: $('#options_nb').val() };
         var search = $('#search').val();
@@ -49,7 +49,7 @@ $(function(){
 
     <h1>Flickr Slideshow with jQuery and CSS Transitions</h1>
 
-    <form class="options">
+    <form id="options">
       <fieldset id="flickr_options">
         <legend>Flickr options</legend>
         <dl>
@@ -108,6 +108,7 @@ $(function(){
         <dd>
           <select id="themes">
             <option value="theme-dark">Dark</option>
+            <option value="theme-light">Light</option>
           </select>
         </dd>
       </dl>
@@ -119,6 +120,14 @@ $(function(){
 
     <div id="demo"></div>
 
+    <article>
+    <h2>
+        see <a href="">blog article</a>.
+    </h2>
+    <h2>
+        see <a href="docs/slider.html">annotated slider.js source code</a>.
+    </h2>
+    </article>
 
     <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
   
