@@ -113,11 +113,11 @@ $.template('flickrSlider', '<div class="slider flickr-slider">'+
     '{{/each}}'+
   '</div>'+
   '<div class="options">'+
-    '<a class="prevSlide" href="#">prev</a>'+
+    '<a class="prevSlide" href="javascript:;">prev</a>'+
     '<span class="slide-pager">'+
-      '{{each slides}}<a href="#">${$index+1}</a>{{/each}}'+
+      '{{each slides}}<a href="javascript:;">${$index+1}</a>{{/each}}'+
     '</span>'+
-    '<a class="nextSlide" href="#">next</a>'+
+    '<a class="nextSlide" href="javascript:;">next</a>'+
   '</div>'+
 '</div>');
 
