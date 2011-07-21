@@ -1,0 +1,12 @@
+### What do you need ? ###
+
+Files required :
+ * slider.js
+ * slider.css
+ * load_dark.gif
+ * load_light.gif
+ * jquery.tmpl.min.js
+ * class.js
+
+Dependencies :
+ * jQuery

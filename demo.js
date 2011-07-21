@@ -1,4 +1,4 @@
-$(function(){
+jQuery(function($){
     var slider = window.slider = new FlickrSlider($('#demo'));
 
     $('#method_search').change(function(e){
