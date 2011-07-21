@@ -43,7 +43,7 @@
 .slider {
 
     /* all transition takes 1.5s */
-    .slide-image, .slide-image img {
+    .slide-image, .slide-image img, .slide-image figcaption {
         .transition-duration(1.5s);
     }
 
@@ -81,7 +81,7 @@
     &.transition-left .slide-image.current {
         left: 0;
     }
-    /* warning: the ~ selector can fail on some browser (safari, opera) */
+    // warning: this ~ selector may fail on some browsers
     &.transition-left .slide-image.current ~ .slide-image {
         left: 100%;
     }
@@ -94,7 +94,7 @@
     &.transition-top .slide-image.current {
         top: 0;
     }
-    /* warning: the ~ selector can fail on some browser (safari, opera) */
+    // warning: this ~ selector may fail on some browsers
     &.transition-top .slide-image.current ~ .slide-image {
         top: 100%;
     }
@@ -108,11 +108,11 @@
     }
 
     /* just opacity and container width (moving figcaption) */
-    &.transition-simple1 .slide-image {
-        width: 0%;
+    &.transition-simple1 .slide-image figcaption {
+        right: 100%;
     }
-    &.transition-simple1 .slide-image.current {
-        width: 100%;
+    &.transition-simple1 .slide-image.current figcaption {
+        right: 0%;
     }
 
     /* zoom in */

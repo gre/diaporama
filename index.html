@@ -3,16 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <title>Slider.js : Flickr Slideshow with CSS Transitions</title>
-    <link rel="stylesheet/less" type="text/css" href="slider.less">
-    <link rel="stylesheet/less" type="text/css" href="demo.less">
-    <!-- <link href="slider.css" rel="stylesheet" type="text/css" /> -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="class.js"></script>
     <script type="text/javascript" src="slider.js"></script>
     <script type="text/javascript" src="demo.js"></script>
 
+    <link href="slider.css" rel="stylesheet" type="text/css" /> 
+    <link href="demo.css" rel="stylesheet" type="text/css" /> 
+
+<!--
+    <link rel="stylesheet/less" type="text/css" href="slider.less">
+    <link rel="stylesheet/less" type="text/css" href="demo.less">
     <script type="text/javascript" src="less.js"></script>
+-->
 
   </head>
 
@@ -104,20 +108,63 @@
 
     <section>
     <article>
+    <h1>Slider.js</h1>
+    <p><strong>Slider.js is a light JS library which provides an easy way to create image slideshows.</strong></p>
+    <p>CSS and Javascript are very separated :</p>
+    <ul>
+        <li>The javascript part just does ajax stuff, templating and change a few classes.
+        To perform slide change, only a <code class="inline">current</code> class is moved.</li>
+        <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects.</li>
+    </ul>
+    
+    <p>For instance, <code class="inline">slider.setTransition('transition-left')</code> 
+    will set a <code class="inline">transition-left</code> class which will be used in CSS to describe the transition
+    with <strong>CSS3 Transitions</strong>.</p>
+    <p>Hence, you can make your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
+
+    <ul>
+        <li>see also <a target="_blank" href="http://blog.greweb.fr/2010/05/css3-transitions-available-on-firefox-3-7">CSS Transitions blog article</a></li>
+        <li>see also <a target="_blank" href="http://www.zengularity.com/item/1583389563/les-transitions-css3-un-exemple-de-diaporama-dimages">[fr] Vidéo: Les transitions CSS3 : un exemple de diaporama d'images</a></li>
+    </ul>
 
     <h1>Source code</h1>
     <ul>
         <li><code class="inline">CTRL+U</code> is your best friend!</li>
-        <li>see <a href="docs/slider.html">annotated slider.js source code</a>.</li>
-        <li>see <a href="slider.less">slider.less source code</a>.</li>
+        <li>see <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
+        <li>see <a target="_blank" href="docs/slider.html">annotated slider.js source code</a>.</li>
+        <li>see <a target="_blank" href="slider.less">slider.less source code</a>.</li>
     </ul>
 
     <h1>Want to test live?</h1>
     Open your firebug / web console and play with the <code class="inline">slider</code> variable.
 
-    <h2>Some usage examples</h2>
-     
-     <h3>Slider</h3>
+    <h2>Some code examples</h2>
+
+    <h3>The CSS</h3>
+
+<h4>Zoom in</h4>
+<code>/* zoom in */
+.slider.transition-zoomin .slide-image {
+    transform: scale(2);
+}
+.slider.transition-zoomin .slide-image.current {
+    transform: scale(1);
+}</code>
+
+<h4>Left transition</h4>
+<code>/* left transition */
+.slider.transition-left .slide-image {
+    opacity: 1;
+    left: -100%;
+}
+.slider.transition-left .slide-image.currenut {
+    left: 0;
+}
+.slider.transition-left .slide-image.current ~ .slide-image {
+    left: 100%;
+}</code>
+
+    <h3>Slider</h3>
 
 <p>The Slider constructor takes an empty container dom node in argument.
 <code>var slider = new Slider($('#sliderContainer'));</code>
