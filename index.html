@@ -2,56 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Flickr Slideshow with CSS Transitions</title>
+    <title>Slider.js : Flickr Slideshow with CSS Transitions</title>
     <link rel="stylesheet/less" type="text/css" href="slider.less">
+    <link rel="stylesheet/less" type="text/css" href="demo.less">
     <!-- <link href="slider.css" rel="stylesheet" type="text/css" /> -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="class.js"></script>
     <script type="text/javascript" src="slider.js"></script>
-    <script type="text/javascript" src="less.js"></script>
-    <script type="text/javascript">
-$(function(){
-    var slider = new FlickrSlider($('#demo'));
+    <script type="text/javascript" src="demo.js"></script>
 
-    $('#method_search').change(function(e){
-        $('#search').focus();
-    });
-    $('#search').focus(function(){
-        $('#method_search:not(:checked)').attr('checked', 'checked');
-    });
-    $('#themes').change(function(){
-        slider.setTheme($(this).val());
-    }).change();
-    $('#transitions').change(function(){
-        slider.setTransition($(this).val());
-    }).change();
-    $('#options').submit(function(e){
-        e.preventDefault();
-        var opt = { per_page: $('#options_nb').val() };
-        var search = $('#search').val();
-        if(!search) $('#method_recent').attr('checked', 'checked');
-        if($('#method_search').is(':checked')) {
-            slider.fetch({
-               method: 'flickr.photos.search',
-               text: search
-            });
-        }
-        slider.fetch(opt);
-    }).submit();
-});
-    </script>
+    <script type="text/javascript" src="less.js"></script>
 
   </head>
 
 <body>
   <div id="wrapper">
+    <header>
+    <h1>Slider.js : Flickr Slideshow with jQuery and CSS Transitions</h1>
+    </header>
 
-    <h1>Flickr Slideshow with jQuery and CSS Transitions</h1>
-
+    <section>
     <form id="options">
       <fieldset id="flickr_options">
-        <legend>Flickr options</legend>
+        <legend><input id="flickr_enabled" type=checkbox /> <label for="flickr_enabled">Flickr enabled</label></legend>
         <dl>
           <dt>
             <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
@@ -81,6 +55,10 @@ $(function(){
             </select>
           </dd>
         </dl>
+      <p class="buttons">
+        <button type="submit">Refresh</button>
+      </p>
+
       </fieldset>
       <fieldset id="slider_options">
       <legend>Slider options</legend>
@@ -90,13 +68,14 @@ $(function(){
         </dt>
         <dd>
           <select id="transitions">
-            <option value="transition-rotate2">Rotate and scale out</option>
-            <option value="transition-rotate1">Rotate and scale in</option>
             <option value="transition-zoomin">Zoom in</option>
             <option value="transition-zoomout">Zoom out</option>
             <option value="transition-flip">Flip</option>
             <option value="transition-left">Left</option>
-            <option value="transition-top">Top</option>        
+            <option value="transition-top">Top</option> 
+            <option value="transition-rotatezoomin">Rotate and scale in</option> 
+            <option value="transition-rotatezoomout">Rotate and scale out</option>
+            <option value="transition-topfade">Top fade</option>        
             <option value="transition-simple1">Simple</option>
           </select>
         </dd>
@@ -107,27 +86,101 @@ $(function(){
         </dt>
         <dd>
           <select id="themes">
-            <option value="theme-dark">Dark</option>
+            <option value="theme-dark">Dark blue</option>
             <option value="theme-light">Light</option>
+            <option value="theme-darkgreen">Dark green</option>
+            <option value="theme-red">Red</option>
           </select>
         </dd>
       </dl>
+      <p class="info">
+        (These options are refreshed live!)
+      </p>
     </fieldset>
-    <p class="buttons">
-      <button type="submit">Refresh</button>
-    </p>
     </form>
 
     <div id="demo"></div>
+    </section>
 
+    <section>
     <article>
-    <h2>
-        see <a href="">blog article</a>.
-    </h2>
-    <h2>
-        see <a href="docs/slider.html">annotated slider.js source code</a>.
-    </h2>
+
+    <h1>Source code</h1>
+    <ul>
+        <li><code class="inline">CTRL+U</code> is your best friend!</li>
+        <li>see <a href="docs/slider.html">annotated slider.js source code</a>.</li>
+        <li>see <a href="slider.less">slider.less source code</a>.</li>
+    </ul>
+
+    <h1>Want to test live?</h1>
+    Open your firebug / web console and play with the <code class="inline">slider</code> variable.
+
+    <h2>Some usage examples</h2>
+     
+     <h3>Slider</h3>
+
+<p>The Slider constructor takes an empty container dom node in argument.
+<code>var slider = new Slider($('#sliderContainer'));</code>
+</p>
+
+<p>if DOM is ready - we just need to start the slider engine on it.
+<code>slider.start();</code>
+</p>
+    
+<p>Fetch a JSON containing photos, create the DOM and start the slider engine.
+<code>slider.fetchJson("photos_pixar.json");</code>
+</p>
+
+<p>You already have the JSON, create the DOM and start.
+<code>slider.setPhotos([
+    { "src" : "images/monstersinc.jpg", "name": "Monsters Inc" },
+    { "src" : "images/nemo.jpg", "name": "Nemo" }
+]);</code>
+</p>
+
+<p>Set the slider size.
+<code>slider.setSize('400px', '300px');</code>
+</p>
+
+<p>Slide navigation
+<code>slider.next();
+slider.prev();
+slider.slide(4);</code>
+</p>
+
+<p>Themes and transitions are defined in CSS,
+but you can easily switch theme live with these methods:
+<code>slider.setTheme('theme-dark');
+slider.setTransition('transition-zoomin');</code>
+</p>
+
+<p>You can chain different methods in any order
+<code>slider.setSize('400px', '300px')
+    .fetchJson("/photos.json")
+    .slide(5)
+    .setTheme('theme-light')
+    .setTransition('transition-zoomout');</code>
+</p>
+
+ <h3>FlickrSlider</h3>
+
+<p>Flickr Slider is a subclass of Slider, all Slider method are usable.
+<code>var slider = new FlickrSlider($('#sliderContainer'));</code>
+</p>
+
+<p>Default behavior : get recent photos.
+<code>slider.fetchFlickr();</code>
+</p>
+
+<p>You can override default flickr options by passing params (see flickr API).
+<code>slider.fetchFlickr({
+    per_page: 30,
+    method: 'flickr.photos.search',
+    text: 'China'
+});</code>
+</p>
     </article>
+    </section>
 
     <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
   
