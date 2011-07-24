@@ -178,10 +178,11 @@
   -webkit-box-shadow: 1px 1px 5px black;
 }
 .slider.theme-light a {
-  color: white;
+  color: #555;
 }
 .slider.theme-light .caption {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  color: #555;
 }
 .slider.theme-light .options a {
   color: #AAA;

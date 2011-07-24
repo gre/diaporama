@@ -163,16 +163,21 @@ article {
         font-size: 1.1em;
     }
     code {
-       color: #ccc;
-       background-color: black;
-       display: block;
-       padding: 5px 10px;
-       margin: 5px 0;
-       white-space: pre;
-       &.inline {
+      color: #ccc;
+      background-color: black;
+      display: block;
+      padding: 5px 10px;
+      margin: 5px 0;
+      white-space: pre;
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      word-wrap: break-word;
+      &.inline {
         display: inline;
         margin: 0;
         padding: 1px 3px;
-       }
+      }
     }
 }
