@@ -1,10 +1,6 @@
 ### What do you need ? ###
 
-Files required :
- * slider.js
- * slider.css
- * load_dark.gif
- * load_light.gif
+Take the lib/ directory which contains all minimum and minimified required files.
 
 Dependencies :
  * jQuery
