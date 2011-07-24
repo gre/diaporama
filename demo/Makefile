@@ -3,8 +3,8 @@ JSDOCOPT=
 
 all: docs/slider.html docs/fetchFlickr.html
 
-docs/slider.html: slider.js
+docs/%.html: %.js
 	${JSDOCC} ${JSDOCOPT} $<
 
+docs/slider.html: slider.js
 docs/fetchFlickr.html: fetchFlickr.js
-	${JSDOCC} ${JSDOCOPT} $<
