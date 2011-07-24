@@ -1,6 +1,7 @@
-// A Simple flickr slider
+/* Slider.js by @greweb - http://demo.greweb.fr/slider */
 
 (function($){
+"use strict";
 // Slider template
 // ---------------
 var tmplSlider = function(o){
@@ -33,7 +34,7 @@ var tmplSlider = function(o){
 // Slider - a lightweight slider
 // -----------------------------
 // Constructor : init container node and current slide number
-this.Slider = function(container) {
+window.Slider = function(container) {
   var self = this;
   self.container = $(container);
   self.current = 0;

@@ -25,6 +25,10 @@ header {
 header h1 {
   font-size: 1.4em;
 }
+blockquote {
+  font-style: italic;
+  color: #666;
+}
 section {
   border-top: 2px solid rgba(0, 0, 0, 0.1);
   margin-top: 20px;
@@ -145,6 +149,7 @@ footer {
 }
 article {
   margin: 10px;
+  border-bottom: 2px solid #ccc;
 }
 article h1, article h2, article h3 {
   text-shadow: -2px -2px 0px white;
@@ -166,12 +171,17 @@ article h5 {
   font-size: 1.1em;
 }
 article code {
-  white-space: pre;
   color: #ccc;
   background-color: black;
   display: block;
   padding: 5px 10px;
   margin: 5px 0;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 article code.inline {
   display: inline;

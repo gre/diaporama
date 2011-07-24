@@ -13,7 +13,7 @@
 
 <!--[if IE]>
 <script type="text/javascript">
-$.each(['header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figure', 'figcaption'], function(tag){
+$.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figure', 'figcaption'], function(tag){
   document.createElement(tag);
 });
 </script>
@@ -30,8 +30,10 @@ $.each(['header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figur
   <div id="wrapper">
     <header>
       <h1>Slider.js: Slideshow with jQuery and CSS Transitions</h1>
-      <p>Slider.js is a light JS library which provides an easy way to create image slideshows.<br/>
-      For instance, to make a Flickr slideshow.</p>
+      <blockquote>Slider.js is an easy-to-use minimalist Javascript library to create image slideshows.<br/>
+      It relies on the power of CSS Transitions to perform awesome and efficient effects.
+      <br/>
+      Example with a Flickr slideshow.</blockquote>
     </header>
 
     <section>
@@ -116,41 +118,40 @@ $.each(['header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figur
 
     <section>
     <article>
-    <h1>Slider.js</h1>
-    <p><strong>Slider.js is a light JS library which provides an easy way to create image slideshows.</strong></p>
-    <p>CSS and Javascript are very separated :</p>
+    <p><strong>Slider.js is a lightweight Javascript library to create image slideshows.</strong> 
+    It relies on the power of CSS Transitions to perform awesome and efficient effects.</p>
+    <p>CSS and Javascript are splitted and independent.</p>
     <ul>
-        <li>The javascript part just does ajax stuff, templating and change a few classes.
+        <li>The javascript part just does <strong>ajax stuff, templating and change a few classes</strong>.
         To perform slide change, only a <code class="inline">current</code> class is moved.</li>
-        <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects.</li>
+        <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
     </ul>
     
     <p>For instance, <code class="inline">slider.setTransition('transition-left')</code> 
     will set a <code class="inline">transition-left</code> class which will be used in CSS to describe the transition
     with <strong>CSS3 Transitions</strong>.</p>
-    <p>Hence, you can make your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
-
-    <ul>
-        <li>see also <a target="_blank" href="http://blog.greweb.fr/2010/05/css3-transitions-available-on-firefox-3-7">CSS Transitions blog article</a></li>
-        <li>see also <a target="_blank" href="http://www.zengularity.com/item/1583389563/les-transitions-css3-un-exemple-de-diaporama-dimages">[fr] Vidéo: Les transitions CSS3 : un exemple de diaporama d'images</a></li>
-    </ul>
+    <p>Hence, you can add your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
+    
+    <h1>Browser compatibility</h1>
+    <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE9).</p>
+    <p>For older browsers (like IE6, IE7, IE8, or older version of Firefox) 
+    the slider works out of the box and the degradation is natural (thanks to CSS). 
+    There is no animations between slides 
+    but slides changes are working fine. That's pretty fair for old browsers.</p>
 
     <h1>Source code</h1>
     <ul>
-      <li><code class="inline">CTRL+U</code> is your best friend!</li>
       <li><strong>see <a target="_blank" href="docs/slider.html">Annotated slider.js source code</a>.</strong></li>
-      <li>see <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
       <li>see <a target="_blank" href="slider.less">slider.less source code</a>.</li>
+      <li>fork me <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
     </ul>
 
     <h1>Want to test live?</h1>
-    Open your firebug / web console and play with the <code class="inline">slider</code> variable.
+    Open your web console and play with the <code class="inline">slider</code> variable.
 
-    <h2>Some code examples</h2>
+    <h2>The CSS</h2>
 
-    <h3>The CSS</h3>
-
-<h4>Zoom in</h4>
+<h3>Zoom in</h3>
 <code>/* zoom in */
 .slider.transition-zoomin .slide-image {
     transform: scale(2);
@@ -159,7 +160,7 @@ $.each(['header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figur
     transform: scale(1);
 }</code>
 
-<h4>Left transition</h4>
+<h3>Left transition</h3>
 <code>/* left transition */
 .slider.transition-left .slide-image {
     opacity: 1;
@@ -172,7 +173,9 @@ $.each(['header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figur
     left: 100%;
 }</code>
 
-    <h3>Slider</h3>
+
+
+<h2>Slider.js</h2>
 
 <p>The Slider constructor takes an empty container dom node in argument.
 <code>var slider = new Slider($('#sliderContainer'));</code>
@@ -217,7 +220,7 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
- <h3>Flickr example</h3>
+ <h1>Flickr example</h1>
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>
@@ -248,7 +251,7 @@ Now, let's create a new method in this slider :
 
 <p><strong>Let's see deeply this code source here: <a href="docs/fetchFlickr.html" target="_blank">fetchFlickr.js annoted source</a>.</strong></p>
 
-<h4>Usage</h4>
+<h2>Usage</h2>
 
 <p>Default behavior : get recent Flickr photos.
 <code>slider.fetchFlickr();</code>
@@ -264,6 +267,12 @@ Retrieve 30 recent photos searching "China" :
 </p>
     </article>
     </section>
+    
+    
+    <ul>
+        <li>see also <a target="_blank" href="http://blog.greweb.fr/2010/05/css3-transitions-available-on-firefox-3-7">CSS Transitions blog article</a></li>
+        <li>see also <a target="_blank" href="http://www.zengularity.com/item/1583389563/les-transitions-css3-un-exemple-de-diaporama-dimages">[fr] Vidéo: Les transitions CSS3 : un exemple de diaporama d'images</a></li>
+    </ul>
 
     <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
   
