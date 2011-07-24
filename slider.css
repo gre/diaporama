@@ -1,28 +1,4 @@
 /** Slider Transitions **/
-.slider {
-  /* all transition takes 1.5s */
-
-  /* general properties for all transitions */
-
-  /* a rotate and zoom out transition */
-
-  /* a rotate and zoom in transition */
-
-  /* left transition */
-
-  /* top transition */
-
-  /* top fade transition */
-
-  /* just opacity and container width (moving figcaption) */
-
-  /* zoom in */
-
-  /* zoom out */
-
-  /* flip */
-
-}
 .slider .slide-image, .slider .slide-image img, .slider .slide-image figcaption {
   transition-duration: 1.5s;
   -moz-transition-duration: 1.5s;
@@ -31,6 +7,7 @@
 }
 .slider .slide-image {
   opacity: 0;
+  filter: alpha(opacity=0);
   transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
   -webkit-transform-origin: 50% 50%;
@@ -38,6 +15,7 @@
 }
 .slider .slide-image.current {
   opacity: 1;
+  filter: alpha(opacity=100);
 }
 .slider.transition-rotatezoomout .slide-image {
   transform: scale(0) rotate(40deg);
@@ -65,6 +43,7 @@
 }
 .slider.transition-left .slide-image {
   opacity: 1;
+  filter: alpha(opacity=100);
   left: -100%;
 }
 .slider.transition-left .slide-image.current {
@@ -75,6 +54,7 @@
 }
 .slider.transition-top .slide-image {
   opacity: 1;
+  filter: alpha(opacity=100);
   top: -100%;
 }
 .slider.transition-top .slide-image.current {
@@ -132,16 +112,6 @@
   -o-transform: scale(1, 1);
 }
 /*** Slider themes ***/
-.slider {
-  /* dark theme */
-
-  /* dark green theme */
-
-  /* light theme */
-
-  /* red theme */
-
-}
 .slider.theme-dark {
   background: black;
   color: white;
@@ -335,6 +305,7 @@
 }
 .slider .slide-image figcaption {
   opacity: 0.8;
+  filter: alpha(opacity=80);
   z-index: 3;
   position: absolute;
   right: 0;

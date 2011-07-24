@@ -2,14 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Slider.js : Flickr Slideshow with CSS Transitions</title>
+    <title>Slider.js: Slideshow with CSS Transitions - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="class.js"></script>
     <script type="text/javascript" src="slider.js"></script>
-    <script type="text/javascript" src="demo.js"></script>
-
+    
     <link href="slider.css" rel="stylesheet" type="text/css" /> 
+    
+    <!-- demo related resources -->
+    <script type="text/javascript" src="demo.js"></script>
     <link href="demo.css" rel="stylesheet" type="text/css" /> 
 
 <!--
@@ -17,20 +18,20 @@
     <link rel="stylesheet/less" type="text/css" href="demo.less">
     <script type="text/javascript" src="less.js"></script>
 -->
-
   </head>
 
 <body>
   <div id="wrapper">
     <header>
-    <h1>Slider.js : Flickr Slideshow with jQuery and CSS Transitions</h1>
-    <p>Slider.js is a light JS library which provides an easy way to create image slideshows.</p>
+      <h1>Slider.js: Slideshow with jQuery and CSS Transitions</h1>
+      <p>Slider.js is a light JS library which provides an easy way to create image slideshows.<br/>
+      For instance, to make a Flickr slideshow.</p>
     </header>
 
     <section>
     <form id="options">
       <fieldset id="flickr_options">
-        <legend><input id="flickr_enabled" type=checkbox /> <label for="flickr_enabled">Flickr enabled</label></legend>
+        <legend><input id="flickr_enabled" type=checkbox /> <label for="flickr_enabled">Use Flickr</label></legend>
         <dl>
           <dt>
             <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
@@ -130,10 +131,10 @@
 
     <h1>Source code</h1>
     <ul>
-        <li><code class="inline">CTRL+U</code> is your best friend!</li>
-        <li>see <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
-        <li>see <a target="_blank" href="docs/slider.html">annotated slider.js source code</a>.</li>
-        <li>see <a target="_blank" href="slider.less">slider.less source code</a>.</li>
+      <li><code class="inline">CTRL+U</code> is your best friend!</li>
+      <li><strong>see <a target="_blank" href="docs/slider.html">Annotated slider.js source code</a>.</strong></li>
+      <li>see <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
+      <li>see <a target="_blank" href="slider.less">slider.less source code</a>.</li>
     </ul>
 
     <h1>Want to test live?</h1>
@@ -210,17 +211,45 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
- <h3>FlickrSlider</h3>
+ <h3>Flickr example</h3>
 
-<p>Flickr Slider is a subclass of Slider, all Slider method are usable.
-<code>var slider = new FlickrSlider($('#sliderContainer'));</code>
+<p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
+<p>
+Let's create a new slider
+<code>var slider = new Slider($('#sliderContainer'));</code>
+Now, let's create a new method in this slider :
+<code>slider.fetchFlickr = function(options) {
+  this.fetchJson('http://www.flickr.com/services/rest/?jsoncallback=?', $.extend({
+    method: 'flickr.photos.getRecent',
+    per_page: 10,
+    format: 'json',
+    api_key: 'be902d7f912ea43230412619cb9abd52' // Your API key
+  }, options), function(json){ 
+    return $.map(json.photos.photo, function(photo){
+      return {
+        link: 'http://www.flickr.com/photos/'+photo.owner+'/'+photo.id,
+        src: 'http://farm'+photo.farm+'.static.flickr.com/'+
+            photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
+        name: photo.title.substring(0,20)
+      }
+    });
+  });
+  return this;
+}</code>
 </p>
+
+<p>In only 18 lines of code, we have created an awesome flickr slider!</p>
+
+<p><strong>Let's see deeply this code source here: <a href="docs/fetchFlickr.html" target="_blank">Annoted source</a>.</strong></p>
+
+<h4>Usage</h4>
 
 <p>Default behavior : get recent photos.
 <code>slider.fetchFlickr();</code>
 </p>
 
-<p>You can override default flickr options by passing params (see flickr API).
+<p>You can override default flickr options by passing params (see <a href="http://www.flickr.com/services/api/" target="_blank">flickr API</a>).<br/>
+Retrieve 30 recent photos searching "China" :
 <code>slider.fetchFlickr({
     per_page: 30,
     method: 'flickr.photos.search',
@@ -233,6 +262,18 @@ slider.setTransition('transition-zoomin');</code>
     <footer>Flickr Slideshow with jQuery and CSS Transitions - by Gaetan Renaudeau - 2011 - <a href="http://grenlibre.fr/">grenlibre.fr</a></footer>
   
   </div>
+  
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-9919624-4']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
 </body>
 </html>
 

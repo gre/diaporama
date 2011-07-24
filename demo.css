@@ -23,7 +23,7 @@ header {
   text-align: center;
 }
 header h1 {
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 section {
   border-top: 2px solid rgba(0, 0, 0, 0.1);
@@ -130,8 +130,8 @@ footer {
 #flickr_options {
   width: 330px;
 }
-#flickr_options:not(.enabled) dl, #flickr_options:not(.enabled) p {
-  opacity: 0.1;
+#flickr_options:not(.enabled) dl {
+  display: none;
 }
 #slider_options {
   width: 280px;
