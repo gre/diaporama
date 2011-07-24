@@ -49,7 +49,7 @@
 .slider {
 
     // all transition takes 1.5s
-    .slide-image, .slide-image img, .slide-image figcaption {
+    .slide-image, .slide-image img, .slide-image .caption {
         .transition-duration(1.5s);
     }
 
@@ -113,11 +113,11 @@
         top: 0;
     }
 
-    // just opacity and container width (moving figcaption)
-    &.transition-simple1 .slide-image figcaption {
+    // just opacity and container width (moving caption)
+    &.transition-simple1 .slide-image .caption {
         right: 100%;
     }
-    &.transition-simple1 .slide-image.current figcaption {
+    &.transition-simple1 .slide-image.current .caption {
         right: 0%;
     }
 
@@ -156,7 +156,7 @@
         a {
             color: white;
         }
-        figcaption {
+        .caption {
             background: rgba(0,0,0,0.5);
         }
         .options a {
@@ -185,7 +185,7 @@
         a {
             color: white;
         }
-        figcaption {
+        .caption {
             background: rgba(0,0,0,0.5);
         }
         .options a {
@@ -214,7 +214,7 @@
         a {
             color: white;
         }
-        figcaption {
+        .caption {
             background: rgba(0,0,0,0.5);
         }
         .options a {
@@ -243,7 +243,7 @@
         a {
             color: white;
         }
-        figcaption {
+        .caption {
             background: rgba(0,0,0,0.5);
         }
         .options a {
@@ -330,7 +330,7 @@
     .slide-image.current img {
         z-index: 12;
     }
-    .slide-image.current figcaption {
+    .slide-image.current .caption {
         z-index: 13;
     }
     .slide-image a {
@@ -340,7 +340,7 @@
         z-index: 2;
         width: 100%;
     }
-    .slide-image figcaption {
+    .slide-image .caption {
         .opacity(0.8);
         z-index: 3;
         position: absolute;

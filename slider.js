@@ -3,28 +3,31 @@
 (function($){
 // Slider template
 // ---------------
-$.template('slider', '<div class="slider">'+
-  '<div class="loader"><span class="spinner"></span> '+
-  'Loading photos... '+
-  '(<span class="percent">0</span>%)</div>'+
-  '<div class="slide-images">'+
-  '{{each(i, slide) slides}}'+
-    '<figure class="slide-image">'+
-    '{{if slide.link}}<a href="${slide.link}" target="_blank">{{/if}}'+
-      '<img src="${slide.src}">'+
-      '<figcaption>${slide.name}</figcaption>'+
-    '{{if slide.link}}</a>{{/if}}'+
-    '</figure>'+
-  '{{/each}}'+
-  '</div>'+
-  '<div class="options">'+
-  '<a class="prevSlide" href="javascript:;">prev</a>'+
-  '<span class="slide-pager">'+
-    '{{each slides}}<a href="javascript:;">${$index+1}</a>{{/each}}'+
-  '</span>'+
-  '<a class="nextSlide" href="javascript:;">next</a>'+
-  '</div>'+
-'</div>');
+var tmplSlider = function(o){
+  var slider = $('<div class="slider">'+
+    '<div class="loader"><span class="spinner"></span> Loading photos... (<span class="percent">0</span>%)</div>'+
+    '<div class="slide-images"></div>'+
+    '<div class="options">'+
+      '<a class="prevSlide" href="javascript:;">prev</a>'+
+      '<span class="slide-pager"></span>'+
+      '<a class="nextSlide" href="javascript:;">next</a>'+
+    '</div>'+
+  '</div>');
+  slider.find('.slide-images').append($.map(o.slides, function(slide){
+      return $('<div class="slide-image">'+
+      (slide.link ? '<a href="'+slide.link+'" target="_blank">' : '')+
+        '<img src="'+slide.src+'">'+
+        '<span class="caption">'+slide.name+'</span>'+
+      (slide.link ? '</a>' : '')+
+      '</div>')[0];
+    })
+  );
+  slider.find('.slide-pager').append($.map(o.slides, function(slide, i){
+      return $('<a href="javascript:;">'+(i+1)+'</a>')[0];
+    })
+  );
+  return slider;
+}
 
 
 // Slider - a lightweight slider
@@ -129,7 +132,7 @@ this.Slider = function(container) {
   // `slides` : format: array of { src, name, link (optional) } 
   self.setPhotos = function(slides) {  
     // Templating and appending to DOM
-    self.node = $.tmpl('slider', { slides: slides }).addClass('loading');
+    self.node = tmplSlider({ slides: slides }).addClass('loading');
     self.container.empty().append(self.node);
     self.current = 0;
     self._sync();
