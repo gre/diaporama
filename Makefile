@@ -31,7 +31,7 @@ lib/slider.min.js: slider.js
 VERSION=1.0
 ZNAME=sliderjs-${VERSION}
 
-zip: lib/slider.js lib/slider.css
+zip: lib/slider.min.js lib/slider.min.css
 	rm -rf ${ZNAME}/ ${ZNAME}.zip
 	cp -R lib/ ${ZNAME}
 	zip -r ${ZNAME}.zip ${ZNAME}
