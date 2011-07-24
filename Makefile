@@ -1,5 +1,5 @@
 LESSC=lessc
-LESSOPT=-x
+LESSOPT=
 
 JSMINC=yuicompressor
 JSMINOPT=
@@ -23,6 +23,16 @@ lib/slider.css: slider.less
 
 lib/slider.js: slider.js
 	${JSMINC} ${JSMINOPT} $< -o $@
+
+
+VERSION=1.0
+ZNAME=sliderjs-${VERSION}
+
+zip: lib/slider.js lib/slider.css
+	rm -rf ${ZNAME}/ ${ZNAME}.zip
+	cp -R lib/ ${ZNAME}
+	zip -r ${ZNAME}.zip ${ZNAME}
+	rm -rf ${ZNAME}
 
 clean: 
 	rm -rf demo/docs demo/slider.css demo/slider.js demo/demo.css demo/slider.css lib/slider.css lib/slider.js

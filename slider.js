@@ -1,4 +1,4 @@
-/* Slider.js by @greweb - http://demo.greweb.fr/slider */
+/*! Slider.js by @greweb - http://demo.greweb.fr/slider */
 
 (function($){
 "use strict";

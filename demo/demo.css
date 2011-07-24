@@ -1,26 +1,190 @@
-@font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
-a{color:#aaa;}a:hover{color:#ccc;}
-#wrapper{width:640px;margin:0 auto;}
-header{text-align:center;}header h1{font-size:1.4em;}
-blockquote{font-style:italic;color:#666;}
-section{border-top:2px solid rgba(0, 0, 0, 0.1);margin-top:20px;}
-footer{margin-top:40px;padding-top:5px;border-top:1px dashed #aaa;color:#777;}
-#options{padding:10px 0;}#options .buttons{clear:both;text-align:center;padding:4px 0;margin:4px 0;background-color:rgba(0, 0, 0, 0.05);}#options .buttons button{border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;padding:2px 8px;font-size:1.2em;color:#aaa;border:1px solid #aaa;cursor:pointer;background:#ffffff;background:-moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(50%, #f3f3f3), color-stop(51%, #ededed), color-stop(100%, #ffffff));background:-webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-o-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-ms-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);}#options .buttons button:hover,#options .buttons button:active{color:#666;border-color:#666;}
-#options fieldset{border:none;padding:2px;margin:0 0 10px 0;display:table;}#options fieldset legend{font-weight:bold;}
-#options fieldset dl{display:table-row;}#options fieldset dl dt{display:table-cell;width:50%;text-align:right;padding:1px 10px 1px 0;}
-#options fieldset dl dd{padding:1px 0;display:table-cell;width:50%;}#options fieldset dl dd input:not([type=checkbox]){width:100%;border:1px solid #ccc;color:#333;background-color:#fff;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;}
-#options fieldset dl dd select{width:100%;}
-#options fieldset:nth-child(2){margin-left:10px;padding-left:10px;}
-#options fieldset .info{text-align:right;opacity:0.6;font-style:italic;}
-#flickr_options,#slider_options{float:left;}
-#flickr_options{width:330px;}#flickr_options:not(.enabled) dl{display:none;}
-#slider_options{width:280px;}
-#demo{clear:left;margin:10px auto;}
-#demo .slider{margin:0 auto;}
-article{margin:10px;border-bottom:2px solid #ccc;}article h1,article h2,article h3{text-shadow:-2px -2px 0px white;}
-article h1{text-align:center;font-size:2.2em;}
-article h2{font-size:1.9em;}
-article h3{font-size:1.6em;}
-article h4{font-size:1.3em;}
-article h5{font-size:1.1em;}
-article code{color:#ccc;background-color:black;display:block;padding:5px 10px;margin:5px 0;white-space:pre;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;}article code.inline{display:inline;margin:0;padding:1px 3px;}
+/* demo specific styles */
+@font-face {
+  font-family: Delicious;
+  src: url('Delicious-Roman.otf');
+}
+body {
+  font-family: Delicious;
+  color: #333;
+  background: #EEE;
+  margin: 10px;
+}
+a {
+  color: #aaa;
+}
+a:hover {
+  color: #ccc;
+}
+#wrapper {
+  width: 640px;
+  margin: 0 auto;
+}
+header {
+  text-align: center;
+}
+header h1 {
+  font-size: 1.4em;
+}
+blockquote {
+  font-style: italic;
+  color: #666;
+}
+section {
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+footer {
+  margin-top: 40px;
+  padding-top: 5px;
+  border-top: 1px dashed #aaa;
+  color: #777;
+}
+#options {
+  padding: 10px 0;
+}
+#options .buttons {
+  clear: both;
+  text-align: center;
+  padding: 4px 0;
+  margin: 4px 0;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+#options .buttons button {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 1.2em;
+  color: #aaa;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  background: #ffffff;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(50%, #f3f3f3), color-stop(51%, #ededed), color-stop(100%, #ffffff));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+  /* Opera11.10+ */
+
+  background: -ms-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+  /* IE10+ */
+
+  background: linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+  /* W3C */
+
+}
+#options .buttons button:hover, #options .buttons button:active {
+  color: #666;
+  border-color: #666;
+}
+#options fieldset {
+  border: none;
+  padding: 2px;
+  margin: 0 0 10px 0;
+  display: table;
+}
+#options fieldset legend {
+  font-weight: bold;
+}
+#options fieldset dl {
+  display: table-row;
+}
+#options fieldset dl dt {
+  display: table-cell;
+  width: 50%;
+  text-align: right;
+  padding: 1px 10px 1px 0;
+}
+#options fieldset dl dd {
+  padding: 1px 0;
+  display: table-cell;
+  width: 50%;
+}
+#options fieldset dl dd input:not([type=checkbox]) {
+  width: 100%;
+  border: 1px solid #ccc;
+  color: #333;
+  background-color: #fff;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+#options fieldset dl dd select {
+  width: 100%;
+}
+#options fieldset:nth-child(2) {
+  margin-left: 10px;
+  padding-left: 10px;
+}
+#options fieldset .info {
+  text-align: right;
+  opacity: 0.6;
+  font-style: italic;
+}
+#flickr_options, #slider_options {
+  float: left;
+}
+#flickr_options {
+  width: 330px;
+}
+#flickr_options:not(.enabled) dl {
+  display: none;
+}
+#slider_options {
+  width: 280px;
+}
+#demo {
+  clear: left;
+  margin: 10px auto;
+}
+#demo .slider {
+  margin: 0 auto;
+}
+article {
+  margin: 10px;
+  border-bottom: 2px solid #ccc;
+}
+article h1, article h2, article h3 {
+  text-shadow: -2px -2px 0px white;
+}
+article h1 {
+  text-align: center;
+  font-size: 2.2em;
+}
+article h2 {
+  font-size: 1.9em;
+}
+article h3 {
+  font-size: 1.6em;
+}
+article h4 {
+  font-size: 1.3em;
+}
+article h5 {
+  font-size: 1.1em;
+}
+article code {
+  color: #ccc;
+  background-color: black;
+  display: block;
+  padding: 5px 10px;
+  margin: 5px 0;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+article code.inline {
+  display: inline;
+  margin: 0;
+  padding: 1px 3px;
+}
