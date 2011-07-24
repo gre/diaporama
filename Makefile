@@ -1,12 +1,12 @@
 LESSC=lessc
-LESSOPT=
+LESSOPT=-x
 
 JSMINC=yuicompressor
 JSMINOPT=
 
-all: clean _demo demo/slider.js demo/demo.min.css demo/slider.min.css lib/slider.min.css lib/slider.min.js
+all: _demo demo/slider.js demo/demo.min.css demo/slider.min.css lib/slider.min.css lib/slider.min.js
 
-_demo: demo/slider.js
+_demo: demo/slider.js demo/fetchFlickr.js
 	cd demo && make;
 
 demo/slider.js: slider.js

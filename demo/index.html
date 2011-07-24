@@ -83,8 +83,10 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
             <option value="transition-zoomin">Zoom in</option>
             <option value="transition-zoomout">Zoom out</option>
             <option value="transition-flip">Flip</option>
-            <option value="transition-left">Left</option>
-            <option value="transition-top">Top</option> 
+            <option value="transition-skewflip">Skew flip</option>
+            <option value="transition-left">Left*</option>
+            <option value="transition-top">Top*</option> 
+            <option value="transition-oblique">Oblique*</option> 
             <option value="transition-rotatezoomin">Rotate and scale in</option> 
             <option value="transition-rotatezoomout">Rotate and scale out</option>
             <option value="transition-topfade">Top fade</option>        
@@ -112,6 +114,8 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
     </form>
 
     <div id="demo"></div>
+    
+    <p class="info">* : have some issues on webkit browsers.</p>
     </section>
 
     <section>

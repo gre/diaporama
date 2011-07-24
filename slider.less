@@ -43,7 +43,6 @@
 
 /////////////////////////////////////////////
 
-
 /** Slider Transitions **/
 .slider {
 
@@ -82,7 +81,6 @@
         .opacity(1);
         left: -100%;
     }
-    
     &.transition-left .slide-image.current {
         left: 0;
     }
@@ -102,6 +100,17 @@
     // warning: this ~ selector may fail on some browsers
     &.transition-top .slide-image.current ~ .slide-image {
         top: 100%;
+    }
+    
+    // oblique transition
+    &.transition-oblique .slide-image {
+        .transform(matrix(1,1,0,1,-100%,0));
+    }
+    &.transition-oblique .slide-image.current {
+        .transform(matrix(1,0,0,1,0,0));
+    }
+    &.transition-oblique .slide-image.current ~ .slide-image {
+        .transform(matrix(1,1,0,1,100%,0));
     }
 
     // top fade transition
@@ -141,6 +150,14 @@
         .transform(scale(-1, 1));
     }
     &.transition-flip .slide-image.current {
+        .transform(scale(1, 1));
+    }
+    
+    // Skew flip
+    &.transition-skewflip .slide-image {
+        .transform(scale(-1, -1));
+    }
+    &.transition-skewflip .slide-image.current {
         .transform(scale(1, 1));
     }
 }
