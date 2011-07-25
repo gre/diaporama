@@ -28,7 +28,7 @@ demo/demo.min.css: demo/demo.less
 lib/slider.min.css: slider.less
 lib/slider.min.js: slider.js
 
-VERSION=1.0.1
+VERSION=1.0.2
 ZNAME=sliderjs-${VERSION}
 
 zip: lib/slider.min.js lib/slider.min.css
