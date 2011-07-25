@@ -2,6 +2,10 @@
 
 (function($){
 "use strict";
+
+// Util function : modulo for negative values
+var mod = function(X, Y) { return X - Math.floor(X / Y) * Y; }
+
 // Slider template
 // ---------------
 var tmplSlider = function(o){
@@ -41,10 +45,17 @@ window.Slider = function(container) {
   self.lastHumanNav = 0;
   self.duration = 5000;
   
+  // Util function : return the circular value of num
+  self.circular = function(num) {
+    return mod(num, self.slides.size());
+  }
+  
   // Go to slide number `num` : update both DOM and this.current
   self.slide = function(num) {
     // num must be between 0 and nbslides-1
     num = Math.max(0, Math.min(num, self.slides.size()-1));
+    var oldnext = next;
+    next = self.circular(num+1);
     if(self.node) {
       // Move current class in **slides**
       self.slides.eq(self.current).removeClass('current');
@@ -60,16 +71,12 @@ window.Slider = function(container) {
 
   // Go to circular next slide (will call `slide`)
   self.next = function() {
-    var next = self.current + 1;
-    if(next >= self.slides.size()) next = 0;
-    self.slide(next);
+    self.slide(self.circular(self.current + 1));
   }
 
   // Go to circular previous slide (will call `slide`)
   self.prev = function() {
-    var prev = self.current - 1;
-    if(prev < 0) prev = self.slides.size() - 1;
-    self.slide(prev);
+    self.slide(self.circular(self.current - 1));
   }
 
   // Change the duration between each slide
@@ -157,16 +164,12 @@ window.Slider = function(container) {
 
   // Start the slider
   self.start = function() {
-    self._sync();
-
     self.slides = self.node.find('.slide-image');
     self.pages = self.node.find('.slide-pager a');
     
+    self._sync();
     self._bind();
     
-    // init classes for current slide
-    self.slides.removeClass('current').eq(self.current).addClass('current');
-    self.pages.removeClass('current').eq(self.current).addClass('current');
     return self;
   }
   
