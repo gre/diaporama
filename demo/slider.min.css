@@ -1,3 +1,4 @@
+.transition-clear{-moz-transition-duration:0s !important;-webkit-transition-duration:0s !important;-o-transition-duration:0s !important;transition-duration:0s !important;}
 .slider .slide-image,.slider .slide-image img,.slider .slide-image .caption{transition-duration:1.5s;-moz-transition-duration:1.5s;-webkit-transition-duration:1.5s;-o-transition-duration:1.5s;}
 .slider .slide-image{opacity:0;filter:alpha(opacity=0);transform-origin:50% 50%;-moz-transform-origin:50% 50%;-webkit-transform-origin:50% 50%;-o-transform-origin:50% 50%;}
 .slider .slide-image.current{opacity:1;filter:alpha(opacity=100);}
