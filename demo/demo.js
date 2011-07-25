@@ -31,7 +31,9 @@ jQuery(function($){
         slider.setTheme($(this).val());
     }).change();
     $('#transitions').change(function(){
-        slider.setTransition($(this).val());
+        var transition = $(this).val();
+        slider.setTransition('transition-clear');
+        setTimeout(function(){ slider.setTransition(transition) }, 50);
     }).change();
     $('#options').submit(function(e){
         e.preventDefault();
