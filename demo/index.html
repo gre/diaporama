@@ -3,7 +3,7 @@
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta name="title" content="Slider.js: Slideshow with jQuery and CSS Transitions - example with Flickr" />
-    <meta content="Slider.js is an easy-to-use minimalist Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects." name="Description"/>
+    <meta content="Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects." name="Description"/>
     <meta content="slider.js slider slideshow javascript jquery css transitions css3 flickr" name="Keywords"/>
     <title>Slider.js: Slideshow with jQuery and CSS Transitions - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
@@ -25,13 +25,21 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
   </head>
 
 <body>
+  <nav>
+    <ul>
+      <li><a href="#wrapper">Slider demo</a></li>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#compatibility">Compatibility</a></li>
+      <li><a href="#sourcecode">Source code</a></li>
+      <li><a href="#hackability" title="Flickr example">Hackability</a></li>
+    </ul>
+  </nav>
+  
   <div id="wrapper">
     <header>
       <h1>Slider.js: Slideshow with jQuery and CSS Transitions</h1>
-      <blockquote>Slider.js is an easy-to-use minimalist Javascript library to create image slideshows.<br/>
-      It relies on the power of CSS Transitions to perform awesome and efficient effects.
-      <br/>
-      Example with a Flickr slideshow.</blockquote>
+      <blockquote>Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows.<br/>
+      It relies on the power of CSS Transitions to perform awesome and efficient effects.</blockquote>
     </header>
 
     <section>
@@ -121,7 +129,8 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
     </section>
 
     <section>
-    <article>
+    <article id="intro">
+    
     <p><strong>Slider.js is a lightweight Javascript library to create image slideshows.</strong> 
     It relies on the power of CSS Transitions to perform awesome and efficient effects.</p>
     <p>CSS and Javascript are splitted and independent.</p>
@@ -136,22 +145,22 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
     with <strong>CSS3 Transitions</strong>.</p>
     <p>Hence, you can add your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
     
-    <h1>Browser compatibility</h1>
+    <h2>Want to test live?</h2>
+    <p>Open your web console and play with the <code class="inline">slider</code> variable.</p>
+    
+    <h1 id="compatibility">Browser compatibility</h1>
     <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE9).</p>
     <p>For older browsers (like IE6, IE7, IE8, or older version of Firefox) 
     the slider works out of the box and the degradation is natural (thanks to CSS). 
     There is no animations between slides 
     but slides changes are working fine. That's pretty fair for old browsers.</p>
 
-    <h1>Source code</h1>
+    <h1 id="sourcecode">Source code</h1>
     <ul>
       <li><strong>see <a target="_blank" href="docs/slider.html">Annotated slider.js source code</a>.</strong></li>
       <li>see <a target="_blank" href="https://github.com/gre/slider.js/blob/master/slider.less">slider.less source code</a>.</li>
       <li>fork me <a href="https://github.com/gre/slider.js" target="_blank">on Github</a></li>
     </ul>
-    
-    <h1>Want to test live?</h1>
-    Open your web console and play with the <code class="inline">slider</code> variable.
 
     <h2>The CSS</h2>
 
@@ -224,7 +233,7 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
- <h1>Hackability - Flickr example</h1>
+ <h1 id="hackability">Hackability - Flickr example</h1>
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>

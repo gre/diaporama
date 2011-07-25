@@ -64,4 +64,72 @@ jQuery(function($){
         }
         $('#options').submit();
     }).change();
+
+
+// <details> polyfill : http://mathiasbynens.be/notes/html5-details-jquery
+var isDetailsSupported = (function(doc) {
+  var el = doc.createElement('details'),
+      de = doc.documentElement,
+      fake,
+      root = doc.body || (function() {
+        fake = true;
+        return de.insertBefore(doc.createElement('body'), de.firstChildElement || de.firstChild);
+      }()),
+      diff;
+  el.innerHTML = '<summary>a</summary>b';
+  el.style.display = 'block';
+  root.appendChild(el);
+  diff = el.offsetHeight;
+  el.open = true;
+  diff = diff != el.offsetHeight;
+  root.removeChild(el);
+  if (fake) {
+    root.parentNode.removeChild(root);
+  }
+  return diff;
+}(document));
+if(!isDetailsSupported) {
+  document.documentElement.className += ' no-details';
+
+  $('details').each(function() {
+    var $details = $(this),
+        $detailsSummary = $('summary', $details),
+        $detailsNotSummary = $details.children(':not(summary)'),
+        $detailsNotSummaryContents = $details.contents(':not(summary)');
+
+    if (!$detailsSummary.length) {
+      $detailsSummary = $(document.createElement('summary')).text('Details').prependTo($details);
+    }
+
+    if ($detailsNotSummary.length !== $detailsNotSummaryContents.length) {
+      $detailsNotSummaryContents.filter(function() {
+        return (this.nodeType === 3) && (/[^\t\n\r ]/.test(this.data));
+      }).wrap('<span>');
+      $detailsNotSummary = $details.children(':not(summary)');
+    }
+    open = $details.attr('open');
+    if (typeof open == 'string' || (typeof open == 'boolean' && open)) {
+      $details.addClass('open');
+      $detailsNotSummary.show();
+    } else {
+      $detailsNotSummary.hide();
+    }
+    
+    $detailsSummary.attr('tabIndex', 0).click(function() {
+      $detailsSummary.focus();
+      typeof $details.attr('open') !== 'undefined' ? $details.removeAttr('open') : $details.attr('open', 'open');
+      $detailsNotSummary.toggle(0);
+      $details.toggleClass('open');
+    }).keyup(function(event) {
+      if (13 === event.keyCode || 32 === event.keyCode) {
+        if (!($.browser.opera && 13 === event.keyCode)) {
+          event.preventDefault();
+          $detailsSummary.click();
+        }
+      }
+    });
+  });
+}
+
+
 });
