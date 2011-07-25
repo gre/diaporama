@@ -54,8 +54,6 @@ window.Slider = function(container) {
   self.slide = function(num) {
     // num must be between 0 and nbslides-1
     num = Math.max(0, Math.min(num, self.slides.size()-1));
-    var oldnext = next;
-    next = self.circular(num+1);
     if(self.node) {
       // Move current class in **slides**
       self.slides.eq(self.current).removeClass('current');
