@@ -153,12 +153,20 @@
         .transform(scale(1, 1));
     }
     
+    // flip
+    &.transition-cardflip .slide-image {
+        .transform(scale(-1, 0.2));
+    }
+    &.transition-cardflip .slide-image.current {
+        .transform(scale(1, 1));
+    }
+    
     // Skew flip
     &.transition-skewflip .slide-image {
-        .transform(scale(-1, -1));
+        .transform(skew(90deg, 90deg));
     }
     &.transition-skewflip .slide-image.current {
-        .transform(scale(1, 1));
+        .transform(skew(0deg, 0deg));
     }
 }
 
