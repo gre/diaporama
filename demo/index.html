@@ -12,7 +12,15 @@
     
     <!-- demo related resources -->
     <script type="text/javascript" src="demo.js"></script>
-    <link href="demo.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="demo.min.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="http://lib.greweb.fr/flexible-nav/flexible-nav.min.js"></script>
+	<link rel="stylesheet" href="http://lib.greweb.fr/flexible-nav/flexible-nav.min.css" type="text/css" media="screen" charset="utf-8">
+	<script type="text/javascript" charset="utf-8">
+	$(function(){
+		new FlexibleNav( new FlexibleNavMaker('h1,h2').make().prependTo('body') );
+	});
+	</script>
 
 <!--[if IE]>
 <script type="text/javascript">
@@ -25,19 +33,9 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
   </head>
 
 <body>
-  <nav>
-    <ul>
-      <li><a href="#wrapper">Slider demo</a></li>
-      <li><a href="#intro">Introduction</a></li>
-      <li><a href="#compatibility">Compatibility</a></li>
-      <li><a href="#sourcecode">Source code</a></li>
-      <li><a href="#hackability" title="Flickr example">Hackability</a></li>
-    </ul>
-  </nav>
-  
   <div id="wrapper">
     <header>
-      <h1>Slider.js: Slideshow with jQuery and CSS Transitions</h1>
+      <h1 data-navtext="Demo">Slider.js: Slideshow with jQuery and CSS Transitions</h1>
       <blockquote>Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows.<br/>
       It relies on the power of CSS Transitions to perform awesome and efficient effects.</blockquote>
     </header>
@@ -148,7 +146,7 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
     <h2>Want to test live?</h2>
     <p>Open your web console and play with the <code class="inline">slider</code> variable.</p>
     
-    <h1 id="compatibility">Browser compatibility</h1>
+    <h1 id="compatibility" data-navtext="Compatibility">Browser compatibility</h1>
     <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE9).</p>
     <p>For older browsers (like IE6, IE7, IE8, or older version of Firefox) 
     the slider works out of the box and the degradation is natural (thanks to CSS). 
@@ -233,7 +231,7 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
- <h1 id="hackability">Hackability - Flickr example</h1>
+ <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>
