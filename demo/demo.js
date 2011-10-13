@@ -32,8 +32,13 @@ jQuery(function($){
     }).change();
     $('#transitions').change(function(){
         var transition = $(this).val();
-        slider.setTransition('transition-clear');
-        setTimeout(function(){ slider.setTransition(transition) }, 50);
+        if( YantsTransitionFunctions[transition] ) {
+          slider.setTransitionFunction( YantsTransitionFunctions[transition] )
+        }
+        else {
+          slider.setTransition('transition-clear');
+          setTimeout(function(){ slider.setTransition(transition) }, 50);
+        }
     }).change();
     $('#options').submit(function(e){
         e.preventDefault();

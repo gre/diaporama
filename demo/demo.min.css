@@ -1,8 +1,8 @@
 @font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
 #wrapper{width:640px;margin:0 auto;}
-header{text-align:center;}header h1{font-size:1.4em;}
-blockquote{font-style:italic;color:#666;}
+header h1{font-size:1.4em;}
+blockquote{font-style:italic;color:#666;margin:0;}
 section{border-top:2px solid rgba(0, 0, 0, 0.1);margin-top:20px;}
 footer{margin-top:40px;padding-top:5px;border-top:1px dashed #aaa;color:#777;}
 #options{padding:10px 0;}#options .buttons{clear:both;text-align:center;padding:4px 0;margin:4px 0;background-color:rgba(0, 0, 0, 0.05);}#options .buttons button{border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;padding:2px 8px;font-size:1.2em;color:#aaa;border:1px solid #aaa;cursor:pointer;background:#ffffff;background:-moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(50%, #f3f3f3), color-stop(51%, #ededed), color-stop(100%, #ffffff));background:-webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-o-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-ms-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);}#options .buttons button:hover,#options .buttons button:active{color:#666;border-color:#666;}

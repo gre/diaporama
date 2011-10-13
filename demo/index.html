@@ -5,7 +5,7 @@
     <meta name="title" content="Slider.js: Slideshow with jQuery and CSS Transitions - example with Flickr" />
     <meta content="Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects." name="Description"/>
     <meta content="slider.js slider slideshow javascript jquery css transitions css3 flickr" name="Keywords"/>
-    <title>Slider.js: Slideshow with jQuery and CSS Transitions - example with Flickr</title>
+    <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
@@ -33,11 +33,32 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
   </head>
 
 <body>
+<<<<<<< HEAD
+  <nav>
+    <ul>
+      <li><a href="#wrapper">Slider demo</a></li>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#compatibility">Compatibility</a></li>
+      <li><a href="#sourcecode">Source code</a></li>
+      <li><a href="#canvaspart">Canvas part</a></li>
+      <li><a href="#hackability" title="Flickr example">Hackability</a></li>
+    </ul>
+  </nav>
+  
+  <div id="wrapper">
+    <header>
+      <h1>Slider.js, a slideshow with jQuery and CSS Transitions</h1>
+=======
   <div id="wrapper">
     <header>
       <h1 data-navtext="Demo">Slider.js: Slideshow with jQuery and CSS Transitions</h1>
+>>>>>>> 05eeb623a5a1244c353f2a600a916f20545301ed
       <blockquote>Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows.<br/>
-      It relies on the power of CSS Transitions to perform awesome and efficient effects.</blockquote>
+      It relies on the power of CSS Transitions to perform awesome and efficient effects just providing the class describing the transition you want.</blockquote>
+    <h2>Slider.js also uses HTML5 Canvas for some transitions</h2>
+    <blockquote>Slider.js also use HTML5 Canvas to perform some non trivial transitions.<br/>
+      It's easy to use: you can use example transitions or override it with a function manipulating Canvas image data.
+    </blockquote>
     </header>
 
     <section>
@@ -85,18 +106,27 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
           <label for="transitions">Transition effect :</label>
         </dt>
         <dd>
-          <select id="transitions">           
-            <option value="transition-opacity">Opacity</option>     
-            <option value="transition-simple1">Simple</option>
-            <option value="transition-zoomin">Zoom in</option>
-            <option value="transition-zoomout">Zoom out</option>
-            <option value="transition-flip">Flip</option>
-            <option value="transition-cardflip">Card flip</option>
-            <option value="transition-skewflip">Skew flip</option> 
-            <option value="transition-rotatezoomin">Rotate and scale in</option> 
-            <option value="transition-rotatezoomout">Rotate and scale out</option>
-            <option value="transition-topfade">Top fade</option>
-            <optgroup label="Experimental">
+          <select id="transitions">
+            <optgroup label="Canvas transitions">
+              <option value="circle">Circle</option>
+              <option value="clock">Clock</option>
+              <option value="verticalOpen">Vertical open</option>
+              <option value="horizontalOpen">Horizontal open</option>
+              <option value="fadeLeft">Fade left</option>
+            </optgroup>
+            <optgroup label="CSS">
+              <option value="transition-opacity">Opacity</option>
+              <option value="transition-simple1">Simple</option>
+              <option value="transition-zoomin">Zoom in</option>
+              <option value="transition-zoomout">Zoom out</option>
+              <option value="transition-flip">Flip</option>
+              <option value="transition-cardflip">Card flip</option>
+              <option value="transition-skewflip">Skew flip</option> 
+              <option value="transition-rotatezoomin">Rotate and scale in</option> 
+              <option value="transition-rotatezoomout">Rotate and scale out</option>
+              <option value="transition-topfade">Top fade</option>
+            </optgroup>
+            <optgroup label="CSS Experimental">
               <option value="transition-left">Left</option>
               <option value="transition-top">Top</option> 
               <option value="transition-oblique">Oblique</option>
@@ -117,9 +147,6 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
           </select>
         </dd>
       </dl>
-      <p class="info">
-        (These options are refreshed live!)
-      </p>
     </fieldset>
     </form>
 
@@ -231,7 +258,26 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
+<<<<<<< HEAD
+<h1 id="canvaspart">Slider.js: the Canvas part</h1>
+
+<h3>setTransitionFunction</h3>
+<p>You can use <code class="inline">setTransitionFunction</code> to set the transition function.</p>
+<p>You can use built-in transition functions:
+<code>slider.setTransitionFunction(YantsTransitionFunctions.clock);</code>
+(see the full list in the source code).
+</p>
+<p>Or you can implement your own transition function:
+<code>slider.setTransitionFunction(function(slider, from, to, progress){
+  // TODO: draw the current transition from image from to to with progress percent.
+});</code>
+</p>
+
+
+ <h1 id="hackability">Hackability - Flickr example</h1>
+=======
  <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
+>>>>>>> 05eeb623a5a1244c353f2a600a916f20545301ed
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>
