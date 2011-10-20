@@ -32,8 +32,8 @@ jQuery(function($){
     }).change();
     $('#transitions').change(function(){
         var transition = $(this).val();
-        if( YantsTransitionFunctions[transition] ) {
-          slider.setTransitionFunction( YantsTransitionFunctions[transition] )
+        if( SliderTransitionFunctions[transition] ) {
+          slider.setTransitionFunction( SliderTransitionFunctions[transition] )
         }
         else {
           slider.setTransition('transition-clear');
@@ -56,8 +56,8 @@ jQuery(function($){
             slider.setSize('640px', '430px');
         }
         else {
-            slider.fetchJson('photos_pixar.json');
-            slider.setSize('640px', '250px');
+            slider.fetchJson('photos.json');
+            slider.setSize('640px', '309px');
         }
     }).submit();
     $('#flickr_enabled').change(function(){

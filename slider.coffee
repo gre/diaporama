@@ -158,9 +158,14 @@ class Slider
     @_sync()
     @_bind()
     this
+
+  stop: ->
+    @_unbind()
+    this
   
   # Bind slider DOM events for navigation
   _bind: ->
+    @_unbind()
     @node.find(".prevSlide").click => @prev()
     @node.find(".nextSlide").click => @next()
     self = this
@@ -176,9 +181,29 @@ class Slider
       @timeout = setTimeout(loop_, @duration)
     this
 
+  _unbind: ->
+    @node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind 'click'
+    if @timeout
+      clearTimeout @timeout
+      @timeout = null
 
-simpleTransitionFunction = ( clipFunction ) ->
-    render: (self, from, to, progress) ->
+
+
+
+SliderUtils = 
+  extractImageData: (self, from, to) ->
+    {width, height} = self.canvas[0]
+    self.clean()
+    self.drawImage self.images[from]
+    fromData = self.ctx.getImageData 0, 0, width, height
+    self.clean()
+    self.drawImage self.images[to]
+    toData = self.ctx.getImageData 0, 0, width, height
+    output = self.ctx.createImageData width, height
+    return fromData: fromData, toData: toData, output: output
+    
+  clippedTransition: ( clipFunction ) -> 
+    (self, from, to, progress) ->
       {width, height} = self.canvas[0]
       ctx = self.ctx
       self.drawImage self.images[from]
@@ -190,37 +215,64 @@ simpleTransitionFunction = ( clipFunction ) ->
       ctx.restore()
 
 
-YantsTransitionFunctions =
+SliderTransitionFunctions =
   # A clock load effect
-  clock: simpleTransitionFunction (ctx, w, h, p) ->
-    ctx.moveTo w/2, h/2
-    ctx.arc w/2, h/2, Math.max(w, h), 0, Math.PI*2*p, false
+  clock: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.moveTo w/2, h/2
+      ctx.arc w/2, h/2, Math.max(w, h), 0, Math.PI*2*p, false
 
   # A circle open effect
-  circle: simpleTransitionFunction (ctx, w, h, p) ->
-    ctx.moveTo w/2, h/2
-    ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
+  circle: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.moveTo w/2, h/2
+      ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
 
   # A vertical open effect
-  verticalOpen: simpleTransitionFunction (ctx, w, h, p) ->
-    ctx.rect (1-p)*w/2, 0, w*p, h
+  verticalOpen: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.rect (1-p)*w/2, 0, w*p, h
 
   # A horizontal open effect
-  horizontalOpen: simpleTransitionFunction (ctx, w, h, p) ->
-    ctx.rect 0, (1-p)*h/2, w, h*p
+  horizontalOpen: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.rect 0, (1-p)*h/2, w, h*p
+
+  # A sundblind open effect
+  sunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blinds = 6
+      blindHeight = h/blinds
+      for blind in [0..blinds]
+        ctx.rect 0, blindHeight*blind, w, blindHeight*p
+
+  # A vertical sundblind open effect
+  verticalSunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blinds = 10
+      blindWidth = w/blinds
+      for blind in [0..blinds]
+        ctx.rect blindWidth*blind, 0, blindWidth*p, h
+
+  # A square sundblind open effect
+  squareSunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blindsY = 6
+      blindsX = Math.floor blindsY*w/h
+      blindWidth = w/blindsX
+      blindHeight = h/blindsY
+      for x in [0..blindsX]
+        for y in [0..blindsY]
+          rw = blindWidth*p
+          rh = blindHeight*p
+          ctx.rect blindWidth*x-rw/2, blindHeight*y-rh/2, rw, rh
 
   # A blured fade left effect
   fadeLeft: 
-    init: (self, from, to) ->
-      {width, height} = self.canvas[0]
-      self.clean()
-      self.drawImage self.images[from]
-      fromData = self.ctx.getImageData 0, 0, width, height
-      self.clean()
-      self.drawImage self.images[to]
-      toData = self.ctx.getImageData 0, 0, width, height
-      output = self.ctx.createImageData width, height
-      return fromData: fromData, toData: toData, output: output
+    init: (self, from, to) -> SliderUtils.extractImageData(self, from, to)
 
     render: (self, from, to, progress, data) ->
       blur = 150
@@ -254,7 +306,7 @@ tmplSliderWithCanvas = (o) ->
 
 # Let's add canvas transitions
 class SliderWithCanvas extends Slider
-  transitionFunction: YantsTransitionFunctions.clock
+  transitionFunction: SliderTransitionFunctions.clock
   transitionDuration: 1000
   tmpl: tmplSliderWithCanvas
 
@@ -336,5 +388,8 @@ class SliderWithCanvas extends Slider
         requestAnimationFrame (=>@render()), @canvas[0]
 
 
+# Exporting global variables
+# --------------------------
 window.Slider = SliderWithCanvas
-window.YantsTransitionFunctions = YantsTransitionFunctions
+window.SliderTransitionFunctions = SliderTransitionFunctions
+window.SliderUtils = SliderUtils

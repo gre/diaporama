@@ -1,3 +1,5 @@
+VERSION=1.1-beta
+
 LESSC=lessc
 LESSOPT=-x
 
@@ -35,7 +37,6 @@ lib/slider.min.css: slider.less
 lib/slider.js: slider.coffee
 lib/slider.min.js: lib/slider.js
 
-VERSION=1.0.2
 ZNAME=sliderjs-${VERSION}
 
 zip: lib/slider.min.js lib/slider.min.css

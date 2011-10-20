@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="http://lib.greweb.fr/flexible-nav/flexible-nav.min.css" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" charset="utf-8">
 	$(function(){
-		new FlexibleNav( new FlexibleNavMaker('h1,h2').make().prependTo('body') );
+		new FlexibleNav( ($('nav')) );
 	});
 	</script>
 
@@ -33,8 +33,7 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
   </head>
 
 <body>
-<<<<<<< HEAD
-  <nav>
+  <nav class="flexible-nav">
     <ul>
       <li><a href="#wrapper">Slider demo</a></li>
       <li><a href="#intro">Introduction</a></li>
@@ -47,12 +46,7 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
   
   <div id="wrapper">
     <header>
-      <h1>Slider.js, a slideshow with jQuery and CSS Transitions</h1>
-=======
-  <div id="wrapper">
-    <header>
       <h1 data-navtext="Demo">Slider.js: Slideshow with jQuery and CSS Transitions</h1>
->>>>>>> 05eeb623a5a1244c353f2a600a916f20545301ed
       <blockquote>Slider.js is an easy-to-use minimalist hackable Javascript library to create image slideshows.<br/>
       It relies on the power of CSS Transitions to perform awesome and efficient effects just providing the class describing the transition you want.</blockquote>
     <h2>Slider.js also uses HTML5 Canvas for some transitions</h2>
@@ -110,11 +104,14 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
             <optgroup label="Canvas transitions">
               <option value="circle">Circle</option>
               <option value="clock">Clock</option>
+              <option value="squareSunblind">Square Sunblind</option>
+              <option value="sunblind">Sunblind</option>
+              <option value="verticalSunblind">Vertical Sunblind</option>
               <option value="verticalOpen">Vertical open</option>
               <option value="horizontalOpen">Horizontal open</option>
               <option value="fadeLeft">Fade left</option>
             </optgroup>
-            <optgroup label="CSS">
+            <optgroup label="CSS transitions">
               <option value="transition-opacity">Opacity</option>
               <option value="transition-simple1">Simple</option>
               <option value="transition-zoomin">Zoom in</option>
@@ -222,15 +219,19 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
 <p>if DOM is ready - we just need to start the slider engine on it.
 <code>slider.start();</code>
 </p>
-    
+
+<p>and we can also stop it.
+<code>slider.stop();</code>
+</p>
+
 <p>Fetch a JSON containing photos, create the DOM and start the slider engine.
-<code>slider.fetchJson("photos_pixar.json");</code>
+<code>slider.fetchJson("photos.json");</code>
 </p>
 
 <p>You already have the JSON, create the DOM and start.
 <code>slider.setPhotos([
-    { "src" : "images/monstersinc.jpg", "name": "Monsters Inc" },
-    { "src" : "images/nemo.jpg", "name": "Nemo" }
+  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny" },
+  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams" }
 ]);</code>
 </p>
 
@@ -258,26 +259,54 @@ slider.setTransition('transition-zoomin');</code>
     .setTransition('transition-zoomout');</code>
 </p>
 
-<<<<<<< HEAD
 <h1 id="canvaspart">Slider.js: the Canvas part</h1>
+
+<p>
+Again, the Canvas part is optional. Most of times, CSS transitions can fit your needs.
+But if you want more effect manipulating images, you need to handle your own render function.
+</p>
 
 <h3>setTransitionFunction</h3>
 <p>You can use <code class="inline">setTransitionFunction</code> to set the transition function.</p>
 <p>You can use built-in transition functions:
-<code>slider.setTransitionFunction(YantsTransitionFunctions.clock);</code>
+<code>slider.setTransitionFunction(SliderTransitionFunctions.clock);</code>
 (see the full list in the source code).
 </p>
-<p>Or you can implement your own transition function:
-<code>slider.setTransitionFunction(function(slider, from, to, progress){
-  // TODO: draw the current transition from image from to to with progress percent.
+<p>Or you can implement your own transition function.<br/>
+Basically, you implement the "render" method, the loop function called during the transition.
+<code>slider.setTransitionFunction({
+  render: function(slider, from, to, progress){
+    // TODO: draw the current transition from image from to to with progress percent.
+  }
 });</code>
 </p>
 
+<p>
+But this render function must be performant because it's directly impact the <strong>render</strong> framerate.<br/>
+If you use some datas which never change between two render frames, you could preload these datas implementing the <strong>init</strong> method.<br/>
+For instance, you could extract once the canvas ImageData from the two transition images.
+<code>slider.setTransitionFunction({
+  init: function(self, from, to) {
+    return SliderUtils.extractImageData(self, from, to);
+  },
+  render: function(slider, from, to, progress, externalDatas){
+    // externalDatas.fromData
+    // externalDatas.toData
+    // externalDatas.output
+    ...
+  }
+});</code>
+</p>
 
- <h1 id="hackability">Hackability - Flickr example</h1>
-=======
+<h3>setTransitionDuration</h3>
+<p>You can also define the transition duration. 
+Using CSS transitions, you don't need this method because transition duration is defined by the transition-duration property.
+With Canvas, you must use the <code class="inline">setTransitionDuration</code> method. It takes the duration in milliseconds.
+<code>slider.setTransitionDuration(1000)</code>
+</p>
+
+
  <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
->>>>>>> 05eeb623a5a1244c353f2a600a916f20545301ed
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>
