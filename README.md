@@ -6,6 +6,10 @@ You can download the library with the download button.
 Dependencies:
  * jQuery
 
+TODO
+----
+ * IE 6 fallback support (handle canvas not supported)
+
 License
 =======
 
