@@ -56,45 +56,9 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
 
     <section>
     <form id="options">
-      <fieldset id="flickr_options">
-        <legend><input id="flickr_enabled" type="checkbox" /> <label for="flickr_enabled">Use Flickr</label></legend>
-        <dl>
-          <dt>
-            <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
-            <label for="method_recent">Recent photos</label>
-          </dt>
-        </dl>
-        <dl>
-          <dt>
-            <input type="radio" name="method" value="search" id="method_search" />
-            <label for="method_search">Search photos</label>
-          </dt>
-          <dd>
-            <input type="text" name="search" id="search" />
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            <label for="options_nb">Number of slides : </label>
-          </dt>
-          <dd>
-            <select id="options_nb" name="options_nb">
-                <option value="5">5</option>
-                <option value="10" selected="selected">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-            </select>
-          </dd>
-        </dl>
-      <p class="buttons">
-        <button type="submit">Refresh</button>
-      </p>
-
-      </fieldset>
       <fieldset id="slider_options">
       <legend>Slider options</legend>
-      <dl>
+      <dl style="color: red; background: white">
         <dt>
           <label for="transitions">Transition effect :</label>
         </dt>
@@ -104,11 +68,11 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
               <option value="circle">Circle</option>
               <option value="clock">Clock</option>
               <option value="squareSunblind">Square Sunblind</option>
-              <option value="sunblind">Sunblind</option>
-              <option value="verticalSunblind">Vertical Sunblind</option>
-              <option value="verticalOpen">Vertical open</option>
-              <option value="horizontalOpen">Horizontal open</option>
               <option value="fadeLeft">Fade left</option>
+              <option value="verticalOpen">Vertical open</option>
+              <option value="verticalSunblind">Vertical Sunblind</option>
+              <option value="horizontalOpen">Horizontal open</option>
+              <option value="sunblind">Horizontal Sunblind</option>
             </optgroup>
             <optgroup label="CSS transitions">
               <option value="transition-opacity">Opacity</option>
@@ -144,6 +108,43 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
         </dd>
       </dl>
     </fieldset>
+    <fieldset id="flickr_options">
+        <legend><input id="flickr_enabled" type="checkbox" /> <label for="flickr_enabled">Use Flickr</label></legend>
+        <dl>
+          <dt>
+            <input type="radio" name="method" value="recent" id="method_recent" checked="checked" />
+            <label for="method_recent">Recent photos</label>
+          </dt>
+        </dl>
+        <dl>
+          <dt>
+            <input type="radio" name="method" value="search" id="method_search" />
+            <label for="method_search">Search photos</label>
+          </dt>
+          <dd>
+            <input type="text" name="search" id="search" />
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <label for="options_nb">Number of slides : </label>
+          </dt>
+          <dd>
+            <select id="options_nb" name="options_nb">
+                <option value="5">5</option>
+                <option value="10" selected="selected">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+          </dd>
+        </dl>
+      <p class="buttons">
+        <button type="submit">Refresh</button>
+      </p>
+
+      </fieldset>
+ 
     </form>
 
     <div id="demo"></div>
