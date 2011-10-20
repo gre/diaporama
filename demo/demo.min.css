@@ -1,7 +1,7 @@
 @font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
 #wrapper{width:640px;margin:0 auto;}
-span.new{background:red;color:white;display:inline-block;padding:0px 3px;text-decoration:none;font-style:normal;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
+span.new{color:red;text-decoration:none;font-style:normal;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
 header h1{font-size:1.4em;}
 header p{font-style:italic;color:#666;margin:0;}
 section{border-top:2px solid rgba(0, 0, 0, 0.1);margin-top:20px;}
