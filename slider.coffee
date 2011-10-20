@@ -1,6 +1,6 @@
-###!
-[Slider.js](http://demo.greweb.fr/slider) by @greweb 
+# [Slider.js](http://demo.greweb.fr/slider) by @greweb 
 
+###!
 Copyright 2011 Gaetan Renaudeau
 
 Licensed under the Apache License, Version 2.0 (the "License");
