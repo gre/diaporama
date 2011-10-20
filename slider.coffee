@@ -54,6 +54,127 @@ tmplSlider = (o) ->
   )
   slider
 
+tmplSliderWithCanvas = (o) ->
+  node = tmplSlider o
+  node.find('div.slide-images').after('<canvas class="slide-images" />')
+  node
+
+
+# SliderUtils
+# -----------
+SliderUtils = 
+  extractImageData: (self, from, to) ->
+    {width, height} = self.canvas[0]
+    self.clean()
+    self.drawImage self.images[from]
+    fromData = self.ctx.getImageData 0, 0, width, height
+    self.clean()
+    self.drawImage self.images[to]
+    toData = self.ctx.getImageData 0, 0, width, height
+    output = self.ctx.createImageData width, height
+    return fromData: fromData, toData: toData, output: output
+    
+  clippedTransition: ( clipFunction ) -> 
+    (self, from, to, progress) ->
+      {width, height} = self.canvas[0]
+      ctx = self.ctx
+      self.drawImage self.images[from]
+      ctx.save()
+      ctx.beginPath()
+      clipFunction ctx, width, height, progress
+      ctx.clip()
+      self.drawImage self.images[to]
+      ctx.restore()
+
+# SliderTransitionFunctions
+# ------------------------
+SliderTransitionFunctions =
+  # A clock load effect
+  clock: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.moveTo w/2, h/2
+      ctx.arc w/2, h/2, Math.max(w, h), 0, Math.PI*2*p, false
+
+  # A circle open effect
+  circle: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.moveTo w/2, h/2
+      ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
+
+  # A vertical open effect
+  verticalOpen: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.rect (1-p)*w/2, 0, w*p, h
+
+  # A horizontal open effect
+  horizontalOpen: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      ctx.rect 0, (1-p)*h/2, w, h*p
+
+  # A sundblind open effect
+  sunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blinds = 6
+      blindHeight = h/blinds
+      for blind in [0..blinds]
+        ctx.rect 0, blindHeight*blind, w, blindHeight*p
+
+  # A vertical sundblind open effect
+  verticalSunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blinds = 10
+      blindWidth = w/blinds
+      for blind in [0..blinds]
+        ctx.rect blindWidth*blind, 0, blindWidth*p, h
+
+  # A square sundblind open effect
+  squareSunblind: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      p = 1-(1-p)*(1-p) #non linear progress
+      blindsY = 6
+      blindsX = Math.floor blindsY*w/h
+      blindWidth = w/blindsX
+      blindHeight = h/blindsY
+      for x in [0..blindsX]
+        for y in [0..blindsY]
+          rw = blindWidth*p
+          rh = blindHeight*p
+          ctx.rect blindWidth*x-rw/2, blindHeight*y-rh/2, rw, rh
+
+  # A blured fade left effect
+  fadeLeft: 
+    init: (self, from, to) -> SliderUtils.extractImageData(self, from, to)
+
+    render: (self, from, to, progress, data) ->
+      blur = 150
+      {width, height} = self.canvas[0]
+      ctx = self.ctx
+      fd = data.fromData.data
+      td = data.toData.data
+      out = data.output.data
+      
+      `(function(){
+       for (var x = 0; x < width; x += 1) {
+         p1 = Math.min(Math.max(x-width*progress, 0), blur)/blur
+         p2 = 1-p1
+        for (var y = 0; y < height; y += 1) {
+         var b = (y*width + x)*4
+         for (var c = 0; c < 3; c += 1) {
+           var i = b + c;
+           out[i] = p1 * (fd[i] ) + p2 * (td[i] )
+         }
+         out[b + 3] = 255;
+       }
+     }
+      }())`
+      self.ctx.putImageData data.output, 0, 0
+
+
+
+
+
 # Slider - a lightweight slider
 # -----------------------------
 # Constructor : init container node and current slide number
@@ -188,123 +309,9 @@ class Slider
       @timeout = null
 
 
-
-
-SliderUtils = 
-  extractImageData: (self, from, to) ->
-    {width, height} = self.canvas[0]
-    self.clean()
-    self.drawImage self.images[from]
-    fromData = self.ctx.getImageData 0, 0, width, height
-    self.clean()
-    self.drawImage self.images[to]
-    toData = self.ctx.getImageData 0, 0, width, height
-    output = self.ctx.createImageData width, height
-    return fromData: fromData, toData: toData, output: output
-    
-  clippedTransition: ( clipFunction ) -> 
-    (self, from, to, progress) ->
-      {width, height} = self.canvas[0]
-      ctx = self.ctx
-      self.drawImage self.images[from]
-      ctx.save()
-      ctx.beginPath()
-      clipFunction ctx, width, height, progress
-      ctx.clip()
-      self.drawImage self.images[to]
-      ctx.restore()
-
-
-SliderTransitionFunctions =
-  # A clock load effect
-  clock: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      ctx.moveTo w/2, h/2
-      ctx.arc w/2, h/2, Math.max(w, h), 0, Math.PI*2*p, false
-
-  # A circle open effect
-  circle: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      ctx.moveTo w/2, h/2
-      ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
-
-  # A vertical open effect
-  verticalOpen: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      ctx.rect (1-p)*w/2, 0, w*p, h
-
-  # A horizontal open effect
-  horizontalOpen: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      ctx.rect 0, (1-p)*h/2, w, h*p
-
-  # A sundblind open effect
-  sunblind: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      p = 1-(1-p)*(1-p) #non linear progress
-      blinds = 6
-      blindHeight = h/blinds
-      for blind in [0..blinds]
-        ctx.rect 0, blindHeight*blind, w, blindHeight*p
-
-  # A vertical sundblind open effect
-  verticalSunblind: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      p = 1-(1-p)*(1-p) #non linear progress
-      blinds = 10
-      blindWidth = w/blinds
-      for blind in [0..blinds]
-        ctx.rect blindWidth*blind, 0, blindWidth*p, h
-
-  # A square sundblind open effect
-  squareSunblind: 
-    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      p = 1-(1-p)*(1-p) #non linear progress
-      blindsY = 6
-      blindsX = Math.floor blindsY*w/h
-      blindWidth = w/blindsX
-      blindHeight = h/blindsY
-      for x in [0..blindsX]
-        for y in [0..blindsY]
-          rw = blindWidth*p
-          rh = blindHeight*p
-          ctx.rect blindWidth*x-rw/2, blindHeight*y-rh/2, rw, rh
-
-  # A blured fade left effect
-  fadeLeft: 
-    init: (self, from, to) -> SliderUtils.extractImageData(self, from, to)
-
-    render: (self, from, to, progress, data) ->
-      blur = 150
-      {width, height} = self.canvas[0]
-      ctx = self.ctx
-      fd = data.fromData.data
-      td = data.toData.data
-      out = data.output.data
-      
-      `(function(){
-       for (var x = 0; x < width; x += 1) {
-         p1 = Math.min(Math.max(x-width*progress, 0), blur)/blur
-         p2 = 1-p1
-        for (var y = 0; y < height; y += 1) {
-         var b = (y*width + x)*4
-         for (var c = 0; c < 3; c += 1) {
-           var i = b + c;
-           out[i] = p1 * (fd[i] ) + p2 * (td[i] )
-         }
-         out[b + 3] = 255;
-       }
-     }
-      }())`
-      self.ctx.putImageData data.output, 0, 0
-
-
-tmplSliderWithCanvas = (o) ->
-  node = tmplSlider o
-  node.find('div.slide-images').after('<canvas class="slide-images" />')
-  node
-
-# Let's add canvas transitions
+# SliderWithCanvas
+# ---------------
+# Let's support canvas transitions
 class SliderWithCanvas extends Slider
   transitionFunction: SliderTransitionFunctions.clock
   transitionDuration: 1000

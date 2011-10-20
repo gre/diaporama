@@ -40,6 +40,147 @@
     }));
     return slider;
   };
+  tmplSliderWithCanvas = function(o) {
+    var node;
+    node = tmplSlider(o);
+    node.find('div.slide-images').after('<canvas class="slide-images" />');
+    return node;
+  };
+  SliderUtils = {
+    extractImageData: function(self, from, to) {
+      var fromData, height, output, toData, width, _ref;
+      _ref = self.canvas[0], width = _ref.width, height = _ref.height;
+      self.clean();
+      self.drawImage(self.images[from]);
+      fromData = self.ctx.getImageData(0, 0, width, height);
+      self.clean();
+      self.drawImage(self.images[to]);
+      toData = self.ctx.getImageData(0, 0, width, height);
+      output = self.ctx.createImageData(width, height);
+      return {
+        fromData: fromData,
+        toData: toData,
+        output: output
+      };
+    },
+    clippedTransition: function(clipFunction) {
+      return function(self, from, to, progress) {
+        var ctx, height, width, _ref;
+        _ref = self.canvas[0], width = _ref.width, height = _ref.height;
+        ctx = self.ctx;
+        self.drawImage(self.images[from]);
+        ctx.save();
+        ctx.beginPath();
+        clipFunction(ctx, width, height, progress);
+        ctx.clip();
+        self.drawImage(self.images[to]);
+        return ctx.restore();
+      };
+    }
+  };
+  SliderTransitionFunctions = {
+    clock: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        ctx.moveTo(w / 2, h / 2);
+        return ctx.arc(w / 2, h / 2, Math.max(w, h), 0, Math.PI * 2 * p, false);
+      })
+    },
+    circle: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        ctx.moveTo(w / 2, h / 2);
+        return ctx.arc(w / 2, h / 2, 0.6 * p * Math.max(w, h), 0, Math.PI * 2, false);
+      })
+    },
+    verticalOpen: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        return ctx.rect((1 - p) * w / 2, 0, w * p, h);
+      })
+    },
+    horizontalOpen: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        return ctx.rect(0, (1 - p) * h / 2, w, h * p);
+      })
+    },
+    sunblind: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        var blind, blindHeight, blinds, _results;
+        p = 1 - (1 - p) * (1 - p);
+        blinds = 6;
+        blindHeight = h / blinds;
+        _results = [];
+        for (blind = 0; 0 <= blinds ? blind <= blinds : blind >= blinds; 0 <= blinds ? blind++ : blind--) {
+          _results.push(ctx.rect(0, blindHeight * blind, w, blindHeight * p));
+        }
+        return _results;
+      })
+    },
+    verticalSunblind: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        var blind, blindWidth, blinds, _results;
+        p = 1 - (1 - p) * (1 - p);
+        blinds = 10;
+        blindWidth = w / blinds;
+        _results = [];
+        for (blind = 0; 0 <= blinds ? blind <= blinds : blind >= blinds; 0 <= blinds ? blind++ : blind--) {
+          _results.push(ctx.rect(blindWidth * blind, 0, blindWidth * p, h));
+        }
+        return _results;
+      })
+    },
+    squareSunblind: {
+      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        var blindHeight, blindWidth, blindsX, blindsY, rh, rw, x, y, _results;
+        p = 1 - (1 - p) * (1 - p);
+        blindsY = 6;
+        blindsX = Math.floor(blindsY * w / h);
+        blindWidth = w / blindsX;
+        blindHeight = h / blindsY;
+        _results = [];
+        for (x = 0; 0 <= blindsX ? x <= blindsX : x >= blindsX; 0 <= blindsX ? x++ : x--) {
+          _results.push((function() {
+            var _results2;
+            _results2 = [];
+            for (y = 0; 0 <= blindsY ? y <= blindsY : y >= blindsY; 0 <= blindsY ? y++ : y--) {
+              rw = blindWidth * p;
+              rh = blindHeight * p;
+              _results2.push(ctx.rect(blindWidth * x - rw / 2, blindHeight * y - rh / 2, rw, rh));
+            }
+            return _results2;
+          })());
+        }
+        return _results;
+      })
+    },
+    fadeLeft: {
+      init: function(self, from, to) {
+        return SliderUtils.extractImageData(self, from, to);
+      },
+      render: function(self, from, to, progress, data) {
+        var blur, ctx, fd, height, out, td, width, _ref;
+        blur = 150;
+        _ref = self.canvas[0], width = _ref.width, height = _ref.height;
+        ctx = self.ctx;
+        fd = data.fromData.data;
+        td = data.toData.data;
+        out = data.output.data;
+        (function(){
+       for (var x = 0; x < width; x += 1) {
+         p1 = Math.min(Math.max(x-width*progress, 0), blur)/blur
+         p2 = 1-p1
+        for (var y = 0; y < height; y += 1) {
+         var b = (y*width + x)*4
+         for (var c = 0; c < 3; c += 1) {
+           var i = b + c;
+           out[i] = p1 * (fd[i] ) + p2 * (td[i] )
+         }
+         out[b + 3] = 255;
+       }
+     }
+      }());
+        return self.ctx.putImageData(data.output, 0, 0);
+      }
+    }
+  };
   Slider = (function() {
     function Slider(container) {
       this.container = $(container);
@@ -208,147 +349,6 @@
     };
     return Slider;
   })();
-  SliderUtils = {
-    extractImageData: function(self, from, to) {
-      var fromData, height, output, toData, width, _ref;
-      _ref = self.canvas[0], width = _ref.width, height = _ref.height;
-      self.clean();
-      self.drawImage(self.images[from]);
-      fromData = self.ctx.getImageData(0, 0, width, height);
-      self.clean();
-      self.drawImage(self.images[to]);
-      toData = self.ctx.getImageData(0, 0, width, height);
-      output = self.ctx.createImageData(width, height);
-      return {
-        fromData: fromData,
-        toData: toData,
-        output: output
-      };
-    },
-    clippedTransition: function(clipFunction) {
-      return function(self, from, to, progress) {
-        var ctx, height, width, _ref;
-        _ref = self.canvas[0], width = _ref.width, height = _ref.height;
-        ctx = self.ctx;
-        self.drawImage(self.images[from]);
-        ctx.save();
-        ctx.beginPath();
-        clipFunction(ctx, width, height, progress);
-        ctx.clip();
-        self.drawImage(self.images[to]);
-        return ctx.restore();
-      };
-    }
-  };
-  SliderTransitionFunctions = {
-    clock: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        ctx.moveTo(w / 2, h / 2);
-        return ctx.arc(w / 2, h / 2, Math.max(w, h), 0, Math.PI * 2 * p, false);
-      })
-    },
-    circle: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        ctx.moveTo(w / 2, h / 2);
-        return ctx.arc(w / 2, h / 2, 0.6 * p * Math.max(w, h), 0, Math.PI * 2, false);
-      })
-    },
-    verticalOpen: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        return ctx.rect((1 - p) * w / 2, 0, w * p, h);
-      })
-    },
-    horizontalOpen: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        return ctx.rect(0, (1 - p) * h / 2, w, h * p);
-      })
-    },
-    sunblind: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        var blind, blindHeight, blinds, _results;
-        p = 1 - (1 - p) * (1 - p);
-        blinds = 6;
-        blindHeight = h / blinds;
-        _results = [];
-        for (blind = 0; 0 <= blinds ? blind <= blinds : blind >= blinds; 0 <= blinds ? blind++ : blind--) {
-          _results.push(ctx.rect(0, blindHeight * blind, w, blindHeight * p));
-        }
-        return _results;
-      })
-    },
-    verticalSunblind: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        var blind, blindWidth, blinds, _results;
-        p = 1 - (1 - p) * (1 - p);
-        blinds = 10;
-        blindWidth = w / blinds;
-        _results = [];
-        for (blind = 0; 0 <= blinds ? blind <= blinds : blind >= blinds; 0 <= blinds ? blind++ : blind--) {
-          _results.push(ctx.rect(blindWidth * blind, 0, blindWidth * p, h));
-        }
-        return _results;
-      })
-    },
-    squareSunblind: {
-      render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
-        var blindHeight, blindWidth, blindsX, blindsY, rh, rw, x, y, _results;
-        p = 1 - (1 - p) * (1 - p);
-        blindsY = 6;
-        blindsX = Math.floor(blindsY * w / h);
-        blindWidth = w / blindsX;
-        blindHeight = h / blindsY;
-        _results = [];
-        for (x = 0; 0 <= blindsX ? x <= blindsX : x >= blindsX; 0 <= blindsX ? x++ : x--) {
-          _results.push((function() {
-            var _results2;
-            _results2 = [];
-            for (y = 0; 0 <= blindsY ? y <= blindsY : y >= blindsY; 0 <= blindsY ? y++ : y--) {
-              rw = blindWidth * p;
-              rh = blindHeight * p;
-              _results2.push(ctx.rect(blindWidth * x - rw / 2, blindHeight * y - rh / 2, rw, rh));
-            }
-            return _results2;
-          })());
-        }
-        return _results;
-      })
-    },
-    fadeLeft: {
-      init: function(self, from, to) {
-        return SliderUtils.extractImageData(self, from, to);
-      },
-      render: function(self, from, to, progress, data) {
-        var blur, ctx, fd, height, out, td, width, _ref;
-        blur = 150;
-        _ref = self.canvas[0], width = _ref.width, height = _ref.height;
-        ctx = self.ctx;
-        fd = data.fromData.data;
-        td = data.toData.data;
-        out = data.output.data;
-        (function(){
-       for (var x = 0; x < width; x += 1) {
-         p1 = Math.min(Math.max(x-width*progress, 0), blur)/blur
-         p2 = 1-p1
-        for (var y = 0; y < height; y += 1) {
-         var b = (y*width + x)*4
-         for (var c = 0; c < 3; c += 1) {
-           var i = b + c;
-           out[i] = p1 * (fd[i] ) + p2 * (td[i] )
-         }
-         out[b + 3] = 255;
-       }
-     }
-      }());
-        return self.ctx.putImageData(data.output, 0, 0);
-      }
-    }
-  };
-  tmplSliderWithCanvas = function(o) {
-    var node;
-    node = tmplSlider(o);
-    node.find('div.slide-images').after('<canvas class="slide-images" />');
-    return node;
-  };
   SliderWithCanvas = (function() {
     __extends(SliderWithCanvas, Slider);
     function SliderWithCanvas() {
