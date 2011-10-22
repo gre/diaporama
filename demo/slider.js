@@ -32,8 +32,7 @@
     var slider;
     slider = $("<div class=\"slider\">\n  <div class=\"loader\"><span class=\"spinner\"></span> Loading photos... (<span class=\"percent\">0</span>%)</div>\n  <div class=\"slide-images\"></div>\n  <div class=\"options\">\n    <a class=\"prevSlide\" href=\"javascript:;\">prev</a>\n    <span class=\"slide-pager\"></span>\n    <a class=\"nextSlide\" href=\"javascript:;\">next</a>\n  </div>\n</div>");
     slider.find('.slide-images').append($.map(o.slides, function(slide) {
-      var _ref, _ref2, _ref3;
-      return $('<div class="slide-image">' + ((_ref = slide.link) != null ? _ref : '<a href="' + slide.link + '" target="_blank">') + '<img src="' + slide.src + '">' + ((_ref2 = slide.name) != null ? _ref2 : '<span class="caption">' + slide.name + '</span>') + ((_ref3 = slide.link) != null ? _ref3 : '</a>') + '</div>')[0];
+      return $('<div class="slide-image">' + (slide.link ? '<a href="' + slide.link + '" target="_blank">' : '') + '<img src="' + slide.src + '">' + (slide.name ? '<span class="caption">' + slide.name + '</span>' : '') + (slide.link ? '</a>' : '') + '</div>')[0];
     }));
     slider.find('.slide-pager').append($.map(o.slides, function(slide, i) {
       return $('<a href="javascript:;">' + (i + 1) + '</a>')[0];
@@ -43,7 +42,7 @@
   tmplSliderWithCanvas = function(o) {
     var node;
     node = tmplSlider(o);
-    node.find('div.slide-images').after('<canvas class="slide-images" />');
+    node.find('div.slide-images').append('<canvas class="slide-images" />');
     return node;
   };
   SliderUtils = {
@@ -187,7 +186,10 @@
     }
     Slider.prototype.current = 0;
     Slider.prototype.lastHumanNav = 0;
-    Slider.prototype.duration = 5000;
+    Slider.prototype.duration = 4000;
+    Slider.prototype.w = '640px';
+    Slider.prototype.h = '430px';
+    Slider.prototype.theme = 'theme-dark';
     Slider.prototype.tmpl = tmplSlider;
     Slider.prototype.circular = function(num) {
       return mod(num, this.slides.size());
@@ -213,7 +215,7 @@
       return this.slide(this.circular(this.current - 1));
     };
     Slider.prototype.setDuration = function(duration) {
-      this.duration = duration != null ? duration : 5000;
+      this.duration = duration;
     };
     Slider.prototype.setTransition = function(transition) {
       if (this.node) {
@@ -243,8 +245,8 @@
       return this;
     };
     Slider.prototype.setSize = function(w, h) {
-      this.w = w != null ? w : "640px";
-      this.h = h != null ? h : "430px";
+      this.w = w;
+      this.h = h;
       if (this.node) {
         this.node.width(w);
         this.node.find(".slide-image").width(w);
@@ -364,7 +366,7 @@
       return this.setRenderMode(renderMode);
     };
     SliderWithCanvas.prototype.start = function() {
-      this.notCanvas = this.node.find('.slide-images:not(canvas)');
+      this.notCanvas = this.node.find('.slide-images:not(canvas) img');
       this.canvas = this.node.find('canvas.slide-images');
       this.ctx = this.canvas[0].getContext('2d');
       if (this.photos) {

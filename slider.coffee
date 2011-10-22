@@ -42,10 +42,10 @@ tmplSlider = (o) ->
   """)
   slider.find('.slide-images').append(
     $.map(o.slides, (slide) -> $('<div class="slide-image">'+
-      (slide.link ? '<a href="'+slide.link+'" target="_blank">')+
+      (if slide.link then '<a href="'+slide.link+'" target="_blank">' else '')+
       '<img src="'+slide.src+'">'+
-      (slide.name ? '<span class="caption">'+slide.name+'</span>')+
-      (slide.link ? '</a>')+
+      (if slide.name then '<span class="caption">'+slide.name+'</span>' else '')+
+      (if slide.link then '</a>' else '')+
       '</div>')[0]
     )
   )
@@ -56,7 +56,7 @@ tmplSlider = (o) ->
 
 tmplSliderWithCanvas = (o) ->
   node = tmplSlider o
-  node.find('div.slide-images').after('<canvas class="slide-images" />')
+  node.find('div.slide-images').append('<canvas class="slide-images" />')
   node
 
 
@@ -182,7 +182,11 @@ class Slider
   constructor: (container) -> @container = $(container)
   current: 0
   lastHumanNav: 0
-  duration: 5000
+  duration: 4000
+  w: '640px'
+  h: '430px'
+  theme: 'theme-dark'
+
   tmpl: tmplSlider
   
   # Util function : return the circular value of num
@@ -209,7 +213,7 @@ class Slider
   prev: -> @slide @circular(@current-1)
 
   # Change the duration between each slide
-  setDuration: (@duration = 5000) ->
+  setDuration: (@duration) ->
 
   # Change the slider transition CSS class
   setTransition: (transition) ->
@@ -228,7 +232,7 @@ class Slider
     this
 
   # set slider size
-  setSize: (@w="640px", @h="430px") ->
+  setSize: (@w, @h) ->
     if @node
       @node.width w
       @node.find(".slide-image").width w
@@ -323,7 +327,7 @@ class SliderWithCanvas extends Slider
     @setRenderMode(renderMode)
 
   start: () ->
-    @notCanvas = @node.find '.slide-images:not(canvas)'
+    @notCanvas = @node.find '.slide-images:not(canvas) img'
     @canvas = @node.find 'canvas.slide-images'
     @ctx = @canvas[0].getContext '2d'
     @images = $.map(@photos, ((photo) => 

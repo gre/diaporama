@@ -1,8 +1,8 @@
 [
-  { "src" : "images/bbb-splash.png", "name": "Big Buck Bunny" },
-  { "src" : "images/bird1.jpg", "name": "Big Buck Bunny" },
-  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny" },
-  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams" },
-  { "src" : "images/s6_both.jpg", "name": "Elephant Dreams" },
-  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams" }
+  { "src" : "images/bbb-splash.png", "name": "Big Buck Bunny - splash" },
+  { "src" : "images/bird1.jpg", "name": "Big Buck Bunny - bird" },
+  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny - evil frank" },
+  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams - proog" },
+  { "src" : "images/s6_both.jpg", "name": "Elephant Dreams - proog & emo" },
+  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams - emo" }
 ]
