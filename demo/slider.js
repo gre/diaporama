@@ -216,6 +216,7 @@
     };
     Slider.prototype.setDuration = function(duration) {
       this.duration = duration;
+      return this;
     };
     Slider.prototype.setTransition = function(transition) {
       if (this.node) {
@@ -410,8 +411,8 @@
       this.setRenderMode('canvas');
       return this;
     };
-    SliderWithCanvas.prototype.setTransitionDuration = function(duration) {
-      this.duration = duration;
+    SliderWithCanvas.prototype.setTransitionDuration = function(transitionDuration) {
+      this.transitionDuration = transitionDuration;
       this.setRenderMode('canvas');
       return this;
     };

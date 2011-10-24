@@ -214,6 +214,7 @@ class Slider
 
   # Change the duration between each slide
   setDuration: (@duration) ->
+    this
 
   # Change the slider transition CSS class
   setTransition: (transition) ->
@@ -364,7 +365,7 @@ class SliderWithCanvas extends Slider
     this
 
   # Change the slider transition duration (means the time of the transition)
-  setTransitionDuration: (@duration) ->
+  setTransitionDuration: (@transitionDuration) ->
     @setRenderMode 'canvas'
     this
 
