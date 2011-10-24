@@ -1,8 +1,8 @@
 [
-  { "src" : "images/bbb-splash.png", "name": "Big Buck Bunny - splash" },
-  { "src" : "images/bird1.jpg", "name": "Big Buck Bunny - bird" },
-  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny - evil frank" },
-  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams - proog" },
-  { "src" : "images/s6_both.jpg", "name": "Elephant Dreams - proog & emo" },
-  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams - emo" }
+  { "src" : "images/bbb-splash.png", "name": "Big Buck Bunny - splash", "link": "http://bigbuckbunny.org/" },
+  { "src" : "images/bird1.jpg", "name": "Big Buck Bunny - bird", "link": "http://bigbuckbunny.org/" },
+  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny - evil frank", "link": "http://bigbuckbunny.org/" },
+  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams - proog", "link": "http://orange.blender.org/" },
+  { "src" : "images/s6_both.jpg", "name": "Elephant Dreams - proog & emo", "link": "http://orange.blender.org/" },
+  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams - emo", "link": "http://orange.blender.org/" }
 ]

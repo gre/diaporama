@@ -343,7 +343,7 @@ class SliderWithCanvas extends Slider
     this
 
   setRenderMode: (@renderMode) ->
-    if @canvas
+    if @ctx
       if @renderMode is 'canvas'
         @drawImage @images[@current]
         @notCanvas.hide()

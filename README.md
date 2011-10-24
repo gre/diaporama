@@ -4,11 +4,18 @@ What do you need ?
 You can download the library with the download button.
 
 Dependencies:
- * jQuery
+
+* jQuery
 
 TODO
 ----
- * IE 6 fallback support (handle canvas not supported)
+
+* check IE 6 fallback support
+* new Canvas transitions:
+  * multiple circle open
+  * change sun blind to open from left to right (same for up to bottom)
+* Doc: syntax coloration using vim :TOhtml with my gredark theme
+* Theme pour disposer la nav différement
 
 License
 =======

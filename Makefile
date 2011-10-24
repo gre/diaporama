@@ -42,6 +42,7 @@ ZNAME=sliderjs-${VERSION}
 zip: lib/slider.min.js lib/slider.min.css
 	rm -rf ${ZNAME}/ ${ZNAME}.zip
 	cp -R lib/ ${ZNAME}
+	cp demo/load*.gif ${ZNAME}
 	zip -r ${ZNAME}.zip ${ZNAME}
 	rm -rf ${ZNAME}
 

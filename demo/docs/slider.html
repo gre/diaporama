@@ -235,7 +235,7 @@ to a compatible json to pass to <code>Slider.setPhotos</code>.</p>             <
     <span class="k">this</span>
 
   <span class="nv">setRenderMode: </span><span class="nf">(@renderMode) -&gt;</span>
-    <span class="k">if</span> <span class="nx">@canvas</span>
+    <span class="k">if</span> <span class="nx">@ctx</span>
       <span class="k">if</span> <span class="nx">@renderMode</span> <span class="o">is</span> <span class="s1">&#39;canvas&#39;</span>
         <span class="nx">@drawImage</span> <span class="nx">@images</span><span class="p">[</span><span class="nx">@current</span><span class="p">]</span>
         <span class="nx">@notCanvas</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>

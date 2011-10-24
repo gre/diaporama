@@ -36,7 +36,7 @@ a {
 }
 
 #wrapper {
-  width: 640px;
+  width: 720px;
   margin: 0 auto;
 }
 
@@ -52,16 +52,50 @@ header {
     font-size: 1.4em;
   }
   p {
-    font-style: italic;
-    color: #666;
+    color: #555;
     margin: 0;
   }
 
 }
 
 section {
-  border-top: 2px solid rgba(0,0,0,0.1);
   margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #ccc;
+  tr {
+    td, th {
+      text-align: left;
+      padding: 1px 5px;
+      border-right: 1px solid #ccc;
+    }
+  }
+  thead {
+    border-bottom: 2px solid #ccc;
+    tr {
+      background: #aaa;
+      color: white;
+    }
+  }
+  tbody {
+    tr:nth-child(odd) {
+      background: #eeeeee;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+  }
+}
+
+section.slider {
+  background: white;
+  border: 2px solid #ddd;
+  border-left: none;
+  border-right: none;
+  padding-bottom: 20px;
 }
 
 footer {
@@ -72,6 +106,8 @@ footer {
 }
 
 #options {
+  margin: 0 auto;
+  width: 640px;
   padding: 10px 0;
   .buttons {
     clear: both;
@@ -166,25 +202,65 @@ p.info {
 article {
   margin: 10px;
   border-bottom: 2px solid #ccc;
-  h1, h2, h3 {
+  padding-bottom: 20px;
+  h1, h2, h3, h4, h5 {
     text-shadow: -2px -2px 0px white;
+    margin: 0.5em 0;
   }
   h1 {
     text-align: center;
     font-size: 2.2em;
   }
+  h1:not(:first-child) {
+    margin: 1em 0;
+    padding-top: 0.5em;
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+    background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+    filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 )"; /* IE6-9 */
+  }
   h2 {
     font-size: 1.9em;
   }
   h3 {
-    font-size: 1.6em;
+    font-size: 1.4em;
+    font-weight: normal;
   }
   h4 {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
   h5 {
-    font-size: 1.1em;
+    font-size: 1em;
   }
+
+  p {
+    margin: 0.2em 0;
+    margin-bottom: 0.5em;
+  }
+  
+  ul {
+    margin: 0;
+  }
+
+  dl {
+    dt {
+      display: inline;
+      font-weight: bold;
+    }
+    dt:after {
+      content: ': ';
+    }
+    dd {
+      display: inline;
+      margin: 0;
+      background: white;
+      padding: 0 5px;
+    }
+  }
+
   code {
     color: #ccc;
     background-color: black;
@@ -201,6 +277,8 @@ article {
       display: inline;
       margin: 0;
       padding: 1px 3px;
+      background: #ccc;
+      color: #000;
     }
   }
 }
