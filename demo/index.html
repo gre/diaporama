@@ -7,6 +7,7 @@
     <meta name="Keywords" content="slider.js slider slideshow javascript jquery css transitions canvas css3 flickr" />
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../jquery.min.js"></script>-->
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
     
@@ -33,7 +34,7 @@
         s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
         t.parentNode.insertBefore(s, t);
     })();/* ]]> */
-    </script>
+  </script>
   
 <!--[if IE]>
 <script type="text/javascript">
@@ -42,6 +43,30 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
 });
 </script>
 <![endif]-->
+
+<style type="text/css">
+code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
+.lnr { color: #cccccc; background-color: #555555; }
+.Error { color: #ffc66d; background-color: #990000; }
+.htmlItalic { font-style: italic; }
+.htmlBold { font-weight: bold; }
+.Underlined { color: #80a0ff; text-decoration: underline; }
+.Normal { color: #e6e1dc; background-color: #222222; }
+.Constant { color: #6d9cbe; }
+.Keyword { color: #cc7833; }
+.Identifier { color: #6d9cbe; }
+.Function { color: #ffc66d; }
+.Special { color: #da4939; }
+.Statement { color: #cc7833; }
+.xmlEndTag { color: #e8bf6a; }
+.Title { color: #ffffff; font-weight: bold; }
+.String { color: #a5c261; }
+.Type { color: #da4939; }
+.PreProc { color: #e6e1dc; }
+.xmlTagName { color: #e8bf6a; }
+.xmlTag { color: #e8bf6a; }
+.Comment { color: #666666; font-style: italic; }
+</style>
 
   </head>
 
@@ -85,15 +110,16 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
         <dd>
           <select id="transitions">
             <optgroup label="Canvas transitions">
-              <option value="squares">Squares</option>
               <option value="circles">Circles</option>
+              <option value="squares">Squares</option>
               <option value="circle">Circle</option>
-              <option value="clock">Clock</option>
-              <option value="fadeLeft">Fade left</option>
-              <option value="verticalOpen">Vertical open</option>
+              <option value="diamond">Diamond</option>
               <option value="verticalSunblind">Vertical Sunblind</option>
+              <option value="fadeLeft">Fade left</option>
+              <option value="clock">Clock</option>
+              <option value="verticalOpen">Vertical open</option>
               <option value="horizontalOpen">Horizontal open</option>
-              <option value="sunblind">Horizontal Sunblind</option>
+              <option value="horizontalSunblind">Horizontal Sunblind</option>
             </optgroup>
             <optgroup label="CSS transitions">
               <option value="transition-opacity">Opacity</option>
@@ -222,19 +248,19 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
 <h2>Slider.js</h2>
 
 <p>The Slider constructor takes an empty container DOM node in argument.
-<code>var slider = new Slider($('#sliderContainer'));</code>
+<code><span class="Identifier">var</span> slider = <span class="Statement">new</span> Slider($(<span class="String">'#sliderContainer'</span>));</code>
 </p>
 
 <p>You can start the slider by setting photos through a JSON object:
-<code>slider.setPhotos([
-  { "src" : "images/evil-frank.png", "name": "Big Buck Bunny" },
-  { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams" }
-]);</code>
+<code>slider.setPhotos(<span class="Function">[</span>
+  <span class="Function">{</span> <span class="String">&quot;src&quot;</span> : <span class="String">&quot;images/evil-frank.png&quot;</span>, <span class="String">&quot;name&quot;</span>: <span class="String">&quot;Big Buck Bunny&quot;</span> <span class="Function">}</span>,
+  <span class="Function">{</span> <span class="String">&quot;src&quot;</span> : <span class="String">&quot;images/s1_proog.jpg&quot;</span>, <span class="String">&quot;name&quot;</span>: <span class="String">&quot;Elephant Dreams&quot;</span> <span class="Function">}</span>
+<span class="Function">]</span>);</code>
 The format of this JSON is <em>an <strong>Array</strong> of { <strong>src</strong>, <strong>name</strong> (optional), <strong>link</strong> (optional) } </em>
 </p>
 
 <p>Or fetch this JSON with AJAX:
-<code>slider.fetchJson("photos.json");</code>
+<code>slider.fetchJson(<span class="String">&quot;photos.json&quot;</span>);</code>
 </p>
 
 <p>Don't forget to set your slider images size:
@@ -242,8 +268,8 @@ The format of this JSON is <em>an <strong>Array</strong> of { <strong>src</stron
 </p>
 
 <p>Themes and CSS transitions can be switched live with these methods:
-<code>slider.setTheme('theme-dark');
-slider.setTransition('transition-zoomin');</code>
+<code>slider.setTheme(<span class="String">'theme-dark'</span>);
+slider.setTransition(<span class="String">'transition-zoomin'</span>);</code>
 </p>
 
 <p>For the Canvas usage, see <a href="#canvaspart">the canvas part</a> section.</p>
@@ -260,17 +286,17 @@ slider.setTransition('transition-zoomin');</code>
 </p>
 
 <p>To manually change slides, use:
-<code>slider.next();   // next slide
-slider.prev();   // previous slide
-slider.slide(4); // go to slide number 4</code>
+<code>slider.next();   <span class="Comment">// next slide</span>
+slider.prev();   <span class="Comment">// previous slide</span>
+slider.slide(4); <span class="Comment">// go to slide number 4</span></code>
 </p>
 
 <p>You can chain different methods in any order
-<code>slider.setSize('400px', '300px')
-    .fetchJson("/photos.json")
+<code>slider.setSize(<span class="String">'400px'</span>, <span class="String">'300px'</span>)
+    .fetchJson(<span class="String">&quot;/photos.json&quot;</span>)
     .slide(5)
-    .setTheme('theme-light')
-    .setTransition('transition-zoomout');</code>
+    .setTheme(<span class="String">'theme-light'</span>)
+    .setTransition(<span class="String">'transition-zoomout'</span>);</code>
 </p>
 
 <h2>The CSS</h2>
@@ -278,59 +304,60 @@ slider.slide(4); // go to slide number 4</code>
 <p>For instance using <code class="inline">tn</code> transition name you could define rules for <code class="inline">.slider.tn .slider-image</code> and <code class="inline">.slider.tn .slider-image.current</code>.</p>
 
 <h3>Example: Zoom in transition</h3>
-<code>/* zoom in */
-.slider.transition-zoomin .slide-image {
-    transform: scale(2);
-}
-.slider.transition-zoomin .slide-image.current {
-    transform: scale(1);
-}</code>
+<code><span class="Comment">/* zoom in */</span>
+<span class="Function">.slider.transition-zoomin</span> <span class="Function">.slide-image</span> <span class="Special">{</span>
+  <span class="Type">transform</span>: <span class="Function">scale(</span><span class="Constant">2</span><span class="Function">)</span>;
+<span class="Special">}</span>
+<span class="Function">.slider.transition-zoomin</span> <span class="Function">.slide-image.current</span> <span class="Special">{</span>
+  <span class="Type">transform</span>: <span class="Function">scale(</span><span class="Constant">1</span><span class="Function">)</span>;
+<span class="Special">}</span></code>
 
 <h3>Example: Left transition</h3>
-<code>/* left transition */
-.slider.transition-left .slide-image {
-    opacity: 1;
-    left: -100%;
-}
-.slider.transition-left .slide-image.current {
-    left: 0;
-}
-.slider.transition-left .slide-image.current ~ .slide-image {
-    left: 100%;
-}</code>
+<code><span class="Comment">/* left transition */</span>
+<span class="Function">.slider.transition-left</span> <span class="Function">.slide-image</span> <span class="Special">{</span>
+  <span class="Type">opacity</span>: <span class="Number">1</span>;
+  <span class="Type">left</span>: <span class="Number">-100%</span>;
+<span class="Special">}</span>
+<span class="Function">.slider.transition-left</span> <span class="Function">.slide-image.current</span> <span class="Special">{</span>
+  <span class="Type">left</span>: <span class="Number">0</span>;
+<span class="Special">}</span>
+<span class="Function">.slider.transition-left</span> <span class="Function">.slide-image.current</span> ~ <span class="Function">.slide-image</span> <span class="Special">{</span>
+  <span class="Type">left</span>: <span class="Number">100%</span>;
+<span class="Special">}</span>
+</code>
 
 <p>Note that using a Canvas transition, this CSS transition is only used for the caption text.</p>
 
 <p>On the same principle, you can define your own slider theme with CSS.</p>
 <h3>Example: dark theme</h3>
 <p><em>Less</em> source code:
-<code>.slider.theme-dark {
-  background: black;
-  color: white;
-  .box-shadow(1px 1px 5px black);
-  a {
-      color: white;
-  }
-  .caption {
-      background: rgba(0,0,0,0.5);
-  }
-  .options a {
-      color: #91BECC;
-      &:hover {
-          color: #D3E5EB;
-      }
-  }
-  .slide-image {
-      background: black;
-  }
-  .slide-pager a.current {
-      background-color: #91BECC;
-      color: black;
-  }
-  .loader .spinner {
-      background: url(load_dark.gif) no-repeat;
-  }
-}</code>
+  <code><span class="Function">.slider.theme-dark</span> <span class="Special">{</span>
+  <span class="Type">background</span>: <span class="Constant">black</span>;
+  <span class="Type">color</span>: <span class="Constant">white</span>;
+  <span class="Function">.box-shadow</span>(<span class="Number">1px</span> <span class="Number">1px</span> <span class="Number">5px</span> <span class="Constant">black</span>);
+  <span class="Statement">a</span> <span class="Special">{</span>
+    <span class="Type">color</span>: <span class="Constant">white</span>;
+  <span class="Special">}</span>
+  <span class="Function">.caption</span> <span class="Special">{</span>
+    <span class="Type">background</span>: rgba(<span class="Number">0</span>,<span class="Number">0</span>,<span class="Number">0</span>,<span class="Number">0.5</span>);
+  <span class="Special">}</span>
+  <span class="Function">.options</span> <span class="Statement">a</span> <span class="Special">{</span>
+    <span class="Type">color</span>: <span class="Constant">#91BECC</span>;
+    &amp;:hover <span class="Special">{</span>
+      <span class="Type">color</span>: <span class="Constant">#D3E5EB</span>;
+    <span class="Special">}</span>
+  <span class="Special">}</span>
+  <span class="Function">.slide-image</span> <span class="Special">{</span>
+    <span class="Type">background</span>: <span class="Constant">black</span>;
+  <span class="Special">}</span>
+  <span class="Function">.slide-pager</span> <span class="Statement">a</span><span class="Function">.current</span> <span class="Special">{</span>
+    <span class="Type">background-color</span>: <span class="Constant">#91BECC</span>;
+    <span class="Type">color</span>: <span class="Constant">black</span>;
+  <span class="Special">}</span>
+  <span class="Function">.loader</span> <span class="Function">.spinner</span> <span class="Special">{</span>
+    <span class="Type">background</span>: <span class="Function">url(</span><span class="String">load_dark.gif</span><span class="Function">)</span> <span class="Type">no-repeat</span>;
+  <span class="Special">}</span>
+<span class="Special">}</span></code>
 </p>
 
 <h2 id="canvaspart">Canvas API</h2>
@@ -347,79 +374,87 @@ But if you want more effects manipulating images, you need to handle your own <s
 </li>
 <li>Or <strong>implement your own transition function</strong>.<br/>
 Basically, you implement the <em>render</em> method, the loop function called during the transition:
-<code>slider.setTransitionFunction({
-  render: function(slider, from, to, progress){
-    // draw the current transition from image from to to with progress percent.
-  }
-});</code>
+<code>slider.setTransitionFunction(<span class="Function">{</span>
+  render: <span class="Function">function</span>(slider, from, to, progress)<span class="Function">{</span>
+    <span class="Comment">// draw the current transition from image from to to with progress percent.</span>
+  <span class="Function">}</span>
+<span class="Function">}</span>);</code>
 </li>
 </ul>
 
 <p>This <em>render</em> function <strong>must be performant</strong> because it directly impacts the <em>render</em> framerate.</p>
 <p>If you use datas which never change between two render frames, you could preload these datas implementing the <strong>init</strong> method.</p>
 <p>For instance, you could extract once the Canvas <em>ImageData</em> from the two transition images:
-<code>slider.setTransitionFunction({
-  init: function(self, from, to) {
-    return SliderUtils.extractImageData(self, from, to);
-  },
-  render: function(slider, from, to, progress, externalDatas){
-    // externalDatas.fromData
-    // externalDatas.toData
-    // externalDatas.output
+<code>slider.setTransitionFunction(<span class="Function">{</span>
+  init: <span class="Function">function</span>(<span class="Keyword">self</span>, from, to) <span class="Function">{</span>
+    <span class="Statement">return</span> SliderUtils.extractImageData(<span class="Keyword">self</span>, from, to);
+  <span class="Function">}</span>,
+  render: <span class="Function">function</span>(slider, from, to, progress, externalDatas)<span class="Function">{</span>
+    <span class="Comment">// externalDatas.fromData</span>
+    <span class="Comment">// externalDatas.toData</span>
+    <span class="Comment">// externalDatas.output</span>
     ...
-  }
-});</code>
+  <span class="Function">}</span>
+<span class="Function">}</span>);</code>
+</p>
+
+<p>There are some utils function (we just saw the <code class="inline">extractImageData</code> one's).<br/>
+You should also use the <code class="inline">clippedTransition</code> util function for most of your Canvas transitions.</p>
+<p>
+Example with the <strong>circle</strong> transition:
+<code>slider.setTransitionFunction(<span class="Function">{</span>
+  render: SliderUtils.clippedTransition(<span class="Function">function</span>(ctx, w, h, p) <span class="Function">{</span>
+    <span class="Statement">return</span> ctx.arc(w / 2, h / 2, 0.6 * p * Math.max(w, h), 0, Math.PI * 2, <span class="Constant">false</span>);
+  <span class="Function">}</span>)
+<span class="Function">}</span>)</code>
 </p>
 
 <h3>setTransitionDuration</h3>
 <p>You can also define the <strong>transition duration</strong>.</p>
 <p>Using CSS transitions, this transition duration can be overrided with the <em>transition-duration</em> property.
 But with Canvas, you must use the <code class="inline">setTransitionDuration</code> method. It takes the duration in milliseconds.
-<code>slider.setTransitionDuration(1000) // the default</code>
+<code>slider.setTransitionDuration(1000) <span class="Comment">// the default</span></code>
 </p>
 
+<h1>How does it work?</h1>
 
+<h2>Canvas Animations VS CSS Transitions</h2>
+<p>Slider.js provides a transparent Canvas or CSS transitions support: Whatever the technology you choose for the transition, the slider should work properly and in a same way.</p>
+<p>But each technology has its own good and bad points:</p>
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <th>Canvas</th>
+      <th>CSS Transitions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Usability</th>
+      <td>Medium (Javascript and Canvas API knowledge required)</td>
+      <td>Easy</td>
+    </tr>
+    <tr>
+      <th>Performance</th>
+      <td>Good (thanks to <code class="inline">requestAnimationFrame</code>)</td>
+      <td>Very good</td>
+    </tr>
+    <tr>
+      <th>Possibilities</th>
+      <td>Infinite (you manipulate pixels how you want)</td>
+      <td>Limited (to CSS)</td>
+    </tr>
+  </tbody>
+</table>
 
-
-    <h1>How does it work?</h1>
-
-    <h2>Canvas Animations VS CSS Transitions</h2>
-    <p>Slider.js provides a transparent Canvas or CSS transitions support: Whatever the technology you choose for the transition, the slider should work properly and in a same way.</p>
-    <p>But each technology has its own good and bad points:</p>
-    <table>
-      <thead>
-        <tr>
-          <td></td>
-          <th>Canvas</th>
-          <th>CSS Transitions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>Usability</th>
-          <td>Medium (Javascript and Canvas API knowledge required)</td>
-          <td>Easy</td>
-        </tr>
-        <tr>
-          <th>Performance</th>
-          <td>Good (thanks to <code class="inline">requestAnimationFrame</code>)</td>
-          <td>Very good</td>
-        </tr>
-        <tr>
-          <th>Possibilities</th>
-          <td>Infinite (you manipulate pixels how you want)</td>
-          <td>Limited (to CSS)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>How CSS transitions works</h2>
-    <p>CSS and Javascript are splitted and independent.</p>
-    <ul>
-        <li>The javascript part just does <strong>ajax stuff, templating and change a few classes</strong>.
-        To perform slide change, only a <code class="inline">current</code> class is moved.</li>
-        <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
-    </ul>
+<h2>How CSS transitions works</h2>
+<p>CSS and Javascript are splitted and independent.</p>
+<ul>
+  <li>The javascript part just does <strong>ajax stuff, templating and change a few classes</strong>.
+    To perform slide change, only a <code class="inline">current</code> class is moved.</li>
+  <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
+</ul>
     
     <p>For instance, <code class="inline">slider.setTransition('transition-left')</code> 
     will set a <code class="inline">transition-left</code> class which will be used in CSS to describe the transition
@@ -436,26 +471,26 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 <p>
 Let's create a new slider
-<code>var slider = new Slider($('#sliderContainer'));</code>
+<code><span class="Identifier">var</span> slider = <span class="Statement">new</span> Slider($(<span class="String">'#sliderContainer'</span>));</code>
 Now, let's create a new method in this slider :
-<code>slider.fetchFlickr = function(options) {
-  this.fetchJson('http://www.flickr.com/services/rest/?jsoncallback=?', $.extend({
-    method: 'flickr.photos.getRecent',
+<code>slider.fetchFlickr = <span class="Function">function</span>(options) <span class="Function">{</span>
+  <span class="Identifier">this</span>.fetchJson(<span class="String">'http://www.flickr.com/services/rest/?jsoncallback=?'</span>, $.extend(<span class="Function">{</span>
+    method: <span class="String">'flickr.photos.getRecent'</span>,
     per_page: 10,
-    format: 'json',
-    api_key: 'be902d7f912ea43230412619cb9abd52' // Your API key
-  }, options), function(json){ 
-    return $.map(json.photos.photo, function(photo){
-      return {
-        link: 'http://www.flickr.com/photos/'+photo.owner+'/'+photo.id,
-        src: 'http://farm'+photo.farm+'.static.flickr.com/'+
-            photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
+    format: <span class="String">'json'</span>,
+    api_key: <span class="String">'be902d7f912ea43230412619cb9abd52'</span> <span class="Comment">// Your API key</span>
+  <span class="Function">}</span>, options), <span class="Function">function</span>(json)<span class="Function">{</span>
+    <span class="Statement">return</span> $.map(json.photos.photo, <span class="Function">function</span>(photo)<span class="Function">{</span>
+      <span class="Statement">return</span> <span class="Function">{</span>
+        link: <span class="String">'http://www.flickr.com/photos/'</span>+photo.owner+<span class="String">'/'</span>+photo.id,
+        src: <span class="String">'http://farm'</span>+photo.farm+<span class="String">'.static.flickr.com/'</span>+
+            photo.server+<span class="String">'/'</span>+photo.id+<span class="String">'_'</span>+photo.secret+<span class="String">'_z.jpg'</span>,
         name: photo.title.substring(0,20)
-      }
-    });
-  });
-  return this;
-}</code>
+      <span class="Function">}</span>
+    <span class="Function">}</span>);
+  <span class="Function">}</span>);
+  <span class="Statement">return</span> <span class="Identifier">this</span>;
+<span class="Function">}</span></code>
 </p>
 
 <p>In only 18 lines of code, we have created an awesome flickr slider!</p>
@@ -470,11 +505,11 @@ Now, let's create a new method in this slider :
 
 <p>You can override default flickr options by passing params (see <a href="http://www.flickr.com/services/api/" target="_blank">flickr API</a>).<br/>
 Retrieve 30 recent photos searching "China" :
-<code>slider.fetchFlickr({
+<code>slider.fetchFlickr(<span class="Function">{</span>
     per_page: 30,
-    method: 'flickr.photos.search',
-    text: 'China'
-});</code>
+    method: <span class="String">'flickr.photos.search'</span>,
+    text: <span class="String">'China'</span>
+<span class="Function">}</span>);</code>
 </p>
     </article>
     </section>

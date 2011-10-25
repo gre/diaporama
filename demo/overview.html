@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Slider.js - overview</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script type="text/javascript" src="slider.js"></script>
+    <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
+    <script type="text/javascript">
+ var _uuid=0;
+ var uuid = function(){ return ++_uuid; }
+ window.SliderMaker = function(transition){
+   var self = this;
+   self.id = 'slider_'+uuid();
+   document.write('<div id="'+self.id+'"></div>');
+   $(document).ready(function(){
+     var node = $('#'+self.id);
+     node.css('float', 'left')
+     var slider = new Slider(node).fetchJson('photos.json').setSize(300, 169).stop();
+     if(SliderTransitionFunctions[transition]) 
+       slider.setTransitionFunction(SliderTransitionFunctions[transition]);
+     else
+       slider.setTransition(transition);
+     setTimeout(function(){ slider.start() }, Math.floor(4000*Math.random()));
+   })
+ }
+    </script>
+  </head>
+
+<body>
+  <div id="wrapper">
+    <h1>Overview</h1>
+
+    <h2>Canvas transitions</h2>
+    <script>(function(){
+      var transitions=['circles', 'squares', 'circle', 'diamond', 'verticalSunblind', 'fadeLeft'];
+      for(var t in transitions) new SliderMaker(transitions[t])
+      }())</script>
+    <br style="clear: both" />
+    
+    <h2>CSS transitions</h2>
+    <script>(function(){
+      var transitions=['opacity', 'zoomin', 'zoomout', 'flip', 'cardflip', 'left'];
+      for(var t in transitions) new SliderMaker('transition-'+transitions[t])
+    }())</script>
+    <br style="clear: both" />
+  </div>
+  
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-9919624-4']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
+

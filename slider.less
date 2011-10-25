@@ -21,7 +21,7 @@
     transition-duration: @duration;
     -moz-transition-duration: @duration;
     -webkit-transition-duration: @duration;
-    -o-transition-duration: @duration;    
+    -o-transition-duration: @duration;
 }
 .transform-origin(@origin) {
     transform-origin: @origin;
@@ -74,7 +74,7 @@
     &.transition-rotatezoomout .slide-image.current {
         .transform(scale(1) rotate(0deg));
     }
-    
+
     // a rotate and zoom in transition
     &.transition-rotatezoomin .slide-image {
         .transform(scale(2) rotate(30deg));
@@ -108,7 +108,7 @@
     &.transition-top .slide-image.current ~ .slide-image {
         top: 100%;
     }
-    
+
     // oblique transition
     &.transition-oblique .slide-image {
         .transform(matrix(1,1,0,1,-100%,0));
@@ -159,7 +159,7 @@
     &.transition-flip .slide-image.current {
         .transform(scale(1, 1));
     }
-    
+
     // flip
     &.transition-cardflip .slide-image {
         .transform(scale(-1, 0.2));
@@ -167,7 +167,7 @@
     &.transition-cardflip .slide-image.current {
         .transform(scale(1, 1));
     }
-    
+
     // Skew flip
     &.transition-skewflip .slide-image {
         .transform(skew(90deg, 90deg));
@@ -207,7 +207,7 @@
             background: url(load_dark.gif) no-repeat;
         }
     }
-    
+
     // dark green theme
     &.theme-darkgreen {
         background: black;
@@ -299,7 +299,6 @@
 
 /** Slider core styles **/
 .slider {
-    
     .options {
         padding: 3px 10px;
         text-align: center;
@@ -319,14 +318,12 @@
         padding: 0 4px;
         .border-radius(5px);
     }
-      
     .options .prevSlide {
         float: left;
     }
     .options .nextSlide {
         float: right;
     }
-    
     &.loading > * {
         display: none;
     }
@@ -383,7 +380,6 @@
         font-weight: bold;
         font-size: 14px;
         .border-radius(5px 0 0 5px);
-    
     }
 }
 

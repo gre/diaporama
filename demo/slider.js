@@ -104,6 +104,16 @@
     },
     verticalOpen: {
       render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
+        var nbSpike, pw, spikeh, spikel, spiker, spikew, xl, xr;
+        nbSpike = 8;
+        spikeh = h / (2 * nbSpike);
+        spikew = spikeh;
+        pw = 50;
+        xl = w / 2 - pw;
+        xr = w / 2 + pw;
+        spikel = xl - spikew;
+        spiker = xr + spikew;
+        ctx.moveTo(xl, 0);
         return ctx.rect((1 - p) * w / 2, 0, w * p, h);
       })
     },
@@ -364,17 +374,19 @@
         return this.next();
       }, this));
       self = this;
-      this.node.find(".slide-pager a").each(function(i) {
-        return $(this).click(function() {
-          return self.slide(i);
+      if (this.node) {
+        this.node.find(".slide-pager a").each(function(i) {
+          return $(this).click(function() {
+            return self.slide(i);
+          });
         });
-      });
-      now = function() {
-        return currentTime();
-      };
-      this.node.find(".options a").click(__bind(function() {
-        return this.lastHumanNav = now();
-      }, this));
+        now = function() {
+          return currentTime();
+        };
+        this.node.find(".options a").click(__bind(function() {
+          return this.lastHumanNav = now();
+        }, this));
+      }
       if (!this.timeout) {
         loop_ = __bind(function() {
           if (now() - this.lastHumanNav > 2000) {
@@ -387,7 +399,9 @@
       return this;
     };
     Slider.prototype._unbind = function() {
-      this.node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind('click');
+      if (this.node) {
+        this.node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind('click');
+      }
       if (this.timeout) {
         clearTimeout(this.timeout);
         return this.timeout = null;

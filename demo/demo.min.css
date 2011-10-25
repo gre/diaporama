@@ -1,5 +1,7 @@
 @font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
+strong{font-weight:bold;}
+em{font-style:italic;}
 #wrapper{width:720px;margin:0 auto;}
 span.new{color:red;text-decoration:none;font-style:normal;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
 header h1{font-size:1.4em;}

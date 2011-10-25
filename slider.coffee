@@ -115,6 +115,16 @@ SliderTransitionFunctions =
   # A vertical open effect
   verticalOpen: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      nbSpike=8
+      spikeh=h/(2*nbSpike) # the height of a demi-spike (triangle)
+      spikew=spikeh
+      pw=50#todo
+      xl=w/2-pw
+      xr=w/2+pw
+      spikel=xl-spikew
+      spiker=xr+spikew
+      ctx.moveTo xl, 0
+      # for hi in [0..nbSpike]
       ctx.rect (1-p)*w/2, 0, w*p, h
 
   # A horizontal open effect
@@ -327,10 +337,11 @@ class Slider
     @node.find(".prevSlide").click => @prev()
     @node.find(".nextSlide").click => @next()
     self = this
-    @node.find(".slide-pager a").each (i) ->
-      $(this).click -> self.slide i
-    now = -> currentTime()
-    @node.find(".options a").click => @lastHumanNav = now()
+    if @node
+      @node.find(".slide-pager a").each (i) ->
+        $(this).click -> self.slide i
+      now = -> currentTime()
+      @node.find(".options a").click => @lastHumanNav = now()
     
     if not @timeout
       loop_ = =>
@@ -340,7 +351,8 @@ class Slider
     this
 
   _unbind: ->
-    @node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind 'click'
+    if @node
+      @node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind 'click' 
     if @timeout
       clearTimeout @timeout
       @timeout = null
