@@ -99,21 +99,18 @@ SliderTransitionFunctions =
   circle: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
-  
-  # circles open effect
-  circles: 
+
+  # A horizontal open effect
+  diamond: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      circlesY = 6
-      circlesX = Math.floor circlesY*w/h
-      circleW = w/circlesX
-      circleH = h/circlesY
-      radius = 0.7*p*Math.max(circleW, circleH)
-      for x in [0..circlesX]
-        for y in [0..circlesY]
-          cx = (x+0.5)*circleW
-          cy = (y+0.5)*circleH
-          ctx.moveTo cx, cy
-          ctx.arc cx, cy, radius, 0, Math.PI*2, false
+      w2=w/2
+      h2=h/2
+      dh=p*h
+      dw=p*w
+      ctx.moveTo w2,    h2-dh
+      ctx.lineTo w2+dw, h2
+      ctx.lineTo w2,    h2+dh
+      ctx.lineTo w2-dw, h2
 
   # A vertical open effect
   verticalOpen: 
@@ -126,7 +123,7 @@ SliderTransitionFunctions =
       ctx.rect 0, (1-p)*h/2, w, h*p
 
   # A sundblind open effect
-  sunblind: 
+  horizontalSunblind: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p) #non linear progress
       blinds = 6
@@ -137,26 +134,46 @@ SliderTransitionFunctions =
   # A vertical sundblind open effect
   verticalSunblind: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      p = 1-(1-p)*(1-p) #non linear progress
+      p = 1-(1-p)*(1-p)
       blinds = 10
       blindWidth = w/blinds
       for blind in [0..blinds]
-        prog = p # todo
+        prog = Math.max(0, Math.min( 2*p-(blind+1)/blinds, 1))
         ctx.rect blindWidth*blind, 0, blindWidth*prog, h
+
+  # circles open effect
+  circles: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      circlesY = 6
+      circlesX = Math.floor circlesY*w/h
+      circleW = w/circlesX
+      circleH = h/circlesY
+      maxWH = Math.max(w, h)
+      maxRad = 0.7*Math.max(circleW, circleH)
+      for x in [0..circlesX]
+        for y in [0..circlesY]
+          cx = (x+0.5)*circleW
+          cy = (y+0.5)*circleH
+          r = Math.max(0, Math.min(2*p-cx/w, 1)) * maxRad
+          ctx.moveTo cx, cy
+          ctx.arc cx, cy, r, 0, Math.PI*2, false
 
   # A square sundblind open effect
   squares: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p) #non linear progress
-      blindsY = 6
+      blindsY = 5
       blindsX = Math.floor blindsY*w/h
       blindWidth = w/blindsX
       blindHeight = h/blindsY
       for x in [0..blindsX]
         for y in [0..blindsY]
-          rw = blindWidth*p
-          rh = blindHeight*p
-          ctx.rect blindWidth*x-rw/2, blindHeight*y-rh/2, rw, rh
+          sx = blindWidth*x
+          sy = blindHeight*y
+          prog = Math.max(0, Math.min(3*p-sx/w-sy/h, 1))
+          rw = blindWidth*prog
+          rh = blindHeight*prog
+          ctx.rect sx-rw/2, sy-rh/2, rw, rh
 
   # A blured fade left effect
   fadeLeft: 
@@ -412,10 +429,10 @@ class SliderWithCanvas extends Slider
   startRender: ->
     if @transitionFunction.init
       @tfdata = @transitionFunction.init this, @fromSlide, @toSlide
-    @render(++@_renderId)
+    @render(++@_renderId, @transitionFunction)
 
   # render loop
-  render: (id) ->
+  render: (id, transitionFunction) ->
     now = currentTime()
     if id==@_renderId and now >= @transitionStart
       progress = Math.min(1, (now - @transitionStart) / @transitionDuration)
@@ -423,8 +440,8 @@ class SliderWithCanvas extends Slider
         @clean()
         @drawImage @images[@toSlide]
       else
-        @transitionFunction.render this, @fromSlide, @toSlide, progress, @tfdata
-        requestAnimationFrame (=>@render(id)), @canvas[0]
+        transitionFunction.render this, @fromSlide, @toSlide, progress, @tfdata
+        requestAnimationFrame (=>@render(id, transitionFunction)), @canvas[0]
 
 
 # Exporting global variables

@@ -52,12 +52,12 @@ jQuery(function($){
                    text: search
                 });
             }
-            slider.fetchFlickr(opt);
-            slider.setSize(640, 430);
+            slider.fetchFlickr(opt)
+                  .setSize(640, 430)
         }
         else {
-            slider.fetchJson('photos.json');
-            slider.setSize(640, 309);
+            slider.fetchJson('photos.json')
+            slider.setSize(640, 309)
         }
     }).submit();
     $('#flickr_enabled').change(function(){
