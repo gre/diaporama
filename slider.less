@@ -52,6 +52,7 @@
 
 /** Slider Transitions **/
 .slider {
+    position: relative;
 
     // all transition takes 1.5s
     .slide-image, .slide-image img, .slide-image .caption {
@@ -208,35 +209,6 @@
         }
     }
 
-    // dark green theme
-    &.theme-darkgreen {
-        background: black;
-        color: white;
-        .box-shadow(1px 1px 5px black);
-        a {
-            color: white;
-        }
-        .caption {
-            background: rgba(0,0,0,0.5);
-        }
-        .options a {
-            color: #659525;
-            &:hover {
-                color: #85b545;
-            }
-        }
-        .slide-image {
-            background: black;
-        }
-        .slide-pager a.current {
-            background-color: #8BBF36;
-            color: black;
-        }
-        .loader .spinner {
-            background: url(load_dark.gif) no-repeat;
-        }
-    }
-
     // light theme
     &.theme-light {
         background: white;
@@ -266,10 +238,10 @@
             background: url(load_light.gif) no-repeat;
         }
     }
-
-    // red theme
-    &.theme-red {
-        background: #4D1514;
+    
+    // Embed theme
+    &.theme-embed {
+        background: black;
         color: white;
         .box-shadow(1px 1px 5px black);
         a {
@@ -278,23 +250,106 @@
         .caption {
             background: rgba(0,0,0,0.5);
         }
-        .options a {
-            color: #F23;
+        .options {
+          padding: 0;
+          a {
+            color: #91BECC;
             &:hover {
-                color: #F56;
+                color: #D3E5EB;
             }
+          }
+          .slide-pager {
+            padding: 3px 10px;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            a {
+              padding: 0 4px;
+              background: black;
+            }
+          }
+          a.prevSlide, a.nextSlide {
+            position: absolute;
+            bottom: 0;
+            background: black;
+            margin: 0;
+            padding: 5px 10px;
+          }
+          a.prevSlide {
+            left: 0;
+          }
+          a.nextSlide {
+            right: 0;
+          }
         }
         .slide-image {
-            background: white;
+            background: black;
         }
         .slide-pager a.current {
-            background-color: #AC262D;
-            color: white;
+            background-color: #91BECC;
+            color: black;
         }
         .loader .spinner {
             background: url(load_dark.gif) no-repeat;
         }
     }
+    
+    // Bottom theme
+    &.theme-bottom {
+        background: black;
+        color: white;
+        .box-shadow(1px 1px 5px black);
+        a {
+            color: white;
+        }
+        .caption {
+            background: rgba(0,0,0,0.5);
+        }
+        .options {
+          position: absolute;
+          bottom: 0px;
+          left: 25%;
+          width: 50%;
+          background: black;
+          a {
+            color: #91BECC;
+            &:hover {
+                color: #D3E5EB;
+            }
+          }
+        }
+        .slide-image {
+            background: black;
+        }
+        .slide-pager a.current {
+            background-color: #91BECC;
+            color: black;
+        }
+        .loader .spinner {
+            background: url(load_dark.gif) no-repeat;
+        }
+    }
+
+        
+    // no control theme
+    &.theme-no-control {
+        background: black;
+        color: white;
+        .box-shadow(1px 1px 5px black);
+        .caption {
+          background: rgba(0,0,0,0.5);
+        }
+        .options {
+          display: none;
+        }
+        .loader .spinner {
+            background: url(load_dark.gif) no-repeat;
+        }
+    }
+
+
 }
 
 /** Slider core styles **/
@@ -313,11 +368,11 @@
 
     .slide-pager a {
         .transition-duration(0.5s);
+        .border-radius(5px);
     }
     .slide-pager a.current {
         padding: 0 4px;
-        .border-radius(5px);
-    }
+            }
     .options .prevSlide {
         float: left;
     }

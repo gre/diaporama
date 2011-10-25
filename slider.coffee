@@ -118,14 +118,23 @@ SliderTransitionFunctions =
       nbSpike=8
       spikeh=h/(2*nbSpike) # the height of a demi-spike (triangle)
       spikew=spikeh
-      pw=50#todo
+      pw=p*w/2
       xl=w/2-pw
       xr=w/2+pw
       spikel=xl-spikew
       spiker=xr+spikew
       ctx.moveTo xl, 0
-      # for hi in [0..nbSpike]
-      ctx.rect (1-p)*w/2, 0, w*p, h
+      for hi in [0..nbSpike]
+        h1=(2*hi)*spikeh
+        h2=h1+spikeh
+        ctx.lineTo spikel, h1
+        ctx.lineTo xl, h2
+      ctx.lineTo spiker, h
+      for hi in [nbSpike..0]
+        h1=(2*hi)*spikeh
+        h2=h1-spikeh
+        ctx.lineTo xr, h1
+        ctx.lineTo spiker, h2
 
   # A horizontal open effect
   horizontalOpen: 
@@ -187,7 +196,13 @@ SliderTransitionFunctions =
 
   # A blured fade left effect
   fadeLeft: 
-    init: (self, from, to) -> SliderUtils.extractImageData(self, from, to)
+    init: (self, from, to) -> 
+      data = SliderUtils.extractImageData(self, from, to)
+      data.randomTrait = []
+      h = self.canvas[0].height
+      for y in [0..h]
+        data.randomTrait[y] = Math.random()
+      data
 
     render: (self, from, to, progress, data) ->
       blur = 150
@@ -196,20 +211,23 @@ SliderTransitionFunctions =
       fd = data.fromData.data
       td = data.toData.data
       out = data.output.data
+      randomTrait = data.randomTrait
       
       `(function(){
-       for (var x = 0; x < width; x += 1) {
-         p1 = Math.min(Math.max(x-width*progress, 0), blur)/blur
-         p2 = 1-p1
-        for (var y = 0; y < height; y += 1) {
-         var b = (y*width + x)*4
-         for (var c = 0; c < 3; c += 1) {
-           var i = b + c;
-           out[i] = p1 * (fd[i] ) + p2 * (td[i] )
-         }
-         out[b + 3] = 255;
-       }
-     }
+        var wpdb = width*progress/blur;
+        for (var x = 0; x < width; ++x) {
+          var xdb = x/blur;
+          for (var y = 0; y < height; ++y) {
+            var b = (y*width + x)*4
+            var p1 = Math.min(Math.max((xdb-wpdb*(1+randomTrait[y]/10)), 0), 1)
+            var p2 = 1-p1
+            for (var c = 0; c < 3; ++c) {
+              var i = b + c;
+              out[i] = p1 * (fd[i] ) + p2 * (td[i] )
+            }
+            out[b + 3] = 255;
+          }
+        }
       }())`
       self.ctx.putImageData data.output, 0, 0
 

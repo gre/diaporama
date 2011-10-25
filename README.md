@@ -11,11 +11,6 @@ TODO
 ----
 
 * check IE 6 fallback support
-* new Canvas transitions:
-  * multiple circle open
-  * change sun blind to open from left to right (same for up to bottom)
-* Doc: syntax coloration using vim :TOhtml with my gredark theme
-* Theme pour disposer la nav différement
 
 License
 =======
