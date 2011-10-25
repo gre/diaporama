@@ -94,8 +94,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       <p style="clear: both">
       <!-- Slider.js is an hybrid solution which allows you to use CSS Transitions to perform sliding or HTML5 Canvas animations to perform awesome non trivial transitions.<br/> -->
       It relies on the power of <strong>CSS Transitions</strong> to perform awesome and efficient effects.<br/>
-      Slider.js can optionally uses <strong>HTML5 Canvas</strong> to perform some non trivial transitions. 
-      <span class="new">(new)</span>
+      Slider.js can optionally uses <strong>HTML5 Canvas</strong> to perform some non trivial transitions.
       </p>
     </header>
 
@@ -103,7 +102,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
     <form id="options">
       <fieldset id="slider_options">
       <legend>Slider options</legend>
-      <dl style="color: red; background: white">
+      <dl>
         <dt>
           <label for="transitions">Transition effect :</label>
         </dt>
@@ -230,11 +229,17 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
         <dt>slider.min.css</dt>
         <dd>8.6K</dd>
       </dl>
+      
+      <h2>Efficiency</h2>
+      <p>Unlike many Javascript and jQuery image sliders, Slider.js animation implementation is simple, clean and <strong>do not</strong> parse/manipulate DOM <strong>style</strong> attributes with Javascript each render framerate.<br/>
+        Slider.js is an hybrid solution taking the power of CSS3 transitions and the efficiency of canvas animation based on <code class="inline">requestAnimationFrame</code>.
+      </p>
+      <p>We will explain more in the <a href="#technical">technical part</a>.</p>
 
       <h2>Browser compatibility</h2>
       <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE9).</p>
-      <p>For CSS Transitions on older browsers (like IE6) the slider works out of the box and the degradation is graceful thanks to CSS. 
-    There is no animations between slides but slides changes are working fine. That's pretty fair for old browsers.</p>
+      <p>For CSS Transitions on older browsers (like IE6, FF3.0, ...) <strong>the slider works</strong> but without animations (CSS by its nature provides a graceful degradation). 
+        Open question: <em>Do old browser users care about animations?</em></p>
       <p>A canvas usage falls back on CSS version if not supported.</p>
 
     <h1 id="sourcecode">Usage and API</h1>
@@ -419,7 +424,9 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 <code>slider.setTransitionDuration(1000) <span class="Comment">// the default</span></code>
 </p>
 
-<h1>How does it work?</h1>
+<h1 id="technical">How does it work?</h1>
+
+<span class="new">More Soon...</span>
 
 <h2>Canvas Animations VS CSS Transitions</h2>
 <p>Slider.js provides a transparent Canvas or CSS transitions support: Whatever the technology you choose for the transition, the slider should work properly and in a same way.</p>
@@ -466,7 +473,7 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 
     <h2>How Canvas animation works</h2>
 
-    <p>Soon...</p>
+    <span class="new">More Soon...</span>
 
 
  <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
