@@ -98,8 +98,22 @@ SliderTransitionFunctions =
   # A circle open effect
   circle: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
-      ctx.moveTo w/2, h/2
       ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
+  
+  # circles open effect
+  circles: 
+    render: SliderUtils.clippedTransition (ctx, w, h, p) ->
+      circlesY = 6
+      circlesX = Math.floor circlesY*w/h
+      circleW = w/circlesX
+      circleH = h/circlesY
+      radius = 0.7*p*Math.max(circleW, circleH)
+      for x in [0..circlesX]
+        for y in [0..circlesY]
+          cx = (x+0.5)*circleW
+          cy = (y+0.5)*circleH
+          ctx.moveTo cx, cy
+          ctx.arc cx, cy, radius, 0, Math.PI*2, false
 
   # A vertical open effect
   verticalOpen: 
@@ -127,10 +141,11 @@ SliderTransitionFunctions =
       blinds = 10
       blindWidth = w/blinds
       for blind in [0..blinds]
-        ctx.rect blindWidth*blind, 0, blindWidth*p, h
+        prog = p # todo
+        ctx.rect blindWidth*blind, 0, blindWidth*prog, h
 
   # A square sundblind open effect
-  squareSunblind: 
+  squares: 
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p) #non linear progress
       blindsY = 6

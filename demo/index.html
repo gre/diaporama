@@ -66,7 +66,9 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
     <header>
       <h1 data-navtext="Slider demo">Slider.js <span class="new">v1.1-beta</span>: Slideshow with jQuery and CSS Transitions</h1>
       <p><strong>Slider.js is an easy-to-use customizable Javascript library to create image slideshows.</strong></p>
-      <p style="clear: both">It relies on the power of <strong>CSS Transitions</strong> to perform awesome and efficient effects.<br/>
+      <p style="clear: both">
+      <!-- Slider.js is an hybrid solution which allows you to use CSS Transitions to perform sliding or HTML5 Canvas animations to perform awesome non trivial transitions.<br/> -->
+      It relies on the power of <strong>CSS Transitions</strong> to perform awesome and efficient effects.<br/>
       Slider.js can optionally uses <strong>HTML5 Canvas</strong> to perform some non trivial transitions. 
       <span class="new">(new)</span>
       </p>
@@ -83,7 +85,8 @@ $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'ar
         <dd>
           <select id="transitions">
             <optgroup label="Canvas transitions">
-              <option value="squareSunblind">Square Sunblind</option>
+              <option value="squares">Squares</option>
+              <option value="circles">Circles</option>
               <option value="circle">Circle</option>
               <option value="clock">Clock</option>
               <option value="fadeLeft">Fade left</option>
