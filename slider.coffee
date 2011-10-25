@@ -237,7 +237,7 @@ class Slider
     if @node
       @node.width w
       @node.find(".slide-image").width w
-      @node.find(".slide-images, .slider-image").height h
+      @node.find(".slide-images").height h
     this
 
   # Fetch photos with a JSON providing its `url`.
@@ -322,11 +322,13 @@ class SliderWithCanvas extends Slider
   transitionDuration: 1000
   tmpl: tmplSliderWithCanvas
 
+  # also synchronize the renderMode
   _sync: () ->
     renderMode = @renderMode
     super
     @setRenderMode(renderMode)
 
+  # Init some variables related to canvas
   start: () ->
     @notCanvas = @node.find '.slide-images:not(canvas) img'
     @canvas = @node.find 'canvas.slide-images'
@@ -338,11 +340,13 @@ class SliderWithCanvas extends Slider
     )) if @photos
     super
 
+  # The `setSize` method should update the canvas size
   setSize: (w, h) ->
     super w, h
     @canvas.attr("height", h).attr("width", w) if @canvas
     this
 
+  # set the render mode of the slider ( canvas | css )
   setRenderMode: (@renderMode) ->
     if @ctx
       if @renderMode is 'canvas'
@@ -369,6 +373,7 @@ class SliderWithCanvas extends Slider
     @setRenderMode 'canvas'
     this
 
+  # Overriding `slide` to support the canvas rendering
   slide: (num) ->
     @fromSlide = @current
     @toSlide = num
@@ -377,27 +382,34 @@ class SliderWithCanvas extends Slider
       @startRender()
     super num
 
+  # clean the canvas
   clean: -> @ctx.clearRect 0, 0, @canvas[0].width, @canvas[0].height
 
+  # draw an image on the all canvas with the correct ratio
   drawImage: (img) -> 
     {width, height} = @canvas[0]
     @ctx.drawImage img, 0, 0, width, width*img.height/img.width
 
+  # `_renderId` help to make sure once transition is running
+  _renderId: 0
+
+  # init render loop
   startRender: ->
     if @transitionFunction.init
       @tfdata = @transitionFunction.init this, @fromSlide, @toSlide
-    @render()
+    @render(++@_renderId)
 
-  render: ->
+  # render loop
+  render: (id) ->
     now = currentTime()
-    if now >= @transitionStart
+    if id==@_renderId and now >= @transitionStart
       progress = Math.min(1, (now - @transitionStart) / @transitionDuration)
       if progress == 1
         @clean()
         @drawImage @images[@toSlide]
       else
         @transitionFunction.render this, @fromSlide, @toSlide, progress, @tfdata
-        requestAnimationFrame (=>@render()), @canvas[0]
+        requestAnimationFrame (=>@render(id)), @canvas[0]
 
 
 # Exporting global variables

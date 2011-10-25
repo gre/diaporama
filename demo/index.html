@@ -6,7 +6,8 @@
     <meta name="Description" content="Slider.js is an easy-to-use customizable Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects. Slider.js can optionally uses HTML5 Canvas to perform some non trivial transitions." />
     <meta name="Keywords" content="slider.js slider slideshow javascript jquery css transitions canvas css3 flickr" />
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <!--http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js-->
+    <script type="text/javascript" src="../jquery.min.js"></script>
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
     
@@ -235,7 +236,7 @@ The format of this JSON is <em>an <strong>Array</strong> of { <strong>src</stron
 </p>
 
 <p>Don't forget to set your slider images size:
-<code>slider.setSize('400px', '300px');</code>
+<code>slider.setSize(400, 300);</code>
 </p>
 
 <p>Themes and CSS transitions can be switched live with these methods:

@@ -53,11 +53,11 @@ jQuery(function($){
                 });
             }
             slider.fetchFlickr(opt);
-            slider.setSize('640px', '430px');
+            slider.setSize(640, 430);
         }
         else {
             slider.fetchJson('photos.json');
-            slider.setSize('640px', '309px');
+            slider.setSize(640, 309);
         }
     }).submit();
     $('#flickr_enabled').change(function(){
