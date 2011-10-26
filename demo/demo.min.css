@@ -1,4 +1,4 @@
-@font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
+@font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}@font-face{font-family:Delicious;font-weight:bold;src:url('Delicious-Bold.otf');}@font-face{font-family:Delicious;font-style:italic;src:url('Delicious-Italic.otf');}@font-face{font-family:Delicious;font-style:italic;font-weight:bold;src:url('Delicious-BoldItalic.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
 strong{font-weight:bold;}
 em{font-style:italic;}

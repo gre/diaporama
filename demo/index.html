@@ -7,7 +7,6 @@
     <meta name="Keywords" content="slider.js slider slideshow javascript jquery css transitions canvas css3 flickr" />
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-    <!--<script type="text/javascript" src="../jquery.min.js"></script>-->
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
     
@@ -129,12 +128,12 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
               <option value="transition-zoomout">Zoom out</option>
               <option value="transition-flip">Flip</option>
               <option value="transition-cardflip">Card flip</option>
-              <option value="transition-skewflip">Skew flip</option> 
               <option value="transition-rotatezoomin">Rotate and scale in</option> 
               <option value="transition-rotatezoomout">Rotate and scale out</option>
               <option value="transition-topfade">Top fade</option>
             </optgroup>
             <optgroup label="CSS Experimental">
+              <option value="transition-skewflip">Skew flip</option> 
               <option value="transition-left">Left</option>
               <option value="transition-top">Top</option> 
               <option value="transition-oblique">Oblique</option>
@@ -204,8 +203,10 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       <h1>Why using Slider.js?</h1>
       <h2>Basic features</h2>
       <ul>
-        <li>Slides navigation (pages, next, previous)</li>
         <li>Each slide displays the image, but can also have a text caption and a link.</li>
+        <li>Slides navigation (pages, next, previous)</li>
+        <li>Load images before starting the slider.</li>
+        <li>Load the slider photos with a JSON object (distant or local).</li>
       </ul>
 
       <h2>Highly extendable and customizable</h2>
@@ -232,25 +233,25 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       
       <h2>Efficiency</h2>
       <p>Unlike many Javascript and jQuery image sliders, Slider.js animation implementation is simple, clean and <strong>do not</strong> parse/manipulate DOM <strong>style</strong> attributes with Javascript each render framerate.<br/>
-        Slider.js is an hybrid solution taking the power of CSS3 transitions and the efficiency of canvas animation based on <code class="inline">requestAnimationFrame</code>.
+        Slider.js is an <strong>hybrid</strong> solution taking the efficiency of <strong>CSS3 transitions</strong> and the power of <strong>Canvas</strong> animation based on <code class="inline">requestAnimationFrame</code>.
       </p>
-      <p>We will explain more in the <a href="#technical">technical part</a>.</p>
+      <p>More details in the <a href="#technical">technical part</a>.</p>
 
       <h2>Browser compatibility</h2>
-      <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE9).</p>
+      <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE10).</p>
       <p>For CSS Transitions on older browsers (like IE6, FF3.0, ...) <strong>the slider works</strong> but without animations (CSS by its nature provides a graceful degradation). 
         Open question: <em>Do old browser users care about animations?</em></p>
       <p>A canvas usage falls back on CSS version if not supported.</p>
 
     <h1 id="sourcecode">Usage and API</h1>
     <h2>Best way is to hack...</h2>
-    <h3>...the source code</h3>
+    <h3>...the source code:</h3>
     <ul>
-      <li>see <a target="_blank" href="docs/slider.html">Annotated slider.js source code</a>.</li>
+      <li>see <a target="_blank" href="docs/slider.html">Annotated slider.coffee source code</a>.</li>
       <li>see <a target="_blank" href="https://github.com/gre/slider.js/blob/master/slider.less">slider.less source code</a>.</li>
     </ul>
 
-    <h3>Try it live with your web console</h3>
+    <h3>Try it live with your web console:</h3>
     <p>Open your web console and play with the <code class="inline">slider</code> variable.</p>
 
 <h2>Slider.js</h2>
@@ -268,7 +269,7 @@ The format of this JSON is <em>an <strong>Array</strong> of { <strong>src</stron
 </p>
 
 <p>Or fetch this JSON with AJAX:
-<code>slider.fetchJson(<span class="String">&quot;photos.json&quot;</span>);</code>
+<code>slider.fetchJson(<span class="String">'photos.json'</span>);</code>
 </p>
 
 <p>Don't forget to set your slider images size:
@@ -300,15 +301,15 @@ slider.slide(4); <span class="Comment">// go to slide number 4</span></code>
 </p>
 
 <p>You can chain different methods in any order
-<code>slider.setSize(<span class="String">'400px'</span>, <span class="String">'300px'</span>)
-    .fetchJson(<span class="String">&quot;/photos.json&quot;</span>)
+<code>slider.setSize(400, 300)
+    .fetchJson(<span class="String">'photos.json'</span>)
     .slide(5)
     .setTheme(<span class="String">'theme-light'</span>)
     .setTransition(<span class="String">'transition-zoomout'</span>);</code>
 </p>
 
 <h2>The CSS</h2>
-<p>To implement your own slider CSS transitions, choose a transition name and describe what change between at least 2 selectors.</p>
+<p>To implement your own slider CSS transitions, choose a <strong>transition name</strong> and <strong>describe what change</strong> between (at least) 2 selectors.</p>
 <p>For instance using <code class="inline">tn</code> transition name you could define rules for <code class="inline">.slider.tn .slider-image</code> and <code class="inline">.slider.tn .slider-image.current</code>.</p>
 
 <h3>Example: Zoom in transition</h3>
@@ -334,9 +335,9 @@ slider.slide(4); <span class="Comment">// go to slide number 4</span></code>
 <span class="Special">}</span>
 </code>
 
-<p>Note that using a Canvas transition, this CSS transition is only used for the caption text.</p>
+<p>Note that using a Canvas transition, the CSS transition is still used for the caption text.</p>
 
-<p>On the same principle, you can define your own slider theme with CSS.</p>
+<p>On the same principle, you can <strong>define your own slider themes</strong> with CSS:</p>
 <h3>Example: dark theme</h3>
 <p><em>Less</em> source code:
   <code><span class="Function">.slider.theme-dark</span> <span class="Special">{</span>
@@ -390,7 +391,7 @@ Basically, you implement the <em>render</em> method, the loop function called du
 </li>
 </ul>
 
-<p>This <em>render</em> function <strong>must be performant</strong> because it directly impacts the <em>render</em> framerate.</p>
+<p>This <em>render</em> function <strong>must be efficient</strong> because it directly impacts the <em>render</em> framerate.</p>
 <p>If you use datas which never change between two render frames, you could preload these datas implementing the <strong>init</strong> method.</p>
 <p>For instance, you could extract once the Canvas <em>ImageData</em> from the two transition images:
 <code>slider.setTransitionFunction(<span class="Function">{</span>
@@ -406,7 +407,7 @@ Basically, you implement the <em>render</em> method, the loop function called du
 <span class="Function">}</span>);</code>
 </p>
 
-<p>There are some utils function (we just saw the <code class="inline">extractImageData</code> one's).<br/>
+<p><strong>There are some util functions</strong> (we just see a <code class="inline">extractImageData</code> usage before).<br/>
 You should also use the <code class="inline">clippedTransition</code> util function for most of your Canvas transitions.</p>
 <p>
 Example with the <strong>circle</strong> transition:

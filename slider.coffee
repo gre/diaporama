@@ -31,7 +31,7 @@ currentTime = `function(){return new Date().getTime()}`
 tmplSlider = (o) ->
   slider = $("""
   <div class="slider">
-    <div class="loader"><span class="spinner"></span> Loading photos... (<span class="percent">0</span>%)</div>
+    <div class="loader"><span class="spinner"></span> <span class="percent">0</span>%</div>
     <div class="slide-images"></div>
     <div class="options">
       <a class="prevSlide" href="javascript:;">prev</a>
