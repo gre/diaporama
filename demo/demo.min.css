@@ -1,9 +1,14 @@
 @font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}@font-face{font-family:Delicious;font-weight:bold;src:url('Delicious-Bold.otf');}@font-face{font-family:Delicious;font-style:italic;src:url('Delicious-Italic.otf');}@font-face{font-family:Delicious;font-style:italic;font-weight:bold;src:url('Delicious-BoldItalic.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
+h1:hover:before{content:'> ';}
+h1:hover:after{content:' <';}
+h2:before{content:'> ';visibility:hidden;}
+h2:hover:before{visibility:visible;}
 strong{font-weight:bold;}
 em{font-style:italic;}
 #wrapper{width:720px;margin:0 auto;}
 span.new{color:red;text-decoration:none;font-style:normal;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
+.foundabug{display:block;margin:5px 10px;text-decoration:none;}
 header h1{font-size:1.4em;}
 header p{color:#555;margin:0;}
 section{margin-top:20px;}
@@ -33,6 +38,7 @@ article h3{font-size:1.4em;font-weight:normal;}
 article h4{font-size:1.2em;}
 article h5{font-size:1em;}
 article p{margin:0.2em 0;margin-bottom:0.5em;}
+article p.tip{font-style:italic;padding:0.5em 1em;border-left:2px solid #aaa;}article p.tip:before{content:"Tip: ";font-weight:bold;}
 article ul{margin:0;}
 article dl dt{display:inline;font-weight:bold;}
 article dl dt:after{content:': ';}

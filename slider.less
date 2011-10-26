@@ -29,11 +29,6 @@
     -webkit-transform-origin: @origin;
     -o-transform-origin: @origin;
 }
-.box-shadow(@prop){
-    box-shadow: @prop;
-    -moz-box-shadow: @prop;
-    -webkit-box-shadow: @prop;
-}
 
 .opacity(@val) {
     opacity: @val;
@@ -184,7 +179,6 @@
     &.theme-dark {
         background: black;
         color: white;
-        .box-shadow(1px 1px 5px black);
         a {
             color: white;
         }
@@ -213,7 +207,6 @@
     &.theme-light {
         background: white;
         color: black;
-        .box-shadow(1px 1px 5px black);
         a {
           color: #555;
         }
@@ -243,7 +236,6 @@
     &.theme-embed {
         background: black;
         color: white;
-        .box-shadow(1px 1px 5px black);
         a {
             color: white;
         }
@@ -251,6 +243,9 @@
             background: rgba(0,0,0,0.5);
         }
         .options {
+          * {
+            z-index: 20;
+          }
           padding: 0;
           a {
             color: #91BECC;
@@ -262,9 +257,10 @@
             padding: 3px 10px;
             position: absolute;
             text-align: center;
-            width: 100%;
             bottom: 0;
-            left: 0;
+            left: 8%;
+            width: 80%;
+            overflow: hidden;
             a {
               padding: 0 4px;
               background: black;
@@ -300,7 +296,6 @@
     &.theme-bottom {
         background: black;
         color: white;
-        .box-shadow(1px 1px 5px black);
         a {
             color: white;
         }
@@ -313,6 +308,8 @@
           left: 25%;
           width: 50%;
           background: black;
+          z-index: 20;
+          overflow: hidden;
           a {
             color: #91BECC;
             &:hover {
@@ -323,9 +320,11 @@
         .slide-image {
             background: black;
         }
-        .slide-pager a.current {
+        .slide-pager {
+          a.current {
             background-color: #91BECC;
             color: black;
+          } 
         }
         .loader .spinner {
             background: url(load_dark.gif) no-repeat;
@@ -334,10 +333,9 @@
 
         
     // no control theme
-    &.theme-no-control {
+    &.no-control {
         background: black;
         color: white;
-        .box-shadow(1px 1px 5px black);
         .caption {
           background: rgba(0,0,0,0.5);
         }

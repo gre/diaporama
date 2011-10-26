@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Slider.js - overview</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script type="text/javascript" src="slider.js"></script>
+    <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
+    <style type="text/css">
+      html, body {
+        margin: 0; padding: 0;
+        background: black;
+        color: white;
+      }
+      #container {
+        margin: 50px auto;
+        width: 600px;
+      }
+    </style>
+  </head>
+
+<body>
+  <div id="container">
+    <h1>ParisJS recent photos</h1>
+    <div id="slider"></div>
+  </div>
+  <script type="text/javascript">
+  $(function(){
+    var slider = new Slider("#slider").setDuration(3000);
+    slider.setSize(600, 400);
+
+    var transitions = ['squares', 'circles', 'circle', 'diamond', 'verticalSunblind', 'verticalOpen', 'clock', 'transition-flip', 'transition-left', 'transition-zoomout']
+    setInterval(function(){
+      var transition = transitions[Math.floor(Math.random()*transitions.length)];
+      if(SliderTransitionFunctions[transition])
+        slider.setTransitionFunction(SliderTransitionFunctions[transition])
+      else slider.setTransition(transition);
+    }, 5555);
+
+    slider.fetchJson('http://www.flickr.com/services/rest/?jsoncallback=?', {
+      method: 'flickr.photos.search',
+      per_page: 20,
+      format: 'json',
+      api_key: 'be902d7f912ea43230412619cb9abd52',
+      text: 'parisjs'
+    }, function(json){
+      return $.map(json.photos.photo, function(photo){
+        return {
+          link: 'http://www.flickr.com/photos/'+photo.owner+'/'+photo.id,
+          src: 'http://farm'+photo.farm+'.static.flickr.com/'+
+              photo.server+'/'+photo.id+'_'+photo.secret+'_z.jpg',
+          name: photo.title.substring(0,20)
+        }
+      });
+    });
+  });
+  </script>
+  
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-9919624-4']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
+
+

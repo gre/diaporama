@@ -6,6 +6,7 @@
     <meta name="Description" content="Slider.js is an easy-to-use customizable Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects. Slider.js can optionally uses HTML5 Canvas to perform some non trivial transitions." />
     <meta name="Keywords" content="slider.js slider slideshow javascript jquery css transitions canvas css3 flickr" />
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
@@ -14,7 +15,7 @@
     <script type="text/javascript" src="demo.js"></script>
     <link href="demo.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- flexible nav: http://demo.greweb.fr/flexible-nav -->
+    <!-- flexible nav: http://demo.greweb.fr/flexible-nav --> 
     <script type="text/javascript" src="http://lib.greweb.fr/flexible-nav/flexible-nav.min.js"></script>
     <link rel="stylesheet" href="http://lib.greweb.fr/flexible-nav/flexible-nav.min.css" type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" charset="utf-8">
@@ -23,7 +24,7 @@
           new FlexibleNav(nav);
     });
     </script>
-
+    
     <!-- flattr -->
     <script type="text/javascript">/* <![CDATA[ */
     (function() {
@@ -74,6 +75,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
     <a href="http://github.com/gre/slider.js" target="_blank">
       <img src="forkmeongithub.png" alt="Fork me on Github" />
     </a>
+    <a class="foundabug" href="https://github.com/gre/slider.js/issues">Found a bug?</a>
   </div>
 
   <div id="wrapper">
@@ -149,9 +151,11 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
           <select id="themes">
             <option value="theme-dark">Dark</option>
             <option value="theme-light">Light</option>
-            <option value="theme-embed">Embed</option>
-            <option value="theme-bottom">Bottom</option>
-            <option value="theme-no-control">No control</option>
+            <option value="no-control">No control</option>
+            <optgroup label="other example themes">
+              <option value="theme-embed">Embed</option>
+              <option value="theme-bottom">Bottom</option>
+            </optgroup>
           </select>
         </dd>
       </dl>
@@ -239,9 +243,10 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
 
       <h2>Browser compatibility</h2>
       <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE10).</p>
-      <p>For CSS Transitions on older browsers (like IE6, FF3.0, ...) <strong>the slider works</strong> but without animations (CSS by its nature provides a graceful degradation). 
+      <p>On older browsers (like IE6, FF3.0, ...) CSS Transitions aren't supported, it means that there are no animations
+        but <strong>the slider works</strong>, it's not broken, because CSS by its nature provides a graceful degradation.<br/> 
         Open question: <em>Do old browser users care about animations?</em></p>
-      <p>A canvas usage falls back on CSS version if not supported.</p>
+      <p>A Canvas usage falls back on CSS version if Canvas is not supported.</p>
 
     <h1 id="sourcecode">Usage and API</h1>
     <h2>Best way is to hack...</h2>
@@ -343,7 +348,6 @@ slider.slide(4); <span class="Comment">// go to slide number 4</span></code>
   <code><span class="Function">.slider.theme-dark</span> <span class="Special">{</span>
   <span class="Type">background</span>: <span class="Constant">black</span>;
   <span class="Type">color</span>: <span class="Constant">white</span>;
-  <span class="Function">.box-shadow</span>(<span class="Number">1px</span> <span class="Number">1px</span> <span class="Number">5px</span> <span class="Constant">black</span>);
   <span class="Statement">a</span> <span class="Special">{</span>
     <span class="Type">color</span>: <span class="Constant">white</span>;
   <span class="Special">}</span>
@@ -426,8 +430,7 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 </p>
 
 <h1 id="technical">How does it work?</h1>
-
-<span class="new">More Soon...</span>
+    <span class="new">More Soon...</span>
 
 <h2>Canvas Animations VS CSS Transitions</h2>
 <p>Slider.js provides a transparent Canvas or CSS transitions support: Whatever the technology you choose for the transition, the slider should work properly and in a same way.</p>
@@ -476,10 +479,17 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 
     <span class="new">More Soon...</span>
 
+    <h2>Implementation notes</h2>
+<p>We tried to keep independence between the slider engine, the CSS Transitions support and the Canvas support.</p>
+<p>To perform that, a first class implements the slider engine and target CSS Transitions. A second class extends it and provides the Canvas transition feature. It's the <em>Slider</em> class.</p>
+<p>CoffeeScript makes the inherence easier for Javascript.</p>
+
 
  <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
+
+<h2>Implementation</h2>
 <p>
 Let's create a new slider
 <code><span class="Identifier">var</span> slider = <span class="Statement">new</span> Slider($(<span class="String">'#sliderContainer'</span>));</code>
@@ -508,14 +518,17 @@ Now, let's create a new method in this slider :
 
 <p><strong>Let's see deeply this code source here: <a href="docs/fetchFlickr.html" target="_blank">fetchFlickr.js annoted source</a>.</strong></p>
 
+<p class="tip">You could also implement it in a more <abbr title="Object Oriented">OO</abbr> way with inherence (easy with CoffeeScript).</p>
+
 <h2>Usage</h2>
 
-<p>Default behavior : get recent Flickr photos.
+<p>Default behavior: get recent Flickr photos.
 <code>slider.fetchFlickr();</code>
 </p>
 
-<p>You can override default flickr options by passing params (see <a href="http://www.flickr.com/services/api/" target="_blank">flickr API</a>).<br/>
-Retrieve 30 recent photos searching "China" :
+<p>You can override default flickr options by passing params (see <a href="http://www.flickr.com/services/api/" target="_blank">flickr API</a>).</p>
+<p>
+Retrieve 30 recent photos searching "China":
 <code>slider.fetchFlickr(<span class="Function">{</span>
     per_page: 30,
     method: <span class="String">'flickr.photos.search'</span>,
