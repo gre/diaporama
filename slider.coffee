@@ -394,7 +394,7 @@ class SliderWithCanvas extends Slider
   start: () ->
     @notCanvas = @node.find '.slide-images:not(canvas) img'
     @canvas = @node.find 'canvas.slide-images'
-    @ctx = @canvas[0].getContext '2d'
+    @ctx = @canvas[0].getContext '2d' if @canvas[0] and @canvas[0].getContext
     @images = $.map(@photos, ((photo) => 
       img = new Image()
       img.src = photo.src

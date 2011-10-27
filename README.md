@@ -10,7 +10,7 @@ Dependencies:
 TODO
 ----
 
-* check IE 6 fallback support
+nothing. any ideas?
 
 License
 =======

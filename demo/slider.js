@@ -13,8 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  */
-  var Slider, SliderTransitionFunctions, SliderUtils, SliderWithCanvas, currentTime, mod, requestAnimationFrame, tmplSlider, tmplSliderWithCanvas;
+  */  var Slider, SliderTransitionFunctions, SliderUtils, SliderWithCanvas, currentTime, mod, requestAnimationFrame, tmplSlider, tmplSliderWithCanvas;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
     for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
     function ctor() { this.constructor = child; }
@@ -335,11 +334,13 @@
     Slider.prototype.fetchJson = function(url, options, transformer) {
       var params;
       params = $.extend({}, options);
-      if (transformer == null) {
+            if (transformer != null) {
+        transformer;
+      } else {
         transformer = function(json) {
           return json;
         };
-      }
+      };
       $.getJSON(url, params, __bind(function(json) {
         return this.setPhotos(transformer(json));
       }, this));
@@ -450,7 +451,9 @@
     SliderWithCanvas.prototype.start = function() {
       this.notCanvas = this.node.find('.slide-images:not(canvas) img');
       this.canvas = this.node.find('canvas.slide-images');
-      this.ctx = this.canvas[0].getContext('2d');
+      if (this.canvas[0] && this.canvas[0].getContext) {
+        this.ctx = this.canvas[0].getContext('2d');
+      }
       if (this.photos) {
         this.images = $.map(this.photos, (__bind(function(photo) {
           var img;
