@@ -41,6 +41,7 @@ article h3{font-size:1.4em;font-weight:normal;}
 article h4{font-size:1.2em;}
 article h5{font-size:1em;}
 article p{margin:0.2em 0;margin-bottom:0.5em;}
+article q{font-style:italic;}
 article p.tip{font-style:italic;padding:0.5em 1em;border-left:2px solid #aaa;}article p.tip:before{content:"Tip: ";font-weight:bold;}
 article ul{margin:0;}
 article dl dt{display:inline;font-weight:bold;}

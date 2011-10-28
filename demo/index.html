@@ -80,7 +80,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
   <div id="wrapper">
     
     <div style="float: left; margin-right: 20px;">
-      <a class="FlattrButton" style="display:none;" href="http://demo.greweb.fr/slider"></a>
+      <a class="FlattrButton" style="display:none;" href="http://greweb.fr/slider"></a>
       <noscript>
         <a href="http://flattr.com/thing/419234/Slider-js" target="_blank">
           <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
@@ -258,11 +258,11 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
         <dt>slider.min.js</dt>
         <dd>11K</dd>
         <dt>slider.min.css</dt>
-        <dd>8.6K</dd>
+        <dd>8.2K</dd>
       </dl>
       
       <h2>Efficient</h2>
-      <p>Unlike many Javascript and jQuery image sliders, Slider.js animation implementation is simple, clean and <strong>do not</strong> parse/manipulate DOM <strong>style</strong> attributes with Javascript each render framerate.<br/>
+      <p>Unlike many Javascript and jQuery image sliders, Slider.js animation implementation is simple, clean and <strong>do not</strong> parse/manipulate DOM <strong>style</strong> attributes with Javascript each render frame rate.<br/>
         Slider.js is an <strong>hybrid</strong> solution taking the efficiency of <strong>CSS3 transitions</strong> and the power of <strong>Canvas</strong> animation based on <code class="inline">requestAnimationFrame</code>.
       </p>
       <p>More details in the <a href="#technical">technical part</a>.</p>
@@ -421,7 +421,7 @@ Basically, you implement the <em>render</em> method, the loop function called du
 </li>
 </ul>
 
-<p>This <em>render</em> function <strong>must be efficient</strong> because it directly impacts the <em>render</em> framerate.</p>
+<p>This <em>render</em> function <strong>must be efficient</strong> because it directly impacts the <em>render</em> frame rate.</p>
 <p>If you use datas which never change between two render frames, you could preload these datas implementing the <strong>init</strong> method.</p>
 <p>For instance, you could extract once the Canvas <em>ImageData</em> from the two transition images:
 <code>slider.setTransitionFunction(<span class="Function">{</span>
@@ -450,13 +450,13 @@ Example with the <strong>circle</strong> transition:
 
 <h3>setTransitionDuration</h3>
 <p>You can also define the <strong>transition duration</strong>.</p>
-<p>Using CSS transitions, this transition duration can be overrided with the <em>transition-duration</em> property.
+<p>Using CSS transitions, this transition duration can be overriden with the <em>transition-duration</em> property.
 But with Canvas, you must use the <code class="inline">setTransitionDuration</code> method. It takes the duration in milliseconds.
 <code>slider.setTransitionDuration(1500) <span class="Comment">// the default</span></code>
 </p>
 
 <h1 id="technical">How does it work?</h1>
-    <span class="new">More Soon...</span>
+<p>Let's go deeper and see how things are working under the hood.</p>
 
 <h2>Canvas Animations VS CSS Transitions</h2>
 <p>Slider.js provides a transparent Canvas or CSS transitions support: Whatever the technology you choose for the transition, the slider should work properly and in a same way.</p>
@@ -489,11 +489,11 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
 </table>
 
 <h2>How CSS transitions works</h2>
-<p>CSS and Javascript are splitted and independent.</p>
+<p>CSS and Javascript are split and independent.</p>
 <ul>
   <li>The javascript part just does <strong>ajax stuff, templating and change a few classes</strong>.
     To perform slide change, only a <code class="inline">current</code> class is moved.</li>
-  <li>The CSS part styles the slider and use classes setted by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
+  <li>The CSS part styles the slider and use classes set by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
 </ul>
     
     <p>For instance, <code class="inline">slider.setTransition('transition-left')</code> 
@@ -502,16 +502,39 @@ But with Canvas, you must use the <code class="inline">setTransitionDuration</co
     <p>Hence, you can add your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
 
     <h2>How Canvas animation works</h2>
+    <h3>Mmh, Canvas?</h3>
+    <p>A <em>Canvas</em> element is used for some <strong>more advanced transitions</strong> which are impossible to implement using CSS Transitions.</p>
+    <p>A <em>Canvas</em> is basically <strong>a pixels area in which you have a full access of each pixel</strong>. Hopefully, <em>Canvas</em> also provides some APIs like the <em>Canvas 2D Context</em> API.</p>
+    <h3><q>requestAnimationFrame is exactly designed for animation looping</q></h3>
+    <p>To perform the transition animation, we need to <strong>loop</strong> during the animation <em>(and only at that time)</em> to render the progressing state change. 
+      Looping means iterate as fast as possible to render a frame on the Canvas.</p>
+    <p>In our slider, each slide change is performed by calling the <code class="inline">slide</code> method which takes in argument the number of the slide to switch to.</p>
+    <p>The slide method will <strong>init the render animation</strong> for a specific transition function (<code class="inline">transitionFunction</code>) and 
+      during a specific duration (<code class="inline">duration</code>) by calling <code class="inline">startRender</code>.</p>
+    <p>This method will init <em>"constant"</em> variables for the current transition by calling the <code class="inline">transitionFunction.init</code> function if defined. 
+      For a same transition, the <em>"from"</em> image and the <em>"to"</em> image are constant,
+      <strong>so we have sometimes some constant variables which could be init once</strong> (like the <em>CanvasDataImage</em> objects of both images).
+    </p>
+    <p>Once done, we init the render animation loop by calling the <code class="inline">render</code> method.</p>
+    <p>In this method, we determine the progress of the transition (from 0% to 100%). If the transition is finished, we draw the final image until the next transition comes. But if the transition is in progress, we call the <code class="inline">transitionFunction.render</code> method by passing all variables this method can deal with (including the canvas context, the constant variables, ...) and <strong>we recall the render method</strong> to immediately redraw the next animation frame.</p>
+    <p>But to handle this recall, <strong>we really need to use</strong> the <code class="inline">requestAnimationFrame</code> which is exactly designed for animation looping. 
+      Older Javascript codes was using <code class="inline">setTimeout</code> or <code class="inline">setInterval</code> which is bad. (Some libraries like <em>jQuery</em> are today still using it for animating).</p>
+  <p>
+    Using this method, the browser knows explicitly what you are doing and can <strong>optimize the animation</strong> for you.
+    It takes two arguments: the function to call for the next frame (here it's render) and the node element in which the animation occurs.
+    </p>
+    <p>This second argument is essential for the optimization.
+      For instance, if the <em>Canvas</em> is not visible in the viewport (means that you scroll down and not see it anymore), the browser can stop (or slow down) the requestAnimationFrame frame rate. It wasn't the case with <code class="inline">setTimeout</code> / <code class="inline">setInterval</code> usages.</p>
+    <p>I think there are much more optimizations made by the browser using this method <em>(optimizations I don't know because I haven't hack some low level render engine codes yet)</em>.</p>
 
-    <span class="new">More Soon...</span>
 
     <h2>Implementation notes</h2>
 <p>We tried to keep independence between the slider engine, the CSS Transitions support and the Canvas support.</p>
 <p>To perform that, a first class implements the slider engine and target CSS Transitions. A second class extends it and provides the Canvas transition feature. It's the <em>Slider</em> class.</p>
-<p>CoffeeScript makes the inherence easier for Javascript.</p>
+<p><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a> makes the inherence easier for Javascript.</p>
 
 
- <h1 id="hackability" data-navtext="Flickr example">Hackability - Flickr example</h1>
+ <h1 id="hackability" data-navtext="Flickr example">Hack-ability - Flickr example</h1>
 
 <p>With this Slider API. Let's see how to easily retrieve flickr photos.</p>
 
