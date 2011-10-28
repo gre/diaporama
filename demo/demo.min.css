@@ -1,5 +1,6 @@
 @font-face{font-family:Delicious;src:url('Delicious-Roman.otf');}@font-face{font-family:Delicious;font-weight:bold;src:url('Delicious-Bold.otf');}@font-face{font-family:Delicious;font-style:italic;src:url('Delicious-Italic.otf');}@font-face{font-family:Delicious;font-style:italic;font-weight:bold;src:url('Delicious-BoldItalic.otf');}body{font-family:Delicious;color:#333;background:#EEE;margin:10px;}
 a{color:#aaa;}a:hover{color:#ccc;}
+header h1:hover:before,header h2:hover:before,header h1:hover:after,header h2:hover:after{content:none;}
 h1:hover:before{content:'> ';}
 h1:hover:after{content:' <';}
 h2:before{content:'> ';visibility:hidden;}
@@ -16,7 +17,9 @@ table{width:100%;border-collapse:collapse;border:2px solid #ccc;}table tr td,tab
 table thead{border-bottom:2px solid #ccc;}table thead tr{background:#aaa;color:white;}
 table tbody tr:nth-child(odd){background:#eeeeee;}
 table tbody tr:nth-child(even){background:#f9f9f9;}
-section.slider{background:white;border:2px solid #ddd;border-left:none;border-right:none;padding-bottom:20px;}
+section.slider{background:white;border:2px solid #ddd;border-left:none;border-right:none;padding-bottom:20px;clear:both;}
+section.overview{overflow:auto;}
+section.overview .slider .caption{display:none;}
 footer{margin-top:40px;padding-top:5px;border-top:1px dashed #aaa;color:#777;}
 #options{margin:0 auto;width:640px;padding:10px 0;}#options .buttons{clear:both;padding:4px 0;margin:4px 0;}#options .buttons button{border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;padding:2px 8px;font-size:1.2em;color:#aaa;border:1px solid #aaa;cursor:pointer;background:#ffffff;background:-moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(50%, #f3f3f3), color-stop(51%, #ededed), color-stop(100%, #ffffff));background:-webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-o-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:-ms-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);background:linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);}#options .buttons button:hover,#options .buttons button:active{color:#666;border-color:#666;}
 #options fieldset{border:none;padding:2px;margin:0 0 10px 0;display:table;}#options fieldset legend{font-weight:bold;}

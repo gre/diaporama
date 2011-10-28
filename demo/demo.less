@@ -54,6 +54,14 @@ a {
   }
 }
 
+header {
+  h1, h2 {
+    &:hover:before, &:hover:after {
+      content: none;
+    }
+  }
+}
+
 h1 {
   &:hover:before {
     content: '> ';
@@ -146,6 +154,13 @@ section.slider {
   border-left: none;
   border-right: none;
   padding-bottom: 20px;
+  clear: both;
+}
+section.overview {
+  overflow: auto;
+}
+section.overview .slider .caption {
+  display: none;
 }
 
 footer {

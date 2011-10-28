@@ -255,8 +255,8 @@ class Slider
   # Go to slide number `num` : update both DOM and this.current
   slide: (num = 0) ->
     # num must be between 0 and nbslides-1
-    num = Math.max(0, Math.min(num, @slides.size()-1))
     if @slides && @pages
+      num = Math.max(0, Math.min(num, @slides.size()-1))
       # Move current class in **slides**
       @slides.eq(@current).removeClass "current"
       @slides.eq(num).addClass "current"
@@ -381,7 +381,7 @@ class Slider
 # Let's support canvas transitions
 class SliderWithCanvas extends Slider
   transitionFunction: SliderTransitionFunctions.clock
-  transitionDuration: 1000
+  transitionDuration: 1500
   tmpl: tmplSliderWithCanvas
 
   # also synchronize the renderMode

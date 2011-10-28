@@ -6,7 +6,6 @@
     <meta name="Description" content="Slider.js is an easy-to-use customizable Javascript library to create image slideshows. It relies on the power of CSS Transitions to perform awesome and efficient effects. Slider.js can optionally uses HTML5 Canvas to perform some non trivial transitions." />
     <meta name="Keywords" content="slider.js slider slideshow javascript jquery css transitions canvas css3 flickr" />
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
-
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="slider.js"></script>
     <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
@@ -24,7 +23,7 @@
           new FlexibleNav(nav);
     });
     </script>
-    
+   
     <!-- flattr -->
     <script type="text/javascript">/* <![CDATA[ */
     (function() {
@@ -98,6 +97,35 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       Slider.js can optionally uses <strong>HTML5 Canvas</strong> to perform some non trivial transitions.
       </p>
     </header>
+
+      <h2>Overview</h2>
+    <section class="overview">
+      <script type="text/javascript">
+(function(){
+ var _uuid=0;
+ var uuid = function(){ return ++_uuid; }
+ var SliderMaker = function(transition, i){
+   var self = this;
+   self.id = 'slider_'+uuid();
+   document.write('<div id="'+self.id+'"></div>');
+   $(document).ready(function(){
+     var node = $('#'+self.id);
+     node.css('float', 'left')
+     var s = new Slider(node).fetchJson('photos.json').setTheme('no-control').slide(i).setSize(240, 136).stop();
+     if(SliderTransitionFunctions[transition])
+       s.setTransitionFunction(SliderTransitionFunctions[transition]);
+     else
+       s.setTransition(transition);
+   })
+ }
+
+      var transitions=['circles', 'squares', 'circle', 'verticalSunblind', 'transition-rotatezoomin', 'transition-left'];
+      for(var t=0; t<transitions.length; ++t) new SliderMaker(transitions[t], t);
+      }())
+      </script>
+    </section>
+
+    <h2>Demo</h2>
 
     <section class="slider">
     <form id="options">
@@ -426,7 +454,7 @@ Example with the <strong>circle</strong> transition:
 <p>You can also define the <strong>transition duration</strong>.</p>
 <p>Using CSS transitions, this transition duration can be overrided with the <em>transition-duration</em> property.
 But with Canvas, you must use the <code class="inline">setTransitionDuration</code> method. It takes the duration in milliseconds.
-<code>slider.setTransitionDuration(1000) <span class="Comment">// the default</span></code>
+<code>slider.setTransitionDuration(1500) <span class="Comment">// the default</span></code>
 </p>
 
 <h1 id="technical">How does it work?</h1>
@@ -547,7 +575,6 @@ Retrieve 30 recent photos searching "China":
     <footer>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - by Gaetan Renaudeau - 2011 - <a href="http://greweb.fr/">greweb.fr</a></footer>
   
   </div>
-  
   <script type="text/javascript">
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-9919624-4']);
