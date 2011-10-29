@@ -106,7 +106,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
    $(document).ready(function(){
      var node = $('#'+self.id);
      node.css('float', 'left')
-     var s = new Slider(node).fetchJson('photos.json').setTheme('no-control').slide(i).setSize(240, 136).stop();
+     var s = new Slider(node).fetchJson('photos.json').setTheme('no-control').slide(i).setSize(240, 135).stop();
      if(SliderTransitionFunctions[transition])
        s.setTransitionFunction(SliderTransitionFunctions[transition]);
      else
