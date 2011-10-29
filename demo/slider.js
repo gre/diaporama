@@ -272,9 +272,6 @@
       return mod(num, this.slides.size());
     };
     Slider.prototype.slide = function(num) {
-      if (num == null) {
-        num = 0;
-      }
       if (this.slides && this.pages) {
         num = Math.max(0, Math.min(num, this.slides.size() - 1));
         this.slides.eq(this.current).removeClass("current");
@@ -349,9 +346,7 @@
       this.setTransition(this.transition);
       this.setTheme(this.theme);
       this.setSize(this.w, this.h);
-      if (this.slides) {
-        return this.slide(this.current);
-      }
+      return this.slide(this.current);
     };
     Slider.prototype.setPhotos = function(photos) {
       var imgs, nbLoad;
@@ -360,7 +355,6 @@
         slides: photos
       }).addClass("loading");
       this.container.empty().append(this.node);
-      this.current = 0;
       this._sync();
       nbLoad = 0;
       imgs = this.node.find(".slide-image img").bind("load", __bind(function() {

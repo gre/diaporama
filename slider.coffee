@@ -253,7 +253,7 @@ class Slider
   circular: (num) -> mod num, @slides.size()
 
   # Go to slide number `num` : update both DOM and this.current
-  slide: (num = 0) ->
+  slide: (num) ->
     # num must be between 0 and nbslides-1
     if @slides && @pages
       num = Math.max(0, Math.min(num, @slides.size()-1))
@@ -315,14 +315,13 @@ class Slider
     @setTransition @transition
     @setTheme @theme
     @setSize @w, @h
-    @slide @current if @slides
+    @slide @current
   
   # `slides` : format: array of { src, name, link (optional) } 
   setPhotos: (@photos) ->
     # Templating and appending to DOM
     @node = @tmpl(slides: photos).addClass("loading")
     @container.empty().append @node
-    @current = 0
     @_sync()
     # Loading all images before showing the slider
     nbLoad = 0
