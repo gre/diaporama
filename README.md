@@ -7,10 +7,28 @@ Dependencies:
 
 * jQuery
 
-TODO
-----
+Note for developers
+===================
 
-* onFetched callback
+The project is build with a Makefile and via the `make` command.
+The command takes care to compile LESS and CoffeeScript code when files change.
+It makes sure all files are "synchronized" in a coherent state before commiting.
+
+There are some dependencies to make it work.
+
+Required commands:
+* `coffee`, to compile the CoffeeScript.
+* `lessc`, to compile the LESS.
+* `yuicompressor`, to minimize the Javascript.
+* `docco`, to build the documentation. It is (currently) an NodeJS package
+
+TIPS
+----
+These are both command I use to run to focus on the development:
+
+    while((1)); do make; sleep 1; done   # that's a little hacky but make does nothing if no file has changed
+
+    python -m SimpleHTTPServer 8001      # or equivalent to run a http server
 
 License
 =======
