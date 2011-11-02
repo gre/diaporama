@@ -17,6 +17,7 @@ It makes sure all files are "synchronized" in a coherent state before commiting.
 There are some dependencies to make it work.
 
 Required commands:
+
 * `coffee`, to compile the CoffeeScript.
 * `lessc`, to compile the LESS.
 * `yuicompressor`, to minimize the Javascript.
