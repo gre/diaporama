@@ -1,4 +1,4 @@
-VERSION=1.1-beta
+VERSION=1.1
 
 LESSC=lessc
 LESSOPT=-x
