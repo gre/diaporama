@@ -1,4 +1,4 @@
-What do you need ?
+What do you need?
 ==================
 
 You can download the library with the download button.
@@ -6,6 +6,11 @@ You can download the library with the download button.
 Dependencies:
 
 * jQuery
+
+Why jQuery?
+-----------
+Slider.js uses jQuery because it provides a cross-browser and simple DOM API.
+Anyway, it could be adapted to other libraries in the future.
 
 Note for Slider.js developers
 ===================
