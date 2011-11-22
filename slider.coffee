@@ -318,6 +318,27 @@ class Slider
     @setSize @w, @h
     @slide @current
 
+  _aspectSizing: (width, height) ->
+    if width < height
+      scaled_width = @h * width / height
+      [(@w - scaled_width) / 2, 0, scaled_width, @h]
+    else
+      scaled_height = @w * height / width
+      [0, (@h - scaled_height) / 2, @w, scaled_height]
+
+  _sizeAllImgs: ->
+    @node.find(".slide-image img").each( (idx, image_node) =>
+      [left, top, width, height] = @_aspectSizing(
+        image_node.width, image_node.height)
+      css_settings =
+        position: "absolute",
+        left: left,
+        top: top,
+        width: width,
+        height: height
+      $(image_node).css(css_settings)
+    )
+
   # `slides` : format: array of { src, name, link (optional) }
   setPhotos: (@photos) ->
     # Templating and appending to DOM
@@ -330,6 +351,7 @@ class Slider
       total = imgs.size()
       if ++nbLoad == total
         @node.removeClass "loading"
+        @_sizeAllImgs()
         @start()
       # Update loader progression (in percent)
       @node.find(".loader .percent").text Math.floor(100 * nbLoad / total)

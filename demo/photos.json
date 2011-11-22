@@ -4,5 +4,6 @@
   { "src" : "images/evil-frank.png", "name": "Big Buck Bunny - evil frank", "link": "http://bigbuckbunny.org/" },
   { "src" : "images/s1_proog.jpg", "name": "Elephant Dreams - proog", "link": "http://orange.blender.org/" },
   { "src" : "images/s6_both.jpg", "name": "Elephant Dreams - proog & emo", "link": "http://orange.blender.org/" },
-  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams - emo", "link": "http://orange.blender.org/" }
+  { "src" : "images/s8_emocu.jpg", "name": "Elephant Dreams - emo", "link": "http://orange.blender.org/" },
+  { "src" : "images/chocolate.jpg", "name": "Chocolate referecnce image", "link": "http://picasaweb.google.com" }
 ]
