@@ -293,6 +293,10 @@ class Slider
     @theme = theme
     this
 
+  # get slider size
+  getSize: ->
+    [@node.width(), @node.find(".slide-images").height()]
+
   # set slider size
   setSize: (@w, @h) ->
     if @node
@@ -319,12 +323,13 @@ class Slider
     @slide @current
 
   _aspectSizing: (width, height) ->
+    [sliderWidth, sliderHeight] = @getSize()
     if width < height
-      scaled_width = @h * width / height
-      [(@w - scaled_width) / 2, 0, scaled_width, @h]
+      scaled_width = sliderHeight * width / height
+      [(sliderWidth - scaled_width) / 2, 0, scaled_width, sliderHeight]
     else
-      scaled_height = @w * height / width
-      [0, (@h - scaled_height) / 2, @w, scaled_height]
+      scaled_height = sliderWidth * height / width
+      [0, (sliderHeight - scaled_height) / 2, sliderWidth, scaled_height]
 
   _sizeAllImgs: ->
     @node.find(".slide-image img").each( (idx, image_node) =>
@@ -423,6 +428,10 @@ class SliderWithCanvas extends Slider
       img
     )) if @photos
     super
+
+  # Get the slider size
+  getSize: ->
+    [@canvas.width(), @canvas.height()]
 
   # The `setSize` method should update the canvas size
   setSize: (w, h) ->
