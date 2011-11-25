@@ -324,17 +324,27 @@ class Slider
 
   _aspectSizing: (width, height) ->
     [sliderWidth, sliderHeight] = @getSize()
-    if width < height
-      scaled_width = sliderHeight * width / height
-      [(sliderWidth - scaled_width) / 2, 0, scaled_width, sliderHeight]
+    widthScaleFactor = sliderWidth / width
+    heightScaleFactor = sliderHeight / height
+    if widthScaleFactor < heightScaleFactor
+      scaleFactor = widthScaleFactor
     else
-      scaled_height = sliderWidth * height / width
-      [0, (sliderHeight - scaled_height) / 2, sliderWidth, scaled_height]
+      scaleFactor = heightScaleFactor
+    newWidth = width * scaleFactor
+    newHeight = height * scaleFactor
+    [
+      (sliderWidth - newWidth) / 2,
+      (sliderHeight - newHeight) / 2,
+      newWidth,
+      newHeight
+    ]
 
   _sizeAllImgs: ->
     @node.find(".slide-image img").each( (idx, image_node) =>
+      unstyledImage = new Image()
+      unstyledImage.src = image_node.src
       [left, top, width, height] = @_aspectSizing(
-        image_node.width, image_node.height)
+        unstyledImage.width, unstyledImage.height)
       css_settings =
         position: "absolute",
         left: left,
@@ -431,7 +441,10 @@ class SliderWithCanvas extends Slider
 
   # Get the slider size
   getSize: ->
-    [@canvas.width(), @canvas.height()]
+    if @renderMode is 'canvas'
+      [@canvas.width(), @canvas.height()]
+    else
+      super()
 
   # The `setSize` method should update the canvas size
   setSize: (w, h) ->
@@ -480,13 +493,8 @@ class SliderWithCanvas extends Slider
 
   # draw an image on the all canvas with the correct ratio
   drawImage: (img) ->
-    {width, height} = @canvas[0]
-    if img.width >= img.height
-      scaled_height = width * img.height / img.width
-      @ctx.drawImage img, 0, (height - scaled_height) / 2, width, scaled_height
-    else
-      scaled_width = height * img.width / img.height
-      @ctx.drawImage img, (width - scaled_width) / 2, 0, scaled_width, height
+    [left, top, width, height] = @_aspectSizing(img.width, img.height)
+    @ctx.drawImage img, left, top, width, height
 
   # `_renderId` help to make sure once transition is running
   _renderId: 0
