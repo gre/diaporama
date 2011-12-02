@@ -366,8 +366,8 @@ class Slider
       total = imgs.size()
       if ++nbLoad == total
         @node.removeClass "loading"
-        @_sizeAllImgs()
         @start()
+        @_sizeAllImgs()
       # Update loader progression (in percent)
       @node.find(".loader .percent").text Math.floor(100 * nbLoad / total)
     )
@@ -494,6 +494,8 @@ class SliderWithCanvas extends Slider
   # draw an image on the all canvas with the correct ratio
   drawImage: (img) ->
     [left, top, width, height] = @_aspectSizing(img.width, img.height)
+    @ctx.fillStyle = 'black'
+    @ctx.fill()
     @ctx.drawImage img, left, top, width, height
 
   # `_renderId` help to make sure once transition is running
