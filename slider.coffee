@@ -242,10 +242,8 @@ SliderTransitionFunctions =
 class Slider
   constructor: (container, opts = {}) ->
     @container = $(container)
-    for prop, val of @defaults:
-      this[prop] = val
-    for prop, val of @opts:
-      this[prop] = val
+    for prop, val of @defaults
+      this[prop] = if prop of opts then ops[prop] else val
     this
 
   defaults:
