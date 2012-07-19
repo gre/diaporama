@@ -284,13 +284,15 @@ limitations under the License.
 
     Slider.prototype.defaults = {
       current: 0,
-      lastHumanNav: 0,
       duration: 4000,
-      w: '640px',
-      h: '430px',
-      theme: 'theme-dark',
-      tmpl: tmplSlider
+      width: '640px',
+      height: '430px',
+      theme: 'theme-dark'
     };
+
+    Slider.prototype.lastHumanNav = 0;
+
+    Slider.prototype.tmpl = tmplSlider;
 
     Slider.prototype.circular = function(num) {
       return mod(num, this.slides.size());
@@ -350,9 +352,9 @@ limitations under the License.
       return this;
     };
 
-    Slider.prototype.setSize = function(w, h) {
-      this.w = w;
-      this.h = h;
+    Slider.prototype.setSize = function(width, height) {
+      this.width = width;
+      this.height = height;
       if (this.node) {
         this.node.width(w);
         this.node.find(".slide-image").width(w);
@@ -379,7 +381,7 @@ limitations under the License.
     Slider.prototype._sync = function() {
       this.setTransition(this.transition);
       this.setTheme(this.theme);
-      this.setSize(this.w, this.h);
+      this.setSize(this.width, this.height);
       return this.slide(this.current);
     };
 

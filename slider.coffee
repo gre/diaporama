@@ -238,7 +238,15 @@ SliderTransitionFunctions =
 
 # Slider - a lightweight slider
 # -----------------------------
-# Constructor : init container node and current slide number
+# Constructor :
+#
+# * container (node) (required)
+# * opts (dict) (optional) pass in any or all of the following options:
+#     * current (int) which slide to start on
+#     * duration (int) time in milliseconds to spend on each slide
+#     * width (string) a css string for width; e.g. '430px'
+#     * height (string) a css string for height; e.g. '640px'
+#     * theme (string) class name to add to the root node; defaults to 'theme-dark'
 class Slider
   constructor: (container, opts = {}) ->
     @container = $(container)
@@ -248,12 +256,13 @@ class Slider
 
   defaults:
     current: 0
-    lastHumanNav: 0
     duration: 4000
-    w: '640px'
-    h: '430px'
+    width: '640px'
+    height: '430px'
     theme: 'theme-dark'
-    tmpl: tmplSlider
+
+  lastHumanNav: 0
+  tmpl: tmplSlider
 
   # Util function : return the circular value of num
   circular: (num) -> mod num, @slides.size()
@@ -299,7 +308,7 @@ class Slider
     this
 
   # set slider size
-  setSize: (@w, @h) ->
+  setSize: (@width, @height) ->
     if @node
       @node.width w
       @node.find(".slide-image").width w
@@ -320,7 +329,7 @@ class Slider
   _sync: ->
     @setTransition @transition
     @setTheme @theme
-    @setSize @w, @h
+    @setSize @width, @height
     @slide @current
 
   # `slides` : format: array of { src, name, link (optional) }
