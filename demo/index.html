@@ -8,13 +8,13 @@
     <title>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - example with Flickr</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script type="text/javascript" src="slider.js"></script>
-    <link href="slider.min.css" rel="stylesheet" type="text/css" /> 
-    
+    <link href="slider.min.css" rel="stylesheet" type="text/css" />
+
     <!-- demo related resources -->
     <script type="text/javascript" src="demo.js"></script>
     <link href="demo.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- flexible nav: http://demo.greweb.fr/flexible-nav --> 
+    <!-- flexible nav: http://demo.greweb.fr/flexible-nav -->
     <script type="text/javascript" src="http://lib.greweb.fr/flexible-nav/flexible-nav.min.js"></script>
     <link rel="stylesheet" href="http://lib.greweb.fr/flexible-nav/flexible-nav.min.css" type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" charset="utf-8">
@@ -23,7 +23,7 @@
           new FlexibleNav(nav);
     });
     </script>
-   
+
     <!-- flattr -->
     <script type="text/javascript">/* <![CDATA[ */
     (function() {
@@ -34,7 +34,7 @@
         t.parentNode.insertBefore(s, t);
     })();/* ]]> */
   </script>
-  
+
 <!--[if IE]>
 <script type="text/javascript">
 $.each(['blockquote', 'header', 'footer', 'section', 'aside', 'nav', 'code', 'article', 'figure', 'figcaption'], function(tag){
@@ -78,7 +78,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
   </div>
 
   <div id="wrapper">
-    
+
     <div style="float: left; margin-right: 20px;">
       <a class="FlattrButton" style="display:none;" href="http://greweb.fr/slider/"></a>
       <noscript>
@@ -106,7 +106,8 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
    $(document).ready(function(){
      var node = $('#'+self.id);
      node.css('float', 'left')
-     var s = new Slider(node).fetchJson('photos.json').setTheme('no-control').slide(i).setSize(240, 135).stop();
+     var options = { theme: 'no-control', width: 240, height: 135 };
+     var s = new Slider(node, options).fetchJson('photos.json').slide(i).stop();
      if(SliderTransitionFunctions[transition])
        s.setTransitionFunction(SliderTransitionFunctions[transition]);
      else
@@ -156,14 +157,14 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
               <option value="transition-zoomout">Zoom out</option>
               <option value="transition-flip">Flip</option>
               <option value="transition-cardflip">Card flip</option>
-              <option value="transition-rotatezoomin">Rotate and scale in</option> 
+              <option value="transition-rotatezoomin">Rotate and scale in</option>
               <option value="transition-rotatezoomout">Rotate and scale out</option>
               <option value="transition-topfade">Top fade</option>
             </optgroup>
             <optgroup label="CSS Experimental">
-              <option value="transition-skewflip">Skew flip</option> 
+              <option value="transition-skewflip">Skew flip</option>
               <option value="transition-left">Left</option>
-              <option value="transition-top">Top</option> 
+              <option value="transition-top">Top</option>
               <option value="transition-oblique">Oblique</option>
             </optgroup>
           </select>
@@ -222,7 +223,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       </p>
 
       </fieldset>
- 
+
     </form>
 
     <div id="demo"></div>
@@ -260,7 +261,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
         <dt>slider.min.css</dt>
         <dd>8.2K</dd>
       </dl>
-      
+
       <h2>Efficient</h2>
       <p>Unlike many Javascript and jQuery image sliders, Slider.js animation implementation is simple, clean and <strong>do not</strong> parse/manipulate DOM <strong>style</strong> attributes with Javascript each render frame rate.<br/>
         Slider.js is an <strong>hybrid</strong> solution taking the efficiency of <strong>CSS3 transitions</strong> and the power of <strong>Canvas</strong> animation based on <code class="inline">requestAnimationFrame</code>.
@@ -270,7 +271,7 @@ code, pre { font-family: monospace; color: #e6e1dc; background-color: #222222; }
       <h2>Browser compatibility</h2>
       <p>This library intends to work perfectly with latest browsers (Chrome, Firefox 4+, Safari, IE10).</p>
       <p>On older browsers (like IE6, FF3.0, ...) CSS Transitions aren't supported, it means that there are no animations
-        but <strong>the slider works</strong>, it's not broken, because CSS by its nature provides a graceful degradation.<br/> 
+        but <strong>the slider works</strong>, it's not broken, because CSS by its nature provides a graceful degradation.<br/>
         Open question: <em>Do old browser users care about animations?</em></p>
       <p>A Canvas usage falls back on CSS version if Canvas is not supported.</p>
 
@@ -310,6 +311,15 @@ The format of this JSON is <em>an <strong>Array</strong> of { <strong>src</stron
 <p>Themes and CSS transitions can be switched live with these methods:
 <code>slider.setTheme(<span class="String">'theme-dark'</span>);
 slider.setTransition(<span class="String">'transition-zoomin'</span>);</code>
+</p>
+
+<p>You can also set most options by passing a dictionary object as the
+    second argument to constructor:
+    <code><span class="Identifier">var</span> slider = <span
+    class="Statement">new</span> Slider($(<span
+    class="String">'#sliderContainer'</span>),
+                        { theme: <span class="String">'theme-dark'</span>, width: 400, height: 300 });</code>
+    For a list of all options, see the <a target="_blank" href="docs/slider.html#section-20">annotated source code</a>.
 </p>
 
 <p>For the Canvas usage, see <a href="#canvaspart">the canvas part</a> section.</p>
@@ -505,8 +515,8 @@ CSS and Javascript are split and independent:
     To perform slide change, only a <code class="inline">current</code> class is moved.</li>
   <li>The CSS part styles the slider and use classes set by Javascript to perform Slider effects with <strong>CSS Transitions</strong>.</li>
 </ul>
-    
-    <p>For instance, <code class="inline">slider.setTransition('transition-left')</code> 
+
+    <p>For instance, <code class="inline">slider.setTransition('transition-left')</code>
     will set a <code class="inline">transition-left</code> class which will be used in CSS to describe the transition
     with <strong>CSS3 Transitions</strong>.</p>
     <p>Hence, you can add your own transitions very easily. Mixing with <strong>CSS3 Transforms</strong>, effects are incredible and very efficient (animations are rendered by your browser : accelerated and optimized).</p>
@@ -516,18 +526,18 @@ CSS and Javascript are split and independent:
     <p>A <em>Canvas</em> element is used for some <strong>more advanced transitions</strong> which are impossible to implement using CSS Transitions.</p>
     <p>A <em>Canvas</em> is basically <strong>a pixels area in which you have a full access of each pixel</strong>. Hopefully, <em>Canvas</em> also provides some APIs like the <em>Canvas 2D Context</em> API.</p>
     <h3><q>requestAnimationFrame is exactly designed for animation looping</q></h3>
-    <p>To perform the transition animation, we need to <strong>loop</strong> during the animation <em>(and only at that time)</em> to render the progressing state change. 
+    <p>To perform the transition animation, we need to <strong>loop</strong> during the animation <em>(and only at that time)</em> to render the progressing state change.
       Looping means iterate as fast as possible to render a frame on the Canvas.</p>
     <p>In our slider, each slide change is performed by calling the <code class="inline">slide</code> method which takes in argument the number of the slide to switch to.</p>
-    <p>The slide method will <strong>init the render animation</strong> for a specific transition function (<code class="inline">transitionFunction</code>) and 
+    <p>The slide method will <strong>init the render animation</strong> for a specific transition function (<code class="inline">transitionFunction</code>) and
       during a specific duration (<code class="inline">duration</code>) by calling <code class="inline">startRender</code>.</p>
-    <p>This method will init <em>"constant"</em> variables for the current transition by calling the <code class="inline">transitionFunction.init</code> function if defined. 
+    <p>This method will init <em>"constant"</em> variables for the current transition by calling the <code class="inline">transitionFunction.init</code> function if defined.
       For a same transition, the <em>"from"</em> image and the <em>"to"</em> image are constant,
       <strong>so we have sometimes some constant variables which could be init once</strong> (like the <em>CanvasDataImage</em> objects of both images).
     </p>
     <p>Once done, we init the render animation loop by calling the <code class="inline">render</code> method.</p>
     <p>In this method, we determine the progress of the transition (from 0% to 100%). If the transition is finished, we draw the final image until the next transition comes. But if the transition is in progress, we call the <code class="inline">transitionFunction.render</code> method by passing all variables this method can deal with (including the canvas context, the constant variables, ...) and <strong>we recall the render method</strong> to immediately redraw the next animation frame.</p>
-    <p>But to handle this recall, <strong>we really need to use</strong> the <code class="inline">requestAnimationFrame</code> which is exactly designed for animation looping. 
+    <p>But to handle this recall, <strong>we really need to use</strong> the <code class="inline">requestAnimationFrame</code> which is exactly designed for animation looping.
       Older Javascript codes was using <code class="inline">setTimeout</code> or <code class="inline">setInterval</code> which is bad. (Some libraries like <em>jQuery</em> are today still using it for animating).</p>
   <p>
     Using this method, the browser knows explicitly what you are doing and can <strong>optimize the animation</strong> for you.
@@ -596,8 +606,8 @@ Retrieve 30 recent photos searching "China":
 </p>
     </article>
     </section>
-    
-    
+
+
     <ul>
         <li>see also <a target="_blank" href="http://blog.greweb.fr/2010/05/css3-transitions-available-on-firefox-3-7">CSS Transitions blog article</a></li>
         <li>see also <a target="_blank" href="http://www.zengularity.com/item/1583389563/les-transitions-css3-un-exemple-de-diaporama-dimages">[fr] Vidéo: Les transitions CSS3 : un exemple de diaporama d'images</a></li>
@@ -622,7 +632,7 @@ Retrieve 30 recent photos searching "China":
 
 
     <footer>Slider.js: Slideshow with jQuery, CSS Transitions and Canvas - by Gaetan Renaudeau - 2011 - <a href="http://greweb.fr/">greweb.fr</a></footer>
-  
+
   </div>
   <script type="text/javascript">
 var _gaq = _gaq || [];

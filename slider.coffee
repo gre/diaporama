@@ -1,4 +1,4 @@
-# [Slider.js](http://demo.greweb.fr/slider) by @greweb 
+# [Slider.js](http://demo.greweb.fr/slider) by @greweb
 
 ###!
 Copyright 2011 Gaetan Renaudeau
@@ -63,7 +63,7 @@ tmplSliderWithCanvas = (o) ->
 
 # SliderUtils
 # -----------
-SliderUtils = 
+SliderUtils =
   extractImageData: (self, from, to) ->
     {width, height} = self.canvas[0]
     self.clean()
@@ -74,8 +74,8 @@ SliderUtils =
     toData = self.ctx.getImageData 0, 0, width, height
     output = self.ctx.createImageData width, height
     return fromData: fromData, toData: toData, output: output
-    
-  clippedTransition: ( clipFunction ) -> 
+
+  clippedTransition: ( clipFunction ) ->
     (self, from, to, progress) ->
       {width, height} = self.canvas[0]
       ctx = self.ctx
@@ -91,18 +91,18 @@ SliderUtils =
 # ------------------------
 SliderTransitionFunctions =
   # A clock load effect
-  clock: 
+  clock:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       ctx.moveTo w/2, h/2
       ctx.arc w/2, h/2, Math.max(w, h), 0, Math.PI*2*p, false
 
   # A circle open effect
-  circle: 
+  circle:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       ctx.arc w/2, h/2, 0.6*p*Math.max(w, h), 0, Math.PI*2, false
 
   # A horizontal open effect
-  diamond: 
+  diamond:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       w2=w/2
       h2=h/2
@@ -114,7 +114,7 @@ SliderTransitionFunctions =
       ctx.lineTo w2-dw, h2
 
   # A vertical open effect
-  verticalOpen: 
+  verticalOpen:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       nbSpike=8
       spikeh=h/(2*nbSpike) # the height of a demi-spike (triangle)
@@ -138,12 +138,12 @@ SliderTransitionFunctions =
         ctx.lineTo spiker, h2
 
   # A horizontal open effect
-  horizontalOpen: 
+  horizontalOpen:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       ctx.rect 0, (1-p)*h/2, w, h*p
 
   # A sundblind open effect
-  horizontalSunblind: 
+  horizontalSunblind:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p) #non linear progress
       blinds = 6
@@ -152,7 +152,7 @@ SliderTransitionFunctions =
         ctx.rect 0, blindHeight*blind, w, blindHeight*p
 
   # A vertical sundblind open effect
-  verticalSunblind: 
+  verticalSunblind:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p)
       blinds = 10
@@ -162,7 +162,7 @@ SliderTransitionFunctions =
         ctx.rect blindWidth*blind, 0, blindWidth*prog, h
 
   # circles open effect
-  circles: 
+  circles:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       circlesY = 6
       circlesX = Math.floor circlesY*w/h
@@ -179,7 +179,7 @@ SliderTransitionFunctions =
           ctx.arc cx, cy, r, 0, Math.PI*2, false
 
   # A square sundblind open effect
-  squares: 
+  squares:
     render: SliderUtils.clippedTransition (ctx, w, h, p) ->
       p = 1-(1-p)*(1-p) #non linear progress
       blindsY = 5
@@ -196,8 +196,8 @@ SliderTransitionFunctions =
           ctx.rect sx-rw/2, sy-rh/2, rw, rh
 
   # A blured fade left effect
-  fadeLeft: 
-    init: (self, from, to) -> 
+  fadeLeft:
+    init: (self, from, to) ->
       data = SliderUtils.extractImageData(self, from, to)
       data.randomTrait = []
       h = self.canvas[0].height
@@ -213,7 +213,7 @@ SliderTransitionFunctions =
       td = data.toData.data
       out = data.output.data
       randomTrait = data.randomTrait
-      
+
       `(function(){
         var wpdb = width*progress/blur;
         for (var x = 0; x < width; ++x) {
@@ -238,18 +238,32 @@ SliderTransitionFunctions =
 
 # Slider - a lightweight slider
 # -----------------------------
-# Constructor : init container node and current slide number
+# Constructor :
+#
+# * container (node) (required)
+# * opts (dict) (optional) pass in any or all of the following options:
+#     * current (int) which slide to start on
+#     * duration (int) time in milliseconds to spend on each slide
+#     * width (int) width in pixels
+#     * height (int) height in pixels
+#     * theme (string) class name to add to the root node; defaults to 'theme-dark'
 class Slider
-  constructor: (container) -> @container = $(container)
-  current: 0
-  lastHumanNav: 0
-  duration: 4000
-  w: '640px'
-  h: '430px'
-  theme: 'theme-dark'
+  constructor: (container, opts = {}) ->
+    @container = $(container)
+    for prop, val of @defaults
+      this[prop] = if prop of opts then opts[prop] else val
+    this
 
+  defaults:
+    current: 0
+    duration: 4000
+    width: '640px'
+    height: '430px'
+    theme: 'theme-dark'
+
+  lastHumanNav: 0
   tmpl: tmplSlider
-  
+
   # Util function : return the circular value of num
   circular: (num) -> mod num, @slides.size()
 
@@ -294,11 +308,11 @@ class Slider
     this
 
   # set slider size
-  setSize: (@w, @h) ->
+  setSize: (@width, @height) ->
     if @node
-      @node.width w
-      @node.find(".slide-image").width w
-      @node.find(".slide-images").height h
+      @node.width width
+      @node.find(".slide-image").width width
+      @node.find(".slide-images").height height
     this
 
   # Fetch photos with a JSON providing its `url`.
@@ -315,10 +329,10 @@ class Slider
   _sync: ->
     @setTransition @transition
     @setTheme @theme
-    @setSize @w, @h
+    @setSize @width, @height
     @slide @current
-  
-  # `slides` : format: array of { src, name, link (optional) } 
+
+  # `slides` : format: array of { src, name, link (optional) }
   setPhotos: (@photos) ->
     # Templating and appending to DOM
     @node = @tmpl(slides: photos).addClass("loading")
@@ -336,7 +350,7 @@ class Slider
     )
     @node.find(".loader").text "No photo"  if imgs.size() == 0
     this
-  
+
   # Start the slider
   start: ->
     @slides = @node.find(".slide-image")
@@ -348,7 +362,7 @@ class Slider
   stop: ->
     @_unbind()
     this
-  
+
   # Bind slider DOM events for navigation
   _bind: ->
     @_unbind()
@@ -360,7 +374,7 @@ class Slider
         $(this).click -> self.slide i
       now = -> currentTime()
       @node.find(".options a").click => @lastHumanNav = now()
-    
+
     if not @timeout
       loop_ = =>
         @next() if now() - @lastHumanNav > 2000
@@ -370,7 +384,7 @@ class Slider
 
   _unbind: ->
     if @node
-      @node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind 'click' 
+      @node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind 'click'
     if @timeout
       clearTimeout @timeout
       @timeout = null
@@ -395,7 +409,7 @@ class SliderWithCanvas extends Slider
     @notCanvas = @node.find '.slide-images:not(canvas) img'
     @canvas = @node.find 'canvas.slide-images'
     @ctx = @canvas[0].getContext '2d' if @canvas[0] and @canvas[0].getContext
-    @images = $.map(@photos, ((photo) => 
+    @images = $.map(@photos, ((photo) =>
       img = new Image()
       img.src = photo.src
       img
@@ -420,13 +434,13 @@ class SliderWithCanvas extends Slider
         @notCanvas.show()
     this
 
-  setTransition: (transition) -> 
+  setTransition: (transition) ->
     @setRenderMode 'css'
     super transition
     this
 
   # Change the slider transition function (for the canvas animation)
-  setTransitionFunction: (@transitionFunction) -> 
+  setTransitionFunction: (@transitionFunction) ->
     @setRenderMode 'canvas'
     this
 
@@ -448,7 +462,7 @@ class SliderWithCanvas extends Slider
   clean: -> @ctx.clearRect 0, 0, @canvas[0].width, @canvas[0].height
 
   # draw an image on the all canvas with the correct ratio
-  drawImage: (img) -> 
+  drawImage: (img) ->
     {width, height} = @canvas[0]
     @ctx.drawImage img, 0, 0, width, width*img.height/img.width
 
