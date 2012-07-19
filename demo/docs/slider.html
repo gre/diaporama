@@ -183,14 +183,14 @@
 <li>opts (dict) (optional) pass in any or all of the following options:
 <ul><li>current (int) which slide to start on</li>
 <li>duration (int) time in milliseconds to spend on each slide</li>
-<li>width (string) a css string for width; e.g. '430px'</li>
-<li>height (string) a css string for height; e.g. '640px'</li>
+<li>width (int) width in pixels</li>
+<li>height (int) height in pixels</li>
 <li>theme (string) class name to add to the root node; defaults to 'theme-dark'</li></ul></li>
 </ul>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Slider</span>
   <span class="nv">constructor: </span><span class="nf">(container, opts = {}) -&gt;</span>
     <span class="vi">@container = </span><span class="nx">$</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
     <span class="k">for</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">@defaults</span>
-      <span class="k">this</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">prop</span> <span class="k">of</span> <span class="nx">opts</span> <span class="k">then</span> <span class="nx">ops</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="k">else</span> <span class="nx">val</span>
+      <span class="k">this</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">prop</span> <span class="k">of</span> <span class="nx">opts</span> <span class="k">then</span> <span class="nx">opts</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="k">else</span> <span class="nx">val</span>
     <span class="k">this</span>
 
   <span class="nv">defaults:</span>
@@ -219,9 +219,9 @@
     <span class="vi">@theme = </span><span class="nx">theme</span>
     <span class="k">this</span></pre></div>             </td>           </tr>                               <tr id="section-31">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-31">&#182;</a>               </div>               <p>set slider size</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">setSize: </span><span class="nf">(@width, @height) -&gt;</span>
     <span class="k">if</span> <span class="nx">@node</span>
-      <span class="nx">@node</span><span class="p">.</span><span class="nx">width</span> <span class="nx">w</span>
-      <span class="nx">@node</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;.slide-image&quot;</span><span class="p">).</span><span class="nx">width</span> <span class="nx">w</span>
-      <span class="nx">@node</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;.slide-images&quot;</span><span class="p">).</span><span class="nx">height</span> <span class="nx">h</span>
+      <span class="nx">@node</span><span class="p">.</span><span class="nx">width</span> <span class="nx">width</span>
+      <span class="nx">@node</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;.slide-image&quot;</span><span class="p">).</span><span class="nx">width</span> <span class="nx">width</span>
+      <span class="nx">@node</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;.slide-images&quot;</span><span class="p">).</span><span class="nx">height</span> <span class="nx">height</span>
     <span class="k">this</span></pre></div>             </td>           </tr>                               <tr id="section-32">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-32">&#182;</a>               </div>               <p>Fetch photos with a JSON providing its <code>url</code>.
 If <code>options</code> is defined, passing it in request params.
 If <code>transformer</code> is defined, using it to transform the json

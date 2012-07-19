@@ -244,14 +244,14 @@ SliderTransitionFunctions =
 # * opts (dict) (optional) pass in any or all of the following options:
 #     * current (int) which slide to start on
 #     * duration (int) time in milliseconds to spend on each slide
-#     * width (string) a css string for width; e.g. '430px'
-#     * height (string) a css string for height; e.g. '640px'
+#     * width (int) width in pixels
+#     * height (int) height in pixels
 #     * theme (string) class name to add to the root node; defaults to 'theme-dark'
 class Slider
   constructor: (container, opts = {}) ->
     @container = $(container)
     for prop, val of @defaults
-      this[prop] = if prop of opts then ops[prop] else val
+      this[prop] = if prop of opts then opts[prop] else val
     this
 
   defaults:
@@ -310,9 +310,9 @@ class Slider
   # set slider size
   setSize: (@width, @height) ->
     if @node
-      @node.width w
-      @node.find(".slide-image").width w
-      @node.find(".slide-images").height h
+      @node.width width
+      @node.find(".slide-image").width width
+      @node.find(".slide-images").height height
     this
 
   # Fetch photos with a JSON providing its `url`.
