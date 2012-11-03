@@ -1,4 +1,5 @@
 (function() {
+
   /*!
   Copyright 2011 Gaetan Renaudeau
   http://greweb.fr/slider
@@ -15,20 +16,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   */
-  var Slider, SliderTransitionFunctions, SliderUtils, SliderWithCanvas, currentTime, mod, requestAnimationFrame, tmplSlider, tmplSliderWithCanvas;
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
-    for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
-    function ctor() { this.constructor = child; }
-    ctor.prototype = parent.prototype;
-    child.prototype = new ctor;
-    child.__super__ = parent.prototype;
-    return child;
-  };
+
+  var Slider, SliderTransitionFunctions, SliderUtils, SliderWithCanvas, currentTime, mod, requestAnimationFrame, tmplSlider, tmplSliderWithCanvas,
+    __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
   mod = function(X, Y) {
     return X - Y * Math.floor(X / Y);
   };
+
   requestAnimationFrame = function(a,b){while(a--&&!(b=window["oR0msR0mozR0webkitR0r".split(0)[a]+"equestAnimationFrame"]));return b||function(a){setTimeout(a,15)}}(5);
+
   currentTime = function(){return new Date().getTime()};
+
   tmplSlider = function(o) {
     var slider;
     slider = $("<div class=\"slider\">\n  <div class=\"loader\"><span class=\"spinner\"></span> <span class=\"percent\">0</span>%</div>\n  <div class=\"slide-images\"></div>\n  <div class=\"options\">\n    <a class=\"prevSlide\" href=\"javascript:;\">prev</a>\n    <span class=\"slide-pager\"></span>\n    <a class=\"nextSlide\" href=\"javascript:;\">next</a>\n  </div>\n</div>");
@@ -40,12 +40,14 @@
     }));
     return slider;
   };
+
   tmplSliderWithCanvas = function(o) {
     var node;
     node = tmplSlider(o);
     node.find('div.slide-images').append('<canvas class="slide-images" />');
     return node;
   };
+
   SliderUtils = {
     extractImageData: function(self, from, to) {
       var fromData, height, output, toData, width, _ref;
@@ -78,6 +80,7 @@
       };
     }
   };
+
   SliderTransitionFunctions = {
     clock: {
       render: SliderUtils.clippedTransition(function(ctx, w, h, p) {
@@ -258,20 +261,31 @@
       }
     }
   };
+
   Slider = (function() {
+
     function Slider(container) {
       this.container = $(container);
     }
+
     Slider.prototype.current = 0;
+
     Slider.prototype.lastHumanNav = 0;
+
     Slider.prototype.duration = 4000;
+
     Slider.prototype.w = '640px';
+
     Slider.prototype.h = '430px';
+
     Slider.prototype.theme = 'theme-dark';
+
     Slider.prototype.tmpl = tmplSlider;
+
     Slider.prototype.circular = function(num) {
       return mod(num, this.slides.size());
     };
+
     Slider.prototype.slide = function(num) {
       if (this.slides && this.pages) {
         num = Math.max(0, Math.min(num, this.slides.size() - 1));
@@ -283,43 +297,43 @@
       this.current = num;
       return this;
     };
+
     Slider.prototype.next = function() {
       return this.slide(this.circular(this.current + 1));
     };
+
     Slider.prototype.prev = function() {
       return this.slide(this.circular(this.current - 1));
     };
+
     Slider.prototype.setDuration = function(duration) {
       this.duration = duration;
       return this;
     };
+
     Slider.prototype.setTransition = function(transition) {
       if (this.node) {
-        if (this.transition) {
-          this.node.removeClass(this.transition);
-        }
-        if (transition) {
-          this.node.addClass(transition);
-        }
+        if (this.transition) this.node.removeClass(this.transition);
+        if (transition) this.node.addClass(transition);
       }
       this.transition = transition;
       return this;
     };
+
     Slider.prototype.setTheme = function(theme) {
-      if (theme == null) {
-        theme = "theme-dark";
-      }
+      if (theme == null) theme = "theme-dark";
       if (this.node) {
-        if (this.theme) {
-          this.node.removeClass(this.theme);
-        }
-        if (theme) {
-          this.node.addClass(theme);
-        }
+        if (this.theme) this.node.removeClass(this.theme);
+        if (theme) this.node.addClass(theme);
       }
       this.theme = theme;
       return this;
     };
+
+    Slider.prototype.getSize = function() {
+      return [this.node.width(), this.node.find(".slide-images").height()];
+    };
+
     Slider.prototype.setSize = function(w, h) {
       this.w = w;
       this.h = h;
@@ -330,27 +344,65 @@
       }
       return this;
     };
+
     Slider.prototype.fetchJson = function(url, options, transformer) {
-      var params;
+      var params,
+        _this = this;
       params = $.extend({}, options);
       if (transformer == null) {
         transformer = function(json) {
           return json;
         };
       }
-      $.getJSON(url, params, __bind(function(json) {
-        return this.setPhotos(transformer(json));
-      }, this));
+      $.getJSON(url, params, function(json) {
+        return _this.setPhotos(transformer(json));
+      });
       return this;
     };
+
     Slider.prototype._sync = function() {
       this.setTransition(this.transition);
       this.setTheme(this.theme);
       this.setSize(this.w, this.h);
       return this.slide(this.current);
     };
+
+    Slider.prototype._aspectSizing = function(width, height) {
+      var heightScaleFactor, newHeight, newWidth, scaleFactor, sliderHeight, sliderWidth, widthScaleFactor, _ref;
+      _ref = this.getSize(), sliderWidth = _ref[0], sliderHeight = _ref[1];
+      widthScaleFactor = sliderWidth / width;
+      heightScaleFactor = sliderHeight / height;
+      if (widthScaleFactor < heightScaleFactor) {
+        scaleFactor = widthScaleFactor;
+      } else {
+        scaleFactor = heightScaleFactor;
+      }
+      newWidth = width * scaleFactor;
+      newHeight = height * scaleFactor;
+      return [(sliderWidth - newWidth) / 2, (sliderHeight - newHeight) / 2, newWidth, newHeight];
+    };
+
+    Slider.prototype._sizeAllImgs = function() {
+      var _this = this;
+      return this.node.find(".slide-image img").each(function(idx, image_node) {
+        var css_settings, height, left, top, unstyledImage, width, _ref;
+        unstyledImage = new Image();
+        unstyledImage.src = image_node.src;
+        _ref = _this._aspectSizing(unstyledImage.width, unstyledImage.height), left = _ref[0], top = _ref[1], width = _ref[2], height = _ref[3];
+        css_settings = {
+          position: "absolute",
+          left: left,
+          top: top,
+          width: width,
+          height: height
+        };
+        return $(image_node).css(css_settings);
+      });
+    };
+
     Slider.prototype.setPhotos = function(photos) {
-      var imgs, nbLoad;
+      var imgs, nbLoad,
+        _this = this;
       this.photos = photos;
       this.node = this.tmpl({
         slides: photos
@@ -358,20 +410,20 @@
       this.container.empty().append(this.node);
       this._sync();
       nbLoad = 0;
-      imgs = this.node.find(".slide-image img").bind("load", __bind(function() {
+      imgs = this.node.find(".slide-image img").bind("load", function() {
         var total;
         total = imgs.size();
         if (++nbLoad === total) {
-          this.node.removeClass("loading");
-          this.start();
+          _this.node.removeClass("loading");
+          _this.start();
+          _this._sizeAllImgs();
         }
-        return this.node.find(".loader .percent").text(Math.floor(100 * nbLoad / total));
-      }, this));
-      if (imgs.size() === 0) {
-        this.node.find(".loader").text("No photo");
-      }
+        return _this.node.find(".loader .percent").text(Math.floor(100 * nbLoad / total));
+      });
+      if (imgs.size() === 0) this.node.find(".loader").text("No photo");
       return this;
     };
+
     Slider.prototype.start = function() {
       this.slides = this.node.find(".slide-image");
       this.pages = this.node.find(".slide-pager a");
@@ -379,19 +431,22 @@
       this._bind();
       return this;
     };
+
     Slider.prototype.stop = function() {
       this._unbind();
       return this;
     };
+
     Slider.prototype._bind = function() {
-      var loop_, now, self;
+      var loop_, now, self,
+        _this = this;
       this._unbind();
-      this.node.find(".prevSlide").click(__bind(function() {
-        return this.prev();
-      }, this));
-      this.node.find(".nextSlide").click(__bind(function() {
-        return this.next();
-      }, this));
+      this.node.find(".prevSlide").click(function() {
+        return _this.prev();
+      });
+      this.node.find(".nextSlide").click(function() {
+        return _this.next();
+      });
       self = this;
       if (this.node) {
         this.node.find(".slide-pager a").each(function(i) {
@@ -402,21 +457,20 @@
         now = function() {
           return currentTime();
         };
-        this.node.find(".options a").click(__bind(function() {
-          return this.lastHumanNav = now();
-        }, this));
+        this.node.find(".options a").click(function() {
+          return _this.lastHumanNav = now();
+        });
       }
       if (!this.timeout) {
-        loop_ = __bind(function() {
-          if (now() - this.lastHumanNav > 2000) {
-            this.next();
-          }
-          return this.timeout = setTimeout(loop_, this.duration);
-        }, this);
+        loop_ = function() {
+          if (now() - _this.lastHumanNav > 2000) _this.next();
+          return _this.timeout = setTimeout(loop_, _this.duration);
+        };
         this.timeout = setTimeout(loop_, this.duration);
       }
       return this;
     };
+
     Slider.prototype._unbind = function() {
       if (this.node) {
         this.node.find(".prevSlide, .nextSlide, .slide-pager a, .options a").unbind('click');
@@ -426,45 +480,64 @@
         return this.timeout = null;
       }
     };
+
     return Slider;
+
   })();
+
   SliderWithCanvas = (function() {
+
     __extends(SliderWithCanvas, Slider);
+
     function SliderWithCanvas() {
       SliderWithCanvas.__super__.constructor.apply(this, arguments);
     }
+
     SliderWithCanvas.prototype.transitionFunction = SliderTransitionFunctions.clock;
+
     SliderWithCanvas.prototype.transitionDuration = 1500;
+
     SliderWithCanvas.prototype.tmpl = tmplSliderWithCanvas;
+
     SliderWithCanvas.prototype._sync = function() {
       var renderMode;
       renderMode = this.renderMode;
       SliderWithCanvas.__super__._sync.apply(this, arguments);
       return this.setRenderMode(renderMode);
     };
+
     SliderWithCanvas.prototype.start = function() {
+      var _this = this;
       this.notCanvas = this.node.find('.slide-images:not(canvas) img');
       this.canvas = this.node.find('canvas.slide-images');
       if (this.canvas[0] && this.canvas[0].getContext) {
         this.ctx = this.canvas[0].getContext('2d');
       }
       if (this.photos) {
-        this.images = $.map(this.photos, (__bind(function(photo) {
+        this.images = $.map(this.photos, (function(photo) {
           var img;
           img = new Image();
           img.src = photo.src;
           return img;
-        }, this)));
+        }));
       }
       return SliderWithCanvas.__super__.start.apply(this, arguments);
     };
+
+    SliderWithCanvas.prototype.getSize = function() {
+      if (this.renderMode === 'canvas') {
+        return [this.canvas.width(), this.canvas.height()];
+      } else {
+        return SliderWithCanvas.__super__.getSize.call(this);
+      }
+    };
+
     SliderWithCanvas.prototype.setSize = function(w, h) {
       SliderWithCanvas.__super__.setSize.call(this, w, h);
-      if (this.canvas) {
-        this.canvas.attr("height", h).attr("width", w);
-      }
+      if (this.canvas) this.canvas.attr("height", h).attr("width", w);
       return this;
     };
+
     SliderWithCanvas.prototype.setRenderMode = function(renderMode) {
       this.renderMode = renderMode;
       if (this.ctx) {
@@ -479,47 +552,57 @@
       }
       return this;
     };
+
     SliderWithCanvas.prototype.setTransition = function(transition) {
       this.setRenderMode('css');
       SliderWithCanvas.__super__.setTransition.call(this, transition);
       return this;
     };
+
     SliderWithCanvas.prototype.setTransitionFunction = function(transitionFunction) {
       this.transitionFunction = transitionFunction;
       this.setRenderMode('canvas');
       return this;
     };
+
     SliderWithCanvas.prototype.setTransitionDuration = function(transitionDuration) {
       this.transitionDuration = transitionDuration;
       this.setRenderMode('canvas');
       return this;
     };
+
     SliderWithCanvas.prototype.slide = function(num) {
       this.fromSlide = this.current;
       this.toSlide = num;
       this.transitionStart = currentTime();
-      if (this.ctx && this.renderMode === 'canvas') {
-        this.startRender();
-      }
+      if (this.ctx && this.renderMode === 'canvas') this.startRender();
       return SliderWithCanvas.__super__.slide.call(this, num);
     };
+
     SliderWithCanvas.prototype.clean = function() {
       return this.ctx.clearRect(0, 0, this.canvas[0].width, this.canvas[0].height);
     };
+
     SliderWithCanvas.prototype.drawImage = function(img) {
-      var height, width, _ref;
-      _ref = this.canvas[0], width = _ref.width, height = _ref.height;
-      return this.ctx.drawImage(img, 0, 0, width, width * img.height / img.width);
+      var height, left, top, width, _ref;
+      _ref = this._aspectSizing(img.width, img.height), left = _ref[0], top = _ref[1], width = _ref[2], height = _ref[3];
+      this.ctx.fillStyle = 'black';
+      this.ctx.fill();
+      return this.ctx.drawImage(img, left, top, width, height);
     };
+
     SliderWithCanvas.prototype._renderId = 0;
+
     SliderWithCanvas.prototype.startRender = function() {
       if (this.transitionFunction.init) {
         this.tfdata = this.transitionFunction.init(this, this.fromSlide, this.toSlide);
       }
       return this.render(++this._renderId, this.transitionFunction);
     };
+
     SliderWithCanvas.prototype.render = function(id, transitionFunction) {
-      var now, progress;
+      var now, progress,
+        _this = this;
       now = currentTime();
       if (id === this._renderId && now >= this.transitionStart) {
         progress = Math.min(1, (now - this.transitionStart) / this.transitionDuration);
@@ -528,15 +611,21 @@
           return this.drawImage(this.images[this.toSlide]);
         } else {
           transitionFunction.render(this, this.fromSlide, this.toSlide, progress, this.tfdata);
-          return requestAnimationFrame((__bind(function() {
-            return this.render(id, transitionFunction);
-          }, this)), this.canvas[0]);
+          return requestAnimationFrame((function() {
+            return _this.render(id, transitionFunction);
+          }), this.canvas[0]);
         }
       }
     };
+
     return SliderWithCanvas;
+
   })();
+
   window.Slider = SliderWithCanvas;
+
   window.SliderTransitionFunctions = SliderTransitionFunctions;
+
   window.SliderUtils = SliderUtils;
+
 }).call(this);
