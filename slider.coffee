@@ -265,6 +265,7 @@ class Slider
       @pages.eq(@current).removeClass "current"
       @pages.eq(num).addClass "current"
     @current = num
+    cb(num) for cb in @onSlideCallbacks if @onSlideCallbacks?
     this
 
   # Go to circular next slide (will call `slide`)
@@ -343,10 +344,12 @@ class Slider
     @pages = @node.find(".slide-pager a")
     @_sync()
     @_bind()
+    cb() for cb in @onStartCallbacks if @onStartCallbacks?
     this
 
   stop: ->
     @_unbind()
+    cb() for cb in @onStopCallbacks if @onStopCallbacks?
     this
   
   # Bind slider DOM events for navigation
@@ -375,6 +378,23 @@ class Slider
       clearTimeout @timeout
       @timeout = null
 
+  # Performs provided function on start
+  onStart: (callback) ->
+    @onStartCallbacks ||= []
+    @onStartCallbacks.push callback
+    this
+
+  # Performs provided function on stop
+  onStop: (callback) ->
+    @onStopCallbacks ||= []
+    @onStopCallbacks.push callback
+    this
+
+  # Performs provided function on slide
+  onSlide: (callback) ->
+    @onSlideCallbacks ||= []
+    @onSlideCallbacks.push callback
+    this
 
 # SliderWithCanvas
 # ---------------
