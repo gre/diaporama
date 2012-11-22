@@ -1,3 +1,15 @@
+About Slider.js v2
+==================
+
+We are working hard to release Slider.js ASAP. It will come with a better website and a lot of new features, themes and transitions.
+
+During that time, please understand Slider.js v1 will not be a priority. 
+
+We are closed to contribution but we first need to release the first Slider.js v2 platform.
+
+Thanks for your understanding.
+
+
 What do you need?
 ==================
 
