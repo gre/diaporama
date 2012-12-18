@@ -244,6 +244,7 @@ class Slider
   current: 0
   lastHumanNav: 0
   duration: 4000
+  startDelay: 0
   w: '640px'
   h: '430px'
   theme: 'theme-dark'
@@ -275,6 +276,10 @@ class Slider
 
   # Change the duration between each slide
   setDuration: (@duration) ->
+    this
+
+  # Change the start delay for changing between each slide
+  setStartDelay: (@startDelay) ->
     this
 
   # Change the slider transition CSS class
@@ -365,7 +370,7 @@ class Slider
       loop_ = =>
         @next() if now() - @lastHumanNav > 2000
         @timeout = setTimeout(loop_, @duration)
-      @timeout = setTimeout(loop_, @duration)
+      @timeout = setTimeout(loop_, if @startDelay then @startDelay else @duration)
     this
 
   _unbind: ->
