@@ -1,0 +1,23 @@
+{
+  "name": "diaporama",
+  "version": "0.0.0",
+  "description": "Diaporama engine",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/glslio/diaporama"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glslio/diaporama/issues"
+  },
+  "homepage": "https://github.com/glslio/diaporama",
+  "dependencies": {
+    "bezier-easing": "^0.4.3",
+    "glsl-transition": "^0.6.6",
+    "glsl-transitions": "^2014.9.26",
+    "q": "^1.0.1",
+    "qimage": "^1.2.0"
+  }
+}
