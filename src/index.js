@@ -121,8 +121,13 @@ Viewer.prototype = {
           if (item.kenburns.from) from = KenBurns.crop.apply(KenBurns, item.kenburns.from);
           if (item.kenburns.to) to = KenBurns.crop.apply(KenBurns, item.kenburns.to);
         }
-        var duration = item.duration - (item.transitionNext && item.transitionNext.duration || 0) / 2;
-        return self.kenBurns[cur].run(img, from, to, duration);
+        var duration = item.duration;
+        var durationBeforeTransition = duration - (item.transitionNext && item.transitionNext.duration || 0) / 2;
+        var easing = BezierEasing.apply(null, item.kenburns.easing || [0, 0, 1, 1]);
+        return Q.race([
+          self.kenBurns[cur].run(img, from, to, duration, easing),
+          Q.delay(durationBeforeTransition)
+        ]);
       });
   },
 
