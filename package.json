@@ -1,7 +1,7 @@
 {
   "name": "diaporama",
   "version": "0.0.0",
-  "description": "Diaporama engine",
+  "description": "Diaporama is a slideshow engine providing high quality transition effects using GLSL Transitions & Bezier Easing.",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -14,9 +14,9 @@
   },
   "homepage": "https://github.com/glslio/diaporama",
   "dependencies": {
-    "bezier-easing": "^0.4.3",
     "glsl-transition": "^0.6.6",
-    "glsl-transitions": "^2014.9.26",
+    "kenburns": "^1.0.2",
+    "bezier-easing": "^0.4.3",
     "q": "^1.0.1",
     "qimage": "^1.2.0"
   }
