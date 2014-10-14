@@ -1,0 +1,11 @@
+- Fallback to fade the transition + the fallback of kenburns & others need to be smarter than currently (use webglew?)
+- Events: start, paused, stop, transitionStart, transitionEnd,...
+- Externalize Soundcloud
+- start() & stop() controls
+- play() & pause() controls
+- next() & prev() controls
+- jumpIndex(slideIndex)
+- Interruptible (required by previous features)
+- resize(width, height)
+- [Advanced] Dynamic feeding the timeline (timeline stream?)
+- [Advanced] smarter images load ?
