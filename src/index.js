@@ -48,6 +48,8 @@ function Viewer (params) {
   self._initDOM();
 
   var T = GlslTransition(self.canvasT);
+  var fade = T("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform vec2 resolution;uniform sampler2D from, to;uniform float progress;void main() {vec2 p = gl_FragCoord.xy / resolution;gl_FragColor = mix(texture2D(from, p), texture2D(to, p), progress);}");
+  
   self.kenBurns = self.canvases.map(function (c) {
     return new KenBurns.Canvas2D(c); // Currently using Canvas2D because waiting a fix on Chrome
   });
@@ -59,6 +61,7 @@ function Viewer (params) {
     self.images[url] = Qimage.anonymously(url);
   }, self);
 
+  self.fadeTransition = fade;
   self.transitions = {};
   self.data.timeline.forEach(function (item) {
     var name = item.transitionNext && item.transitionNext.name;
@@ -155,7 +158,7 @@ Viewer.prototype = {
     // optionally, chain a glsl transition
     var transitionNext = fromItem.transitionNext;
     if (transitionNext) {
-      var transition = this.transitions[transitionNext.name];
+      var transition = this.transitions[transitionNext.name] || { t: fade };
       var transitionDuration = transitionNext.duration || 1000;
       var transitionEasing = BezierEasing.apply(null, transitionNext.easing || [0, 0, 1, 1]);
       chain = chain
