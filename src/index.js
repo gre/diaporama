@@ -158,7 +158,7 @@ Viewer.prototype = {
     // optionally, chain a glsl transition
     var transitionNext = fromItem.transitionNext;
     if (transitionNext) {
-      var transition = this.transitions[transitionNext.name] || { t: fade };
+      var transition = this.transitions[transitionNext.name] || { t: this.fadeTransition };
       var transitionDuration = transitionNext.duration || 1000;
       var transitionEasing = BezierEasing.apply(null, transitionNext.easing || [0, 0, 1, 1]);
       chain = chain
