@@ -30,6 +30,7 @@ function Diaporama (container, data, opts) {
   this._runningSegments = [];
   this._rendering = new DiaporamaRenderingCanvas(container); // TODO: implement DOM rendering target. auto-fallback & option to force it
   this._handleResize_bounded = this._handleResize.bind(this);
+  this._container = container;
 
   // Opts
   for (var k in opts) {
@@ -106,6 +107,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
   },
  
   // PRIVATE defaults
+  _playbackRate: 1,
   _loop: false,
   _autoplay: false,
   _curLoop: null,
@@ -160,7 +162,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       this._runningSegments[i].resize(w, h, resolution);
     }
     this.emit("resize", w, h);
-    if (this._ready && this._curLoop === null)
+    if (this._curLoop === null)
       this._render();
   },
 
@@ -225,6 +227,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
   },
 
   _render: function () {
+    if (!this._ready) return;
     this._handleResize();
     var segments = this._segments;
     if (segments.length===0) return;
@@ -277,7 +280,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       }
       var dt = t - last;
       last = t;
-      self._currentTime += dt;
+      self._currentTime += dt * self._playbackRate;
       var continuing = self._render();
       if (!continuing) {
         if (self.loop) {
@@ -331,8 +334,7 @@ Object.defineProperty(Diaporama.prototype, "data", {
     this._computeTimelineSegments(prev);
     this._loadImages();
     this._loadTransitions();
-    if (this._ready)
-      this._render();
+    this._render();
   },
   get: function () {
     return this._data;
@@ -383,6 +385,15 @@ Object.defineProperty(Diaporama.prototype, "currentTime", {
   },
   get: function () {
     return this._currentTime;
+  }
+});
+
+Object.defineProperty(Diaporama.prototype, "playbackRate", {
+  set: function (playbackRate) {
+    this._playbackRate = playbackRate;
+  },
+  get: function () {
+    return this._playbackRate;
   }
 });
 
