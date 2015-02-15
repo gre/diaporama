@@ -1,5 +1,4 @@
 var raf = require("raf");
-var Q = require("q");
 var EventEmitter = require('events').EventEmitter;
 var assign = require("object-assign");
 
@@ -8,6 +7,10 @@ var findTransitionByName = require("./findTransitionByName");
 var SegmentTransition = require("./SegmentTransition");
 var SegmentKenBurns = require("./SegmentKenBurns");
 var DiaporamaRenderingCanvas = require("./DiaporamaRenderingCanvas");
+
+var RENDER_NO_SEGMENTS = 0,
+    RENDER_NOT_READY = 1,
+    RENDER_READY = 2;
 
 
 function Diaporama (container, data, opts) {
@@ -30,6 +33,7 @@ function Diaporama (container, data, opts) {
   this._runningSegments = [];
   this._rendering = new DiaporamaRenderingCanvas(container); // TODO: implement DOM rendering target. auto-fallback & option to force it
   this._handleResize_bounded = this._handleResize.bind(this);
+  this._handleRender_bounded = this._handleRender.bind(this);
   this._container = container;
 
   // Opts
@@ -42,7 +46,7 @@ function Diaporama (container, data, opts) {
     this.fitToContainer();
 
   if (this.autoplay) {
-    this.once("loaded", this._start.bind(this));
+    this.once("canplaythrough", this._start.bind(this));
   }
 
   this._requestResize();
@@ -119,15 +123,100 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
   // PRIVATE methods
 
   _loadImages: function () {
-    var store = this._rendering.images;
-    var ready = Q.all(this._data.timeline.map(function (item) {
-      return store.add(item.image);
-    }));
+    if (this._stopCurrentDiaporamaLoading) {
+      this._stopCurrentDiaporamaLoading();
+      this._stopCurrentDiaporamaLoading = null;
+    }
     var self = this;
-    ready.then(function () {
+
+    var store = this._rendering.images;
+    var toload = [];
+    var ready = [];
+    var first = this._data.timeline[0].image;
+    this._data.timeline.forEach(function (item) {
+      var src = item.image;
+      if (!store.has(src)) {
+        toload.push(src);
+      }
+    });
+
+    var _canplay;
+    function canplay () {
+      if (_canplay) return;
+      _canplay = 1;
+      self.emit("canplay");
+    }
+
+    var _canplaythrough;
+    function canplaythrough () {
+      if (_canplaythrough) return;
+      _canplaythrough = 1;
+      self.emit("canplaythrough");
+    }
+
+    function loaded () {
       self.emit("loaded");
-      self._ready = 1;
-    }).done();
+    }
+
+    if (toload.length === 0) {
+      canplay();
+      canplaythrough();
+      loaded();
+      return;
+    }
+
+    var loadStart = Date.now();
+
+    function watch () {
+      if (ready.length === toload.length) {
+        canplay();
+        canplaythrough();
+        loaded();
+        unbind();
+      }
+      else {
+        if (!_canplay) {
+          if (!first || ready.indexOf(first) !== -1) {
+            canplay();
+          }
+        }
+        
+        if (_canplay && !_canplaythrough) {
+          // Heuristic to trigger the canplaythrough (FIXME very naive)
+          var elapsed = Date.now() - loadStart;
+          var totalDuration = self._duration;
+          if (0.8 * ready.length / toload.length > elapsed / totalDuration) {
+            canplaythrough();
+          }
+        }
+      }
+    }
+
+    function onLoad (src) {
+      if (toload.indexOf(src) === -1) return; // Don't care about this guy
+      ready.push(src);
+      watch();
+    }
+
+    function onError (src, error) {
+      self.emit("error", new Error("Failure to load "+src), error);
+      unbind();
+    }
+
+    var interval = setInterval(watch, 200);
+
+    function unbind () {
+      store.removeListener("load", onLoad);
+      store.removeListener("error", onError);
+      clearInterval(interval);
+    }
+    store.on("load", onLoad);
+    store.on("error", onError);
+    for (var i=0; i<toload.length; ++i) {
+      store.load(toload[i]);
+    }
+
+    this._stopCurrentDiaporamaLoading = unbind;
   },
 
   _loadTransitions: function () {
@@ -162,8 +251,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       this._runningSegments[i].resize(w, h, resolution);
     }
     this.emit("resize", w, h);
-    if (this._curLoop === null)
-      this._render();
+    this._requestRender();
   },
 
   findTransitionByName: function (name) {
@@ -201,7 +289,7 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       if (tnext) {
         var j = i+1 < diaporama.timeline.length ? i+1 : 0;
         if (j !== 0 || this.loop) {
-          segments.push(new SegmentTransition(t, t + tnextDuration, Channels.TRANSITION, kenburnsChannels, tnext, i, j));
+          segments.push(new SegmentTransition(t, t + tnextDuration, Channels.TRANSITION, kenburnsChannels, tnext, i, j, diaporama.timeline[i].image, diaporama.timeline[j].image));
         }
         t += tnextDuration;
       }
@@ -226,13 +314,27 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
     return slideTimesLength-1;
   },
 
+  _requestRender: function () {
+    if (this._curLoop !== null) return; // We skip if there is a loop because it is useful to render otherwise.
+    if (this._needRender !== null) return; // already pending request
+    this._needRender = raf(this._handleRender_bounded);
+  },
+
+  _handleRender: function () {
+    if (this._needRender === null) return;
+    this._needRender = null;
+    this._render();
+  },
+
   _render: function () {
-    if (!this._ready) return;
     this._handleResize();
     var segments = this._segments;
     if (segments.length===0) return;
     var currentTime = this._currentTime;
     var runningSegments = this._runningSegments;
+    var rendering = this._rendering;
+
+    var notReady = false;
 
     for (var i=0; i<segments.length; ++i) {
       var segment = segments[i];
@@ -240,8 +342,12 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       var running = runningIndex !== -1;
       if (segment.timeInside(currentTime)) {
         if (!running) {
+          if (!segment.ready(rendering)) {
+            notReady = true;
+            continue;
+          }
           runningSegments.push(segment);
-          var evt = segment.enter(this._rendering);
+          var evt = segment.enter(rendering);
           if (evt) this.emit.apply(this, evt);
         }
       }
@@ -260,10 +366,10 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
         runningSegments[s].render(currentTime);
       }
       this._rendering.switchChannel(runningSegments[0].channel);
-      return true;
+      return notReady ? RENDER_NOT_READY : RENDER_READY;
     }
     
-    return false;
+    return RENDER_NO_SEGMENTS;
   },
 
   _start: function () {
@@ -280,15 +386,17 @@ Diaporama.prototype = assign({}, EventEmitter.prototype, {
       }
       var dt = t - last;
       last = t;
-      self._currentTime += dt * self._playbackRate;
-      var continuing = self._render();
-      if (!continuing) {
+      var state = self._render();
+      if (state === RENDER_NO_SEGMENTS) {
         if (self.loop) {
           self.currentTime = 0;
         }
         else {
           self._stop(true);
         }
+      }
+      else if (state === RENDER_READY) {
+        self._currentTime += dt * self._playbackRate;
       }
     });
   },
@@ -332,9 +440,9 @@ Object.defineProperty(Diaporama.prototype, "data", {
     if (data.timeline.length === 0)
       this._rendering.emptyChild();
     this._computeTimelineSegments(prev);
-    this._loadImages();
     this._loadTransitions();
-    this._render();
+    this._loadImages();
+    this._requestRender();
   },
   get: function () {
     return this._data;
@@ -380,8 +488,7 @@ Object.defineProperty(Diaporama.prototype, "height", {
 Object.defineProperty(Diaporama.prototype, "currentTime", {
   set: function (t) {
     this._currentTime = Math.max(0, t);
-    if (this._curLoop === null)
-      this._render();
+    this._requestRender();
   },
   get: function () {
     return this._currentTime;

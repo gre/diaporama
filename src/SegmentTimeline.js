@@ -8,6 +8,7 @@ function SegmentTimeline (startT, endT, renderChannel) {
 }
 
 SegmentTimeline.prototype = {
+  ready: function(){ return true; },
   enter: noop,
   leave: noop,
   render: noop,

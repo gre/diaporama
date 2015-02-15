@@ -3,15 +3,21 @@ var BezierEasing = require("bezier-easing");
 var mix = require("./mix");
 var SegmentTimeline = require("./SegmentTimeline");
 
-function SegmentTransition (start, end, renderChannel, fromToChannels, data, fromIndex, toIndex) {
+function SegmentTransition (start, end, renderChannel, fromToChannels, data, fromIndex, toIndex, fromImg, toImg) {
   SegmentTimeline.call(this, start, end, renderChannel);
   this.data = data;
   this.fromToChannels = fromToChannels;
   this.fromIndex = fromIndex;
   this.toIndex = toIndex;
+  this.fromImg = fromImg;
+  this.toImg = toImg;
 }
 
 SegmentTransition.prototype = assign({}, SegmentTimeline.prototype, {
+  ready: function (ctx) {
+    return ctx.images.has(this.fromImg) && ctx.images.has(this.toImg);
+  },
+
   enter: function (ctx) {
     var transitionNext = this.data;
     var from = ctx.getChannel(this.fromToChannels[0]);

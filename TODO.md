@@ -4,7 +4,6 @@ Bugfixes
 
 Features
 -------
-- smarter images load. "canplaythrough"-like event + pause when reach a not loaded item & continue onload
 - Write README.md
 - Implement DOM fallback. use webglew
 

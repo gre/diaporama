@@ -14,6 +14,10 @@ function SegmentKenBurns (start, end, renderChannel, data, index) {
 }
 
 SegmentKenBurns.prototype = assign({}, SegmentTimeline.prototype, {
+  ready: function (ctx) {
+    return ctx.images.has(this.data.image);
+  },
+
   enter: function (ctx) {
     var item = this.data;
     var image = ctx.images.get(item.image);
