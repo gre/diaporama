@@ -17,7 +17,7 @@
     "bezier-easing": "^0.4.4",
     "events": "^1.0.2",
     "glsl-transition-core": "^0.1.8",
-    "kenburns-canvas2d": "^1.0.0",
+    "kenburns-canvas2d": "^1.1.0",
     "object-assign": "^2.0.0",
     "raf": "^2.0.4",
     "rect-clamp": "0.0.0",
