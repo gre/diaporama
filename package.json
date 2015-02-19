@@ -1,6 +1,6 @@
 {
   "name": "diaporama",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Diaporama is a slideshow engine providing high quality transition effects using GLSL Transitions & Bezier Easing.",
   "main": "index.js",
   "repository": {
