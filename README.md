@@ -8,6 +8,7 @@ Diaporama is an image slideshow engine providing high quality animation effects 
 Key features
 ------------
 
+- Minimal library. Not opininated. Up to you to connect to any event (window resize, touch events, keyboard,...) based on your needs.
 - Responsive: works with any resolution and any ratio.
 - the Diaporama API mimic the HTML5 Video API for a better learning curve.
 - Kenburns effect on images with configurable animation from/to and easing function.
