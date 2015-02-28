@@ -14,7 +14,7 @@ Key features
 - Kenburns effect on images with configurable animation from/to and easing function.
 - configurable transition effects using GLSL Transitions created on GLSL.io (or your own)
 - Change the diaporama properties at any time, the diaporama handle it nicely and efficiently with minimal changes. This also makes the library working great with Virtual DOM.
-- WebGL library with DOM fallback (FIXME: not implemented yet)
+- it is implemented with WebGL (hardware accelerated) but also have DOM fallback **[FIXME: not implemented yet]**
 - The slideshow is described in a JSON format.
 
 Install
@@ -41,10 +41,6 @@ var diaporama = Diaporama(container, data, opts)
 - The second parameter is the `data` description of the diaporama (you might have stored it in a `diaporama.json`), See JSON format Section for more info.
 - The third parameter are the initial properties of the Diaporama. (`data` can also be passed in this object – in that case you can use the second parameter).
 
-
-Diaporama Properties
-----------
-
 Diaporama make heavy uses of JavaScript's `defineProperty` for a better experience:
 you can just get some property and set some values and the diaporama will nicely be synchronized.
 
@@ -52,21 +48,24 @@ Here are the properties: `loop`, `autoplay`, `data`, `width`, `height`, `resolut
 
 There is also helper methods (they are basically also setting some properties): `play()`, `pause()`, `next()`, `prev()`, `jump(slideIndex)`.
 
-...
-
-Events
-------
+For more detail on each properties and methods. See Diaporama Properties section.
 
 Diaporama also have events that let you watch and react on some changes. The `diaporama` object is an EventEmitter so it haves the same API: `on`, `once`, `removeListener`,...
 
 
+JSON Format
+===========
 ...
 
-JSON Format
------------
+Diaporama Properties
+====================
+...
 
+Events
+======
 ...
 
 
 Diaporama by example
---------------------
+====================
+...
