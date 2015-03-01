@@ -10,5 +10,4 @@ Features
 
 New kind of timeline items
 --------------------------
-- Canvas "Slide" with texts and various content: DSL for describing a canvas2d (canvas instead of image field). e.g: canvas: [ ["fillText", "foo" ] ]
 - Video

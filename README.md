@@ -43,10 +43,10 @@ var diaporama = Diaporama(container, data, opts)
 - The second parameter is the `data` description of the diaporama (you might have stored it in a `diaporama.json`), See [JSON Description Format](#json-description-format) section for more info.
 - The third parameter are the initial properties of the Diaporama. (`data` can also be passed in this object – in that case you can use the second parameter).
 
-Diaporama make heavy uses of JavaScript's `defineProperty` for a better experience:
+*Diaporama* makes heavy uses of JavaScript's `defineProperty` for a better experience:
 you can get a property or set a value in it and the diaporama will nicely be synchronized.
 
-Here are the properties: `loop`, `autoplay`, `data`, `width`, `height`, `resolution`, `currentTime`, `playbackRate`, `paused`, `duration`.
+Here are the properties: `loop` (boolean), `autoplay` (boolean), `data` (object), `width` (number in pixels), `height` (number in pixels), `resolution` (number), `currentTime` (number in milliseconds), `playbackRate` (number), `paused` (boolean), `duration` (number in milliseconds, read-only).
 
 There is also helper methods (they are basically also setting some properties): `play()`, `pause()`, `next()`, `prev()`, `jump(slideIndex)`.
 
