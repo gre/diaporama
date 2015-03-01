@@ -6,6 +6,7 @@ Features
 -------
 - Write README.md
 - Implement DOM fallback. use webglew
+- Better format validation
 
 New kind of timeline items
 --------------------------
