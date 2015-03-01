@@ -17,7 +17,7 @@ Key features
 - Customizable **transition effects** using GLSL Transitions created on GLSL.io (or your own)
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback **[FIXME: not implemented yet]**
 - The slideshow is described in a JSON format.
-- **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution.
+- **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`.
 
 Install
 =======
