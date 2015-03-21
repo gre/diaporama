@@ -15,7 +15,7 @@ Key features
   - You can set some properties and the library will always be in sync with your changes (and update efficiently with the minimal changes). This also make it easy when using with Virtual DOM library.
 - **Kenburns effect** on images with configurable animation from/to and easing function.
 - Customizable **transition effects** using GLSL Transitions created on GLSL.io (or your own)
-- **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback **[FIXME: not implemented yet]**
+- **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback.
 - The slideshow is described in a JSON format.
 - **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`.
 
