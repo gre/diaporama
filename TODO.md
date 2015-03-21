@@ -1,13 +1,13 @@
-Bugfixes
-------
-- in loop mode: fix the last transition "to" when timeline has even items
-
 Features
 -------
-- Write README.md
-- Implement DOM fallback. use webglew
 - Better format validation
+- Write README.md
+
+Polishes
+--------
+- no kenburns (static image) should not re-render if not changed
 
 New kind of timeline items
 --------------------------
 - Video
+- Effects (lot of work...)
