@@ -5,14 +5,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/glslio/diaporama"
+    "url": "http://github.com/gre/diaporama"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/glslio/diaporama/issues"
+    "url": "https://github.com/gre/diaporama/issues"
   },
-  "homepage": "https://github.com/glslio/diaporama",
+  "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
     "events": "^1.0.2",
