@@ -13,7 +13,7 @@ Key features
 - **Minimal and unopinionated library**. *Diaporama* focuses on rendering the slideshow. Up to you to hook it to any event (window resize, touch events, keyboard,...) based on your needs.
 - **Responsive**: works with any resolution and any ratio. The original image ratios are always preserved.
 - **Simple API**. the Diaporama API mimic the HTML5 Video API for a better learning curve.
-  - You can set some properties and the library will always be in sync with your changes (and update efficiently with the minimal changes). This also make it easy when using with Virtual DOM library.
+  - You can set some properties and the library will always be in sync with your changes (and update efficiently with the minimal changes). This also make it easy when using with Virtual DOM library. See also [`diaporama-react`](http://github.com/gre/diaporama-react)
 - **Kenburns effect** on images with configurable animation from/to and easing function.
 - Customizable **transition effects** using GLSL Transitions created on GLSL.io (or your own)
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback.
