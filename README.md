@@ -1,10 +1,11 @@
 
 Diaporama
 =========
-
 Diaporama is an image slideshow engine providing high quality animation effects including Kenburns effect and GLSL Transitions.
 
-You can easily generate a new diaporama using `diaporama-maker` **[development in progress]**.
+You can easily generate a new diaporama using [`diaporama-maker`](https://github.com/gre/diaporama-maker).
+
+**[this documentation is unfinished]**
 
 Key features
 ------------
