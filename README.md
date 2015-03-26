@@ -17,3 +17,8 @@ Diaporama Key features
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback.
 - The slideshow is described in a JSON format.
 - **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`. You can also responsively adapt it based on the canvas area.
+
+Gitbooks Full Documentation
+------------
+
+[**http://gre.gitbooks.io/diaporama/content/**](http://gre.gitbooks.io/diaporama/content/)
