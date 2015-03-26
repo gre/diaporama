@@ -3,6 +3,9 @@
   "version": "1.1.16",
   "description": "Diaporama is an image slideshow engine providing high quality animation effects including Kenburns Effect and GLSL Transitions.",
   "main": "index.js",
+  "scripts": {
+    "build": "mkdir dist; browserify index.js --s Diaporama | derequire | uglifyjs -m -c > dist/build.min.js"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/gre/diaporama"
@@ -15,6 +18,7 @@
   "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
+    "derequire": "^2.0.0",
     "events": "^1.0.2",
     "glsl-transition-core": "^0.2.0",
     "glsl-transition-fade": "^1.0.0",
@@ -26,5 +30,9 @@
     "rect-crop": "0.0.0",
     "rect-mix": "0.0.0",
     "webglew": "^1.0.5"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "uglify-js": "^2.4.17"
   }
 }
