@@ -2,7 +2,7 @@ Diaporama
 =========
 Diaporama is an image slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
 
-![](https://nodei.co/npm/diaporama.png)
+[![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
 Related Projects
 ---------------
