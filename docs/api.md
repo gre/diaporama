@@ -37,9 +37,9 @@ var diaporama = Diaporama(container, data, props)
 
 - `play()` : set `paused` to false.
 - `pause()` : set `paused` to true.
-- `next()` : set `currentTime` to the time of the next slide.
-- `prev()` : set `currentTime` to the time of the previous slide.
-- `jump(slideIndex)` : set `currentTime` to jump to a specific slide by its index.
+- `next([duration])` : set `currentTime` to the time of the next slide. If duration is provided, there is a transition to go to the next slide time.
+- `prev([duration])` : set `currentTime` to the time of the previous slide. If duration is provided, there is a transition to go to the previous slide time.
+- `jump(slideIndex, [duration])` : set `currentTime` to jump to a specific slide by its index.  If duration is provided, there is a transition to go to the requested slide time.
 
 ### Events:
 
