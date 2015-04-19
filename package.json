@@ -35,7 +35,7 @@
     "glsl-transition": "^1.0.0",
     "glsl-transition-fade": "^1.0.0",
     "kenburns-dom": "^1.1.1",
-    "kenburns-webgl": "^1.1.2",
+    "kenburns-webgl": "^2.0.0",
     "ndarray": "^1.0.16",
     "object-assign": "^2.0.0",
     "raf": "^2.0.4",
