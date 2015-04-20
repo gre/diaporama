@@ -51,6 +51,7 @@ var diaporama = Diaporama(container, data, props)
   - `error`
   - `resize`
   - `play`, `pause`
+  - `render`
   - `ended`
   - `transition`, `transitionEnd`
   - `slide`, `slideEnd`

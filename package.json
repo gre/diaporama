@@ -4,7 +4,7 @@
   "description": "Diaporama is an image slideshow engine providing high quality animation effects including Kenburns Effect and GLSL Transitions.",
   "main": "index.js",
   "scripts": {
-    "test": "testling -x open",
+    "test": "testling",
     "build": "mkdir -p dist; browserify index.js --s Diaporama | derequire | uglifyjs --preamble '/**\n  * diaporama '$(npm view diaporama version)'\n  * Gaëtan Renaudeau <renaudeau.gaetan@gmail.com> – https://github.com/gre/diaporama\n  */' -m -c > dist/build.min.js"
   },
   "testling": {
@@ -28,7 +28,6 @@
   "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
-    "events": "^1.0.2",
     "gl-fbo": "^2.0.3",
     "gl-shader": "^4.0.1",
     "gl-texture2d": "^2.0.8",

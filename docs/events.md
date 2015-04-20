@@ -20,3 +20,4 @@
   - `transitionEnd` **transitionObject**: a transition has ended.
   - `slide` **slideObject**: a new slide has started.
   - `slideEnd` **slideObject**: a slide has ended.
+  - `render` **currentTime** **renderStatus**: an event triggered everytime a render is performed (be careful with this event, do not do intensive work). `renderStatus` can be on of: `Diaporama.RENDER_NO_SEGMENTS`, `Diaporama.RENDER_NOT_READY`, `Diaporama.RENDER_READY`.
