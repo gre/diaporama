@@ -4,6 +4,14 @@ Diaporama is an image slideshow engine providing high quality animation effects 
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
+Examples
+--------
+
+- [http://greweb.me/diaporama-example1/](http://greweb.me/diaporama-example1/)
+- [http://greweb.me/diaporama-example2/](http://greweb.me/diaporama-example2/)
+- [http://greweb.me/gl-slideshow-example/](http://greweb.me/gl-slideshow-example/)
+
+
 Related Projects
 ---------------
 
