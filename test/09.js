@@ -43,29 +43,32 @@ test("prev(), next(), jump(slideIndex)",
   autostart: false
 },
 function (t, api, diaporama) {
-  api.assertTime(0);
-  diaporama.next();
-  api.assertTime(300);
-  diaporama.next();
-  api.assertTime(600);
-  diaporama.next();
-  api.assertTime(0);
-  diaporama.prev();
-  api.assertTime(600);
-  diaporama.prev();
-  api.assertTime(300);
-  diaporama.jump(0);
-  api.assertTime(0);
-  diaporama.jump(2);
-  api.assertTime(600);
-  diaporama.loop = false;
-  api.assertTime(600);
-  diaporama.next();
-  api.assertTime(600);
-  diaporama.prev();
-  api.assertTime(300);
-  diaporama.prev();
-  api.assertTime(0);
-  diaporama.prev();
-  api.assertTime(0);
+  return api.wait("load")
+  .then(function() {
+    api.assertTime(0);
+    diaporama.next();
+    api.assertTime(300);
+    diaporama.next();
+    api.assertTime(600);
+    diaporama.next();
+    api.assertTime(0);
+    diaporama.prev();
+    api.assertTime(600);
+    diaporama.prev();
+    api.assertTime(300);
+    diaporama.jump(0);
+    api.assertTime(0);
+    diaporama.jump(2);
+    api.assertTime(600);
+    diaporama.loop = false;
+    api.assertTime(600);
+    diaporama.next();
+    api.assertTime(600);
+    diaporama.prev();
+    api.assertTime(300);
+    diaporama.prev();
+    api.assertTime(0);
+    diaporama.prev();
+    api.assertTime(0);
+  });
 });
