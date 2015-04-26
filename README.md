@@ -4,6 +4,14 @@ Diaporama is an image slideshow engine providing high quality animation effects 
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
+Related Projects
+---------------
+
+- **[`diaporama-maker`](http://github.com/gre/diaporama-maker): application to create Diaporama slideshows.**
+- [`diaporama-react`](http://github.com/glslio/diaporama-react): Use React with Diaporama.
+- [`kenburns`](http://github.com/gre/kenburns): KenBurns effect for the Web.
+- [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
+
 Examples
 --------
 
@@ -11,14 +19,6 @@ Examples
 - [http://greweb.me/diaporama-example2/](http://greweb.me/diaporama-example2/)
 - [http://greweb.me/gl-slideshow-example/](http://greweb.me/gl-slideshow-example/)
 
-
-Related Projects
----------------
-
-- [`diaporama-maker`](http://github.com/gre/diaporama-maker): easily create image slideshows to use with Diaporama.
-- [`diaporama-react`](http://github.com/glslio/diaporama-react): Use React with Diaporama.
-- [`kenburns`](http://github.com/gre/kenburns): KenBurns effect for the Web.
-- [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
 
 Diaporama Key features
 ------------
