@@ -32,6 +32,11 @@ function countGreater (bound) {
     t.ok(value > bound, key+": "+value+" should be greater than "+bound);
   };
 }
+function countLower (bound) {
+  return function (value, t, key) {
+    t.ok(value < bound, key+": "+value+" should be lower than "+bound);
+  };
+}
 function recordEvents (t) {
   var diaporama = current.diaporama;
   var events = {
@@ -172,6 +177,7 @@ module.exports = function (description, data, options, f) {
     var diaporama = create(data, options);
     var api = {
       countGreater: countGreater,
+      countLower: countLower,
       countValue: countValue,
       capturePixel: capturePixel,
       assertPixel: assertPixel.bind(null, t),

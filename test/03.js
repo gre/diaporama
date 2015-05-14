@@ -1,7 +1,7 @@
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("diaporama, 5 images, loop",
+test("03: diaporama, 5 images, loop",
 {
 timeline:
   IMAGES.map(function (src, i) {
@@ -63,7 +63,7 @@ function (t, api, diaporama) {
       progress: countGreater(0),
       render: countGreater(40),
       destroy: 1,
-      resize: 1,
+      resize: api.countLower(2),
       play: 1,
       pause: 1,
       ended: 0,

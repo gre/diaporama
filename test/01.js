@@ -1,7 +1,7 @@
 var Q = require("q");
 var test = require("./test");
 
-test("empty diaporama",
+test("01: empty diaporama",
 {
   timeline: []
 },

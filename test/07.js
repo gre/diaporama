@@ -1,12 +1,12 @@
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("DOM rendering fallback",
+test("07: DOM rendering fallback",
 {
   timeline: [
     {
       duration: 1000,
-      canvas2d: {
+      slide2d: {
         background: "#F00",
         size: [1000, 500],
         draws: [

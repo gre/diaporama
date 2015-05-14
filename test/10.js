@@ -1,8 +1,7 @@
-var Q = require("q");
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("prev(duration), next(duration)",
+test("10: prev(duration), next(duration)",
 {
   timeline: [
     {
@@ -54,7 +53,7 @@ test("prev(duration), next(duration)",
       transitionNext: {
         duration: 200
       },
-      canvas2d: {
+      slide2d: {
         background: "white",
         size: [ 100, 100 ],
         draws: []

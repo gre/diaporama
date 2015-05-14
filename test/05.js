@@ -1,7 +1,7 @@
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("diaporama resize",
+test("05: diaporama resize",
 {
   timeline:
     IMAGES.slice(0, 2).map(function(src){

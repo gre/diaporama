@@ -2,7 +2,7 @@ var Q = require("q");
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("simple diaporama with 2 images, no loop",
+test("02: simple diaporama with 2 images, no loop",
 {
 timeline: IMAGES.slice(0, 2).map(function (src) {
     return {

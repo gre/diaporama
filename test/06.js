@@ -1,12 +1,12 @@
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("check canvas2d, fade, kenburns",
+test("06: check slide2d, fade, kenburns",
 {
   timeline: [
     {
       duration: 1000,
-      canvas2d: {
+      slide2d: {
         background: "#F00",
         size: [1000, 500],
         draws: [

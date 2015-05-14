@@ -115,34 +115,34 @@ Here is the mandatory minimal format for Diaporama to work correctly:
 
 ## Experimental
 
-### TimelineCanvasItem
+### TimelineSlide2dItem
 
-The TimelineCanvasItem is a simple DSL on top of Canvas2D to describe text slide content (but also any shapes that you can possibly do using Canvas2D).
+The TimelineSlide2dItem is a simple DSL on top of Canvas 2D to describe text slide content (but also any shapes that you can possibly do using Canvas 2D).
 
-A `TimelineCanvasItem` is designed to be scalable to any resolution.
+A `TimelineSlide2dItem` is designed to be scalable to any resolution.
 
 ```json
 {
-  "canvas2d": CanvasShapes,
+  "slide2d": Slide2d,
   "duration": Number,
   "transitionNext": GlslTransition?
 }
 ```
 
-#### CanvasShapes
+#### Slide2d
 
 ```json
-"canvas2d": {
+{
   "background": String,
   "size": [ Number, Number ],
   "draws": (Object|Array)[]
-},
+}
 ```
 
-- `draws` are an array of Canvas2D draw instructions. Instructions are executed sequentially, and for each element:
-  - an Object describes properties to set to the Canvas 2D Context.
-  - an Array describes a function call (first parameter is the Canvas 2D Context function name).
+- `draws` are an array of Canvas2D draw instructions. Instructions are executed sequentially.
 - `size` is a reference dimension (`[ width, height ]`) related to the `draws` defined.
+
+**For more information on the format, please look at [Slide2D API](https://github.com/gre/slide2d).**
 
 The drawing rectangle where the shapes are drawn is the biggest rectangle that preserves the ratio of dimension `size`.
 
@@ -151,7 +151,7 @@ Important: **ratio is preserved**, **draws are vectorial**, **no draws that fits
 **Example:**
 
 ```json
-"canvas2d": {
+"slide2d": {
   "background": "#EDA",
   "size": [ 800, 600 ],
   "draws": [

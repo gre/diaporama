@@ -1,7 +1,7 @@
 var test = require("./test");
 var IMAGES = require("./mock").IMAGES;
 
-test("supports data update",
+test("08: supports data update",
 {
   timeline: []
 },
@@ -63,7 +63,7 @@ function (t, api, diaporama) {
         },
         {
           duration: 2000,
-          canvas2d: {
+          slide2d: {
             background: "white",
             size: [ 100, 100 ],
             draws: []
