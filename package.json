@@ -1,6 +1,6 @@
 {
   "name": "diaporama",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "Diaporama is an image slideshow engine providing high quality animation effects including Kenburns Effect and GLSL Transitions.",
   "main": "index.js",
   "scripts": {
