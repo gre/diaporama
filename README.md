@@ -11,6 +11,7 @@ Related Projects
 - [`diaporama-react`](http://github.com/glslio/diaporama-react): Use React with Diaporama.
 - [`kenburns`](http://github.com/gre/kenburns): KenBurns effect for the Web.
 - [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
+- [`slide2d`](https://github.com/gre/slide2d): Express vectorial content in JSON using canvas2d directives.
 
 Examples
 --------
