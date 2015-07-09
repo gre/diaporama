@@ -1,17 +1,7 @@
 Video
 =====
 
-- properly give the media type to the MediaLoader (map url -> mediaType ?)
-- make the media loader more modular (define one part per media type?)
 - ? unify / share the kenburns part
-- ? clone the <video> to avoid mutation
 - handle video fallbacks like the <source> (native support)
   - ensure non support fallback nicely (black)
 - Check everything works everywhere (mobile)
-
-properties:
-
-- position = 0.0 // ms
-- duration = 0.0 // ms
-- volume = 0.0
-- playbackRate = 1.0
