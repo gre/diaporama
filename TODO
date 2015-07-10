@@ -2,6 +2,5 @@ Video
 =====
 
 - ? unify / share the kenburns part
-- handle video fallbacks like the <source> (native support)
-  - ensure non support fallback nicely (black)
+- ensure unsupported video fallback nicely (black)
 - Check everything works everywhere (mobile)
