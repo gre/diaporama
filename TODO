@@ -2,9 +2,6 @@ Video
 =====
 
 - Making video in sync with currentTime
-- use "image" field to define a fallback
-- ? unify / share the kenburns part
-
-- ensure unsupported video fallback nicely (black)
+- ensure unsupported video fallback nicely (black) - this might apply also on image: we should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=
 - Check everything works everywhere (mobile)
 - update documentation
