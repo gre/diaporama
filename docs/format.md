@@ -45,6 +45,37 @@ There are currently 2 kind of `TimelineItem`: `TimelineImageItem` and `TimelineC
 - **`kenburns`** configure the kenburns (or cropping) effect. If not define, the Image is cropped to the biggest possible rectangle preserving the ratio.
 - **`transitionNext`** defines the transition to use when moving to the next item. A transition between 2 slides cross-fade the animations of those 2 slides, it means that kenburns effect will continue to move during that transition.
 
+#### TimelineVideoItem
+
+This format allow you to add a video portion.
+**It extends the TimelineImageItem format**, where the `image` field is used as a fallback image (in case the Video can't load or is not supported by the client browser).
+
+Here are the extra properties (extending the one from TimelineImageItem):
+
+```json
+{
+  "video": VideoField,
+  "position": Number?,
+  "volume": Number?,
+  "playbackRate": Number?,
+  "loop": Boolean?
+}
+```
+- **`video`** describes the URL of the video or multiple URLs if using different video formats.
+- **`position`** is a time in milliseconds to start the video at (default is `0`, which means the video start at the beginning).
+- **`volume`** is the audio volume to use when playing the video. (default is `0`, which means the video is muted)
+- **`playbackRate`** is the playbackRate to play the video. Normal speed is `1` (default).
+- **`loop`** is a boolean to describe if the video should loop or stop at the end (default is `true`).
+
+### VideoField
+
+```json
+String | Object
+```
+
+If a String is provided, it is the video URL.
+An Object allows to define different video formats: the key of the object is the video format mimetype, the value is the video URL.
+
 ### KenBurns
 
 ```json

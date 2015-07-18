@@ -1,6 +1,6 @@
 ![](https://cloud.githubusercontent.com/assets/211411/7667405/7e5c14f0-fc06-11e4-8a96-8b3297728e28.png) Diaporama
 =========
-Diaporama is an image slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
+Diaporama is an image/video slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
@@ -28,7 +28,8 @@ Diaporama Key features
 - **Responsive**: *Diaporama* works with any resolution and any ratio. The original image ratios are always preserved (crop to fit).
 - **Simple [API](docs/api.md)**. the Diaporama API mimic the HTML5 Video API for a better learning curve. You can set some [Properties](docs/props.md) and the library will always be in sync with your changes (and update efficiently with the minimal changes). There is also [Events](docs/events.md).
 - [Easily interoperable with Virtual DOM library](docs/vdom.md).
-- **[Kenburns](https://github.com/gre/kenburns) effect** on images with configurable animation from/to and easing function.
+- **Videos** support. allowing to define multiple video formats and image fallback.
+- **[Kenburns](https://github.com/gre/kenburns) effect** on images/videos with configurable animation from/to and easing function.
 - Customizable **transition effects** using GLSL Transitions created on [GLSL.io](https://glsl.io/) (or your own)
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback (slower).
 - The slideshow is described in a [JSON format](docs/format.md).
