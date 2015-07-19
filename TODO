@@ -1,5 +1,22 @@
+
 Video
 =====
 
-- ensure unsupported video fallback nicely (black) - this might apply also on image: we should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=
-- Check everything works everywhere (mobile)
+- introduce "videos" to specify once the video field. The key is used as an alias (if string, try to lookup, otherwise use the string as an url)
+- Check video works everywhere
+  - Mac Chrome
+  - Mac Firefox
+  - Mac Safari
+  - Windows Chrome
+  - Windows IE
+  - Linux Firefox
+  - Linux Chromium
+  - Android Firefox
+  - Android Chrome
+  - iOS Safari
+- run the tests
+
+General
+=======
+
+- image if fail to load should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=

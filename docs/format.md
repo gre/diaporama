@@ -48,7 +48,7 @@ There are currently 2 kind of `TimelineItem`: `TimelineImageItem` and `TimelineC
 #### TimelineVideoItem
 
 This format allow you to add a video portion.
-**It extends the TimelineImageItem format**, where the `image` field is used as a fallback image (in case the Video can't load or is not supported by the client browser).
+**It extends the TimelineImageItem format**.
 
 Here are the extra properties (extending the one from TimelineImageItem):
 
@@ -61,7 +61,7 @@ Here are the extra properties (extending the one from TimelineImageItem):
   "loop": Boolean?
 }
 ```
-- **`video`** describes the URL of the video or multiple URLs if using different video formats.
+- **`video`** describes the URL of the video or multiple URLs if using different video formats. You can also define an image as a fallback.
 - **`position`** is a time in milliseconds to start the video at (default is `0`, which means the video start at the beginning).
 - **`volume`** is the audio volume to use when playing the video. (default is `0`, which means the video is muted)
 - **`playbackRate`** is the playbackRate to play the video. Normal speed is `1` (default).
@@ -75,6 +75,18 @@ String | Object
 
 If a String is provided, it is the video URL.
 An Object allows to define different video formats: the key of the object is the video format mimetype, the value is the video URL.
+
+If you provide an image, it will be used as a fallback (if the video doesn't load, if not supported by the browser for instance).
+
+Example:
+
+```json
+{
+  "video/webm": "video.webm",
+  "video/mp4": "video.mp4",
+  "image/png": "video.fallback.png"
+}
+```
 
 ### KenBurns
 
