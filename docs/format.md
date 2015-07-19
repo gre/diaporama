@@ -9,6 +9,7 @@ The most interesting part of Diaporama is that the slideshow is described in a c
 - **`"key": T?`** means that the property "key" is optional.
 - `T`, when not a JavaScript type, is a type alias that is described later in the document.
 - **`Object<Key, Value>`** or **`Object<Value>`** describes a JavaScript object that have type Key as key (String if not precised) and Value as value.
+- **`A | B`**: the type is either A or B.
 
 > Other constraints are not formally documented but explain in English.
 
@@ -38,7 +39,7 @@ TimelineImageItem | TimelineVideoItem | TimelineCanvasItem
 
 ```json
 {
-  "image": ImageResource || ResourceRef[ImageResource],
+  "image": ImageResource | ResourceRef[ImageResource],
   "duration": Number,
   "kenburns": KenBurns?,
   "transitionNext": GlslTransition?
@@ -56,7 +57,7 @@ TimelineImageItem | TimelineVideoItem | TimelineCanvasItem
 
 ```json
 {
-  "video": VideoResource || ResourceRef[VideoResource],
+  "video": VideoResource | ResourceRef[VideoResource],
   "position": Number?,
   "volume": Number?,
   "playbackRate": Number?,
@@ -96,6 +97,12 @@ TimelineImageItem | TimelineVideoItem | TimelineCanvasItem
 ### ResourceRef[T]
 
 a String identifier that reference a resource of type T defined in `resources`.
+
+### Resource
+
+```json
+VideoResource | ImageResource
+```
 
 ### ImageResource
 
@@ -194,12 +201,6 @@ Here is the mandatory minimal format for Diaporama to work correctly:
 - `name` should uniquely identify the transition (by name).
 - `glsl` is a fragment shader that valids the glsl-transition requirements: it must have following uniforms: `texture2D from, to; float progress; vec2 resolution;`.
 - `uniforms` are default values for custom transition uniforms. A transition might not have any uniforms in input.
-
-### Resource
-
-```json
-VideoResource || ImageResource
-```
 
 #### Slide2d
 
