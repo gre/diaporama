@@ -11,23 +11,21 @@ test("08: supports data update",
   loop: true
 },
 function (t, api, diaporama) {
-  return api.wait("load")
-  .then(function () {
-    t.equal(diaporama.duration, 0);
-    t.equal(diaporama.data.timeline.length, 0);
-    diaporama.data = {
-      timeline: [
-        {
-          image: IMAGES[0],
-          duration: 1337
-        }
-      ]
-    };
-    t.equal(diaporama.duration, 1337);
-    t.equal(diaporama.data.timeline.length, 1);
-    return api.wait("load");
-  })
-  .then(function () {
+
+  t.equal(diaporama.duration, 0);
+  t.equal(diaporama.data.timeline.length, 0);
+  diaporama.data = {
+    timeline: [
+      {
+        image: IMAGES[0],
+        duration: 1337
+      }
+    ]
+  };
+  t.equal(diaporama.duration, 1337);
+  t.equal(diaporama.data.timeline.length, 1);
+
+  return api.wait("load").then(function () {
     diaporama.data = {
       timeline: [
         {

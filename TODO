@@ -2,18 +2,16 @@
 Video
 =====
 
-- Check video works everywhere
-  - Mac Chrome
-  - Mac Firefox
-  - Mac Safari
-  - Windows Chrome
-  - Windows IE
-  - Linux Firefox
-  - Linux Chromium
-  - Android Firefox
-  - Android Chrome
-  - iOS Safari
-- run the tests
+- Check Diaporama Video supports works everywhere
+OK- Mac Chrome
+OK- Mac Firefox
+OK- Mac Safari
+OK- Windows Chrome
+OK- Windows IE
+OK- Linux Firefox
+OK- Linux Chromium
+BUG- Android Chrome :: only one pixel of the video is visible!
+OK- iOS Safari
 
 General
 =======
