@@ -3,74 +3,113 @@
 
 The most interesting part of Diaporama is that the slideshow is described in a concise JSON.
 
-> In the following documentation, we are going to describe the JSON using pseudo-JSON where values are replaced by the expected type of the values.
+> In the following documentation, we are going to describe the JSON format using pseudo-JSON where values are replaced by the expected type.
 - **`"key": T`** means that the property "key" is of type T.
 - **`T[]`** describes an Array of T.
 - **`"key": T?`** means that the property "key" is optional.
 - `T`, when not a JavaScript type, is a type alias that is described later in the document.
+- **`Object<Key, Value>`** or **`Object<Value>`** describes a JavaScript object that have type Key as key (String if not precised) and Value as value.
 
-> Other constraints are not formally documented by explain in English.
+> Other constraints are not formally documented but explain in English.
 
 ## The Format
 
 ```json
 {
   "timeline": TimelineItem[],
-  "transitions": GlslTransitionDefinition[]?
+  "transitions": GlslTransitionDefinition[]?,
+  "resources": Object<ResourceRef, Resource>?
 }
 ```
 
-- **`timeline`** is ordered from the first to the last slide of the slideshow.
-- **`transitions`** defines all the transitions to use for the Diaporama. They are referenced by `"name"` from `timeline`.
+- **`timeline`** is a list of timeline items, ordered from the first to the last slide of the slideshow. (a timeline item can have text content, image, video,...)
+- **`transitions`** defines all the transitions used for the Diaporama between the timeline items. They are referenced by `"name"` from `timeline`.
+- **`resources`** allows to define once the URLs of the diaporama resources (images, videos). They can be referenced by `ResourceRef`.
 
 ### TimelineItem
 
-There are currently 2 kind of `TimelineItem`: `TimelineImageItem` and `TimelineCanvasItem`.
-
-> TimelineCanvasItem is advanced and experimental (not editable in the current diaporama-maker), so is described at the end of this page.
+```json
+TimelineImageItem | TimelineVideoItem | TimelineCanvasItem
+```
 
 #### TimelineImageItem
 
+> defines an image slide.
+
 ```json
 {
-  "image": String,
+  "image": ImageResource || ResourceRef[ImageResource],
   "duration": Number,
   "kenburns": KenBurns?,
   "transitionNext": GlslTransition?
 }
 ```
 
-- **`image`** is an URL to a valid Image. Cross Domain images are supported as soon as the hosting server implement CORS properly (this is the case for *imgur* for instance).
+- **`image`** describes the URL to an Image. Cross Domain images are supported as soon as the hosting server implement CORS properly (this is the case for *imgur* for instance).
 - **`duration`** is given in milliseconds. This duration doesn't includes the potential `transitionNext.duration`.
-- **`kenburns`** configure the kenburns (or cropping) effect. If not define, the Image is cropped to the biggest possible rectangle preserving the ratio.
+- **`kenburns`** configure the kenburns (or cropping) effect. If not defined, the Image is cropped to the biggest possible rectangle preserving the ratio.
 - **`transitionNext`** defines the transition to use when moving to the next item. A transition between 2 slides cross-fade the animations of those 2 slides, it means that kenburns effect will continue to move during that transition.
 
 #### TimelineVideoItem
 
-This format allow you to add a video portion.
-**It extends the TimelineImageItem format**.
-
-Here are the extra properties (extending the one from TimelineImageItem):
+> defines a video slide.
 
 ```json
 {
-  "video": VideoField,
+  "video": VideoResource || ResourceRef[VideoResource],
   "position": Number?,
   "volume": Number?,
   "playbackRate": Number?,
-  "loop": Boolean?
+  "loop": Boolean?,
+  "duration": Number,
+  "kenburns": KenBurns?,
+  "transitionNext": GlslTransition?
 }
 ```
-- **`video`** describes the URL of the video or multiple URLs if using different video formats. You can also define an image as a fallback.
+- **`video`** describes the URL of the video or multiple URLs if using different video formats. You can also define an image as a fallback. You can use `ResourceRef`
 - **`position`** is a time in milliseconds to start the video at (default is `0`, which means the video start at the beginning).
 - **`volume`** is the audio volume to use when playing the video. (default is `0`, which means the video is muted)
 - **`playbackRate`** is the playbackRate to play the video. Normal speed is `1` (default).
 - **`loop`** is a boolean to describe if the video should loop or stop at the end (default is `true`).
+- **`duration`** is given in milliseconds. It defines how long the video should be run.
+- **`kenburns`** configure the kenburns (or cropping) effect. If not defined, the video is cropped to the biggest possible rectangle preserving the ratio.
+- **`transitionNext`** defines the transition to use when moving to the next item. A transition between 2 slides cross-fade the animations of those 2 slides, it means that kenburns effect will continue to move during that transition.
 
-### VideoField
+### TimelineSlide2dItem
+
+> defines a content slide.
 
 ```json
-String | Object
+{
+  "slide2d": Slide2d,
+  "duration": Number,
+  "transitionNext": GlslTransition?
+}
+```
+
+- **`slide2d`**: the content described in a simple DSL on top of Canvas 2D to describe text slide content (but also any shapes that you can possibly do using Canvas 2D). See Slide2d type for more info.
+- **`duration`** is given in milliseconds.
+- **`transitionNext`** defines the transition to use when moving to the next item. A transition between 2 slides cross-fade the animations of those 2 slides, it means that kenburns effect will continue to move during that transition.
+
+> N.B.: A `TimelineSlide2dItem` is designed to be scalable to any resolution.
+
+### ResourceRef[T]
+
+a String identifier that reference a resource of type T defined in `resources`.
+
+### ImageResource
+
+```json
+String | Object<Mimetype, URL>
+```
+
+If a String is provided, it is the image URL.
+An Object of `mimetype -> url` allows to define different image types (if using advanced image types).
+
+### VideoResource
+
+```json
+String | Object<Mimetype, URL>
 ```
 
 If a String is provided, it is the video URL.
@@ -156,20 +195,10 @@ Here is the mandatory minimal format for Diaporama to work correctly:
 - `glsl` is a fragment shader that valids the glsl-transition requirements: it must have following uniforms: `texture2D from, to; float progress; vec2 resolution;`.
 - `uniforms` are default values for custom transition uniforms. A transition might not have any uniforms in input.
 
-## Experimental
-
-### TimelineSlide2dItem
-
-The TimelineSlide2dItem is a simple DSL on top of Canvas 2D to describe text slide content (but also any shapes that you can possibly do using Canvas 2D).
-
-A `TimelineSlide2dItem` is designed to be scalable to any resolution.
+### Resource
 
 ```json
-{
-  "slide2d": Slide2d,
-  "duration": Number,
-  "transitionNext": GlslTransition?
-}
+VideoResource || ImageResource
 ```
 
 #### Slide2d

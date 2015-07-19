@@ -2,7 +2,6 @@
 Video
 =====
 
-- introduce "videos" to specify once the video field. The key is used as an alias (if string, try to lookup, otherwise use the string as an url)
 - Check video works everywhere
   - Mac Chrome
   - Mac Firefox
