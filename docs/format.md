@@ -18,14 +18,14 @@ The most interesting part of Diaporama is that the slideshow is described in a c
 ```json
 {
   "timeline": TimelineItem[],
-  "transitions": GlslTransitionDefinition[]?,
-  "resources": Object<ResourceRef, Resource>?
+  "resources": Object<ResourceRef, Resource>?,
+  "transitions": GlslTransitionDefinition[]?
 }
 ```
 
 - **`timeline`** is a list of timeline items, ordered from the first to the last slide of the slideshow. (a timeline item can have text content, image, video,...)
-- **`transitions`** defines all the transitions used for the Diaporama between the timeline items. They are referenced by `"name"` from `timeline`.
 - **`resources`** allows to define once the URLs of the diaporama resources (images, videos). They can be referenced by `ResourceRef`.
+- **`transitions`** defines all the transitions used for the Diaporama between the timeline items. They are referenced by `"name"` from `timeline`. You might directly use [`glsl-transitions`](https://github.com/glslio/glsl-transitions) collection (or a subset of it).
 
 ### TimelineItem
 
