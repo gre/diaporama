@@ -7,13 +7,15 @@ OK- Mac Chrome
 OK- Mac Firefox
 OK- Mac Safari
 OK- Windows Chrome
-OK- Windows IE
+OK- Windows IE -- (but very slow...)
 OK- Linux Firefox
 OK- Linux Chromium
-BUG- Android Chrome :: only one pixel of the video is visible!
+BUG- Android Chrome :: the video doesn't load
 OK- iOS Safari
 
-General
-=======
-
-- image if fail to load should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=
+- image/video if fail to load should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=
+- Fix the loading. IDEA:
+  - first detect the mimetype to request
+  - then perform an XHR that will fully load the video
+  - then use the createObjectURL to factorize the video inside MediaLoader
+  see https://github.com/glslio/transitions.glsl.io/blob/master/client/src/glslio/videos/qvideo.js
