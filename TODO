@@ -13,7 +13,6 @@ OK- Linux Chromium
 BUG- Android Chrome :: the video doesn't load
 OK- iOS Safari
 
-- image/video if fail to load should fallback on black iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNg+A8AAQIBANEay48AAAAASUVORK5CYII=
 - Fix the loading. IDEA:
   - first detect the mimetype to request
   - then perform an XHR that will fully load the video
