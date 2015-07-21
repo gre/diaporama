@@ -99,3 +99,9 @@ It defines the preferred rendering mode to use.
 However keep in mind that DOM rendering is designed to be a fallback to make
 diaporama works everywhere. It doesn't (and can't) implement all diaporama features
 (transitions are all fallback to a simple fade transition).
+
+### `networkTimeout` (number in milliseconds)
+
+This property can **ONLY** be set once at instantiation.
+
+Define the maximum time in milliseconds to wait for loading each resource (images, videos).
