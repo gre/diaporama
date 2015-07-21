@@ -1,3 +1,6 @@
+- resolve the all data once
+  - image and video field
+  - bezier: allow alias (default using Bezier Easing alias)
 
 Video
 =====

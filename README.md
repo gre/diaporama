@@ -34,6 +34,7 @@ Diaporama Key features
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback (slower).
 - The slideshow is described in a [JSON format](docs/format.md).
 - **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`. You can also responsively adapt it based on the canvas area.
+- **Texts, Images and Shapes** support – using [slide2d](https://github.com/gre/slide2d) which exposes everything Canvas can do.
 
 Gitbooks Full Documentation
 ------------
