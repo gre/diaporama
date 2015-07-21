@@ -39,7 +39,7 @@ TimelineImageItem | TimelineVideoItem | TimelineCanvasItem
 
 ```json
 {
-  "image": ImageResource | ResourceRef[ImageResource],
+  "image": String,
   "duration": Number,
   "kenburns": KenBurns?,
   "transitionNext": GlslTransition?
@@ -103,15 +103,6 @@ a String identifier that reference a resource of type T defined in `resources`.
 ```json
 VideoResource | ImageResource
 ```
-
-### ImageResource
-
-```json
-String | Object<Mimetype, URL>
-```
-
-If a String is provided, it is the image URL.
-An Object of `mimetype -> url` allows to define different image types (if using advanced image types).
 
 ### VideoResource
 
