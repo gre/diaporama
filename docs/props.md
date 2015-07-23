@@ -110,3 +110,12 @@ diaporama works everywhere. It doesn't (and can't) implement all diaporama featu
 This property can **ONLY** be set once at instantiation.
 
 Define the maximum time in milliseconds to wait for loading each resource (images, videos).
+
+### `currentRenderState` (read-only)
+
+Represents the current rendering state (does the rendering succeed or awaiting some resource to load).
+It can be one of following value:
+
+`Diaporama.RENDER_NO_SEGMENTS`: no rendering has been made or there is nothing to render.
+`Diaporama.RENDER_NOT_READY`: The rendering is incomplete. It is awaiting resource to load.
+`Diaporama.RENDER_READY`: The rendering is complete.

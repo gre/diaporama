@@ -30,6 +30,7 @@ var diaporama = Diaporama(container, data, props)
 - `duration` (number in milliseconds, read-only)
 - `renderingMode` (read-only)
 - `networkTimeout` (number in milliseconds)
+- `currentRenderState`
 
 **For more details on each property, See [Diaporama Properties](#diaporama-properties) section.**
 
