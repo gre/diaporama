@@ -69,6 +69,11 @@ When the diaporama is running, the currentTime is constantly updated.
 
 Setting the currentTime makes the diaporama jump to a specific time position – like in a Video.
 
+### `slide` (number)
+
+The current timeline slide index of the diaporama.
+Setting the value will cause the Diaporama to jump in time, but only if the slide changes.
+
 ### `playbackRate` (number)
 
 This property defines the speed at which the diaporama is played.
