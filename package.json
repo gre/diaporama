@@ -28,6 +28,7 @@
   "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
+    "croissant": "^0.1.0",
     "gl-fbo": "^2.0.3",
     "gl-shader": "^4.0.1",
     "gl-texture2d": "^2.0.8",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "derequire": "^2.0.0",
+    "eslint": "^1.0.0-rc-2",
     "q": "^1.2.0",
     "tape": "^4.0.0",
     "testling": "^1.7.1",
