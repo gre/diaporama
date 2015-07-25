@@ -29,7 +29,7 @@ Diaporama Key features
 - **Simple [API](docs/api.md)**. the Diaporama API mimic the HTML5 Video API for a better learning curve. You can set some [Properties](docs/props.md) and the library will always be in sync with your changes (and update efficiently with the minimal changes). There is also [Events](docs/events.md).
 - [Easily interoperable with Virtual DOM library](docs/vdom.md).
 - **[Kenburns](https://github.com/gre/kenburns) effect** on images with configurable animation from/to and easing function.
-- Customizable **transition effects** using GLSL Transitions created on [GLSL.io](https://glsl.io/) (or your own)
+- Customizable **transition effects** using GLSL Transitions created on [GLSL.io](http://transitions.glsl.io/) (or your own)
 - **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback (slower).
 - The slideshow is described in a [JSON format](docs/format.md).
 - **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`. You can also responsively adapt it based on the canvas area.
