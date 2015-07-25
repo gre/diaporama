@@ -48,7 +48,7 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "derequire": "^2.0.0",
-    "eslint": "^1.0.0-rc-2",
+    "eslint": "git://github.com/gre/eslint.git",
     "q": "^1.2.0",
     "tape": "^4.0.0",
     "testling": "^1.7.1",

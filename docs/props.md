@@ -116,6 +116,10 @@ Define the maximum time in milliseconds to wait for loading each resource (image
 Represents the current rendering state (does the rendering succeed or awaiting some resource to load).
 It can be one of following value:
 
-`Diaporama.RENDER_NO_SEGMENTS`: no rendering has been made or there is nothing to render.
-`Diaporama.RENDER_NOT_READY`: The rendering is incomplete. It is awaiting resource to load.
-`Diaporama.RENDER_READY`: The rendering is complete.
+`Diaporama.RENDER_EMPTY`: no rendering has been made or there is nothing to render.
+`Diaporama.RENDER_WAITING`: The rendering is incomplete. It is awaiting resource to load.
+`Diaporama.RENDER_PLAYING`: The rendering is complete.
+
+### `timeBuffered` (read-only)
+
+The current most reachable time (after this time, the diaporama will block because resources are not loaded yet).
