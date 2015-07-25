@@ -24,10 +24,14 @@ var diaporama = Diaporama(container, data, props)
 - `height` (number in pixels)
 - `resolution` (number)
 - `currentTime` (number in milliseconds)
+- `slide` (number)
 - `playbackRate` (number)
 - `paused` (boolean)
 - `duration` (number in milliseconds, read-only)
 - `renderingMode` (read-only)
+- `networkTimeout` (number in milliseconds)
+- `currentRenderState` (read-only)
+- `timeBuffered` (read-only)
 
 **For more details on each property, See [Diaporama Properties](#diaporama-properties) section.**
 

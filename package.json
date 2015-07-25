@@ -28,6 +28,7 @@
   "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
+    "croissant": "^0.1.0",
     "gl-fbo": "^2.0.3",
     "gl-shader": "^4.0.1",
     "gl-texture2d": "^2.0.8",
@@ -41,12 +42,13 @@
     "rect-clamp": "0.0.0",
     "rect-crop": "0.0.0",
     "rect-mix": "0.0.0",
-    "slide2d": "^1.0.12",
+    "slide2d": "^1.1.0",
     "webglew": "^1.0.5"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
     "derequire": "^2.0.0",
+    "eslint": "git://github.com/gre/eslint.git",
     "q": "^1.2.0",
     "tape": "^4.0.0",
     "testling": "^1.7.1",

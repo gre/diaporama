@@ -69,6 +69,11 @@ When the diaporama is running, the currentTime is constantly updated.
 
 Setting the currentTime makes the diaporama jump to a specific time position – like in a Video.
 
+### `slide` (number)
+
+The current timeline slide index of the diaporama.
+Setting the value will cause the Diaporama to jump in time, but only if the slide changes.
+
 ### `playbackRate` (number)
 
 This property defines the speed at which the diaporama is played.
@@ -99,3 +104,22 @@ It defines the preferred rendering mode to use.
 However keep in mind that DOM rendering is designed to be a fallback to make
 diaporama works everywhere. It doesn't (and can't) implement all diaporama features
 (transitions are all fallback to a simple fade transition).
+
+### `networkTimeout` (number in milliseconds)
+
+This property can **ONLY** be set once at instantiation.
+
+Define the maximum time in milliseconds to wait for loading each resource (images, videos).
+
+### `currentRenderState` (read-only)
+
+Represents the current rendering state (does the rendering succeed or awaiting some resource to load).
+It can be one of following value:
+
+`Diaporama.RENDER_EMPTY`: no rendering has been made or there is nothing to render.
+`Diaporama.RENDER_WAITING`: The rendering is incomplete. It is awaiting resource to load.
+`Diaporama.RENDER_PLAYING`: The rendering is complete.
+
+### `timeBuffered` (read-only)
+
+The current most reachable time (after this time, the diaporama will block because resources are not loaded yet).
