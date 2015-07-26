@@ -32,7 +32,7 @@ Diaporama Key features
 - **Videos** support. allowing to define multiple video formats and image fallback.
 - **[Kenburns](https://github.com/gre/kenburns) effect** on images with configurable animation from/to and easing function.
 - Customizable **transition effects** using GLSL Transitions created on [GLSL.io](http://transitions.glsl.io/) (or your own)
-- **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback (slower).
+- **Works everywhere**. *Diaporama* is implemented with WebGL (hardware accelerated) but also have DOM fallback.
 - The slideshow is described in a [JSON format](docs/format.md).
 - **Retina-ready**. By default, the library use `devicePixelRatio` as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give `1`. You can also responsively adapt it based on the canvas area.
 - **Texts, Images and Shapes** support – using [slide2d](https://github.com/gre/slide2d) which exposes everything Canvas can do.
@@ -41,3 +41,19 @@ Gitbooks Full Documentation
 ------------
 
 [**http://gre.gitbooks.io/diaporama/content/**](http://gre.gitbooks.io/diaporama/content/)
+
+
+Current state of browser support
+-----------
+
+Diaporama should be widely supported by browsers (desktop and mobile). If WebGL is not supported by the browser/hardware, it fallbacks properly to DOM implementation (an opacity transition is used).
+
+Here are the current browsers I've been testing on
+
+- Firefox (Mac, Linux)
+- Chrome (Mac, Chromium Linux, Windows)
+- Safari (Mac)
+- IE 11
+- iOS Safari
+- Android Chrome
+  - Support for Videos is broken (will display black): `<video>` drawing in Android Chrome is broken: https://code.google.com/p/chromium/issues/detail?id=174642

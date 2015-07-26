@@ -28,7 +28,7 @@
   "homepage": "https://github.com/gre/diaporama",
   "dependencies": {
     "bezier-easing": "^0.4.4",
-    "croissant": "^0.1.0",
+    "croissant": "^0.2.0",
     "gl-fbo": "^2.0.3",
     "gl-shader": "^4.0.1",
     "gl-texture2d": "^2.0.8",
