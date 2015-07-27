@@ -13,14 +13,10 @@ Related Projects
 - [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
 - [`slide2d`](https://github.com/gre/slide2d): Express vectorial content in JSON using canvas2d directives.
 
-Examples
+Example Page
 --------
 
-- http://greweb.me/diaporama/
-- http://greweb.me/diaporama-example1/
-- http://greweb.me/diaporama-example2/
-- http://greweb.me/gl-slideshow-example/
-
+**http://greweb.me/diaporama/**
 
 Diaporama Key features
 ------------
