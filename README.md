@@ -4,8 +4,7 @@ Diaporama is an image/video/content slideshow engine providing high quality anim
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
-
-**[DEMO](http://greweb.me/diaporama/)**
+**[-> DEMO <-](http://greweb.me/diaporama/)**
 
 Related Projects
 ---------------
