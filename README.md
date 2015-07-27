@@ -1,6 +1,6 @@
 ![](https://cloud.githubusercontent.com/assets/211411/7667405/7e5c14f0-fc06-11e4-8a96-8b3297728e28.png) Diaporama
 =========
-Diaporama is an image/video slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
+Diaporama is an image/video/content slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
