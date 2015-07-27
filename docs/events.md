@@ -23,3 +23,4 @@
   - `seeked` **currentTime** **renderStatus**: a manual set of currentTime has been rendered.
   - `ratechange` **playbackRate**: playbackRate has been changed.
   - `render` **currentTime** **renderStatus**: an event triggered everytime a render is performed (be careful with this event, do not do intensive work). `renderStatus` can be on of: `Diaporama.RENDER_EMPTY`, `Diaporama.RENDER_WAITING`, `Diaporama.RENDER_PLAYING`.
+  - `data` **data**: data have changed.
