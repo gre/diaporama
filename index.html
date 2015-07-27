@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diaporama: greweb's Garden</title>
+  <link rel="icon" href="https://cloud.githubusercontent.com/assets/211411/7667405/7e5c14f0-fc06-11e4-8a96-8b3297728e28.png">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/railscasts.min.css">
+  <link rel="stylesheet" href="index.css">
+  <base target="_blank" />
+</head>
+<body>
+  <a id="forkme" href="https://github.com/gre/diaporama"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+
+  <div id="wrapper">
+    <h1>
+      <iframe style="float:right" src="https://ghbtns.com/github-btn.html?user=gre&repo=diaporama&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+      <a href="https://github.com/gre/diaporama">
+        <img src="https://cloud.githubusercontent.com/assets/211411/7667405/7e5c14f0-fc06-11e4-8a96-8b3297728e28.png" alt="">
+        Diaporama
+      </a>
+    </h1>
+
+    <p class="summary">
+      slideshow engine that provides high quality animation effects performed in WebGL
+
+      including
+      <a href="https://github.com/gre/kenburns-webgl/">Kenburns Effect</a>,
+      <a href="http://transitions.glsl.io/">GLSL.io Transitions</a>,
+      <a href="https://github.com/gre/bezier-easing">Bezier Easing</a>,
+      <a href="https://github.com/gre/slide2d">Slide2d</a>,...
+
+      and powered by <a href="stack.gl">stack.gl</a> stack.
+      Open Source and free to use.
+    </p>
+
+    <blockquote>
+      <p>
+        use <a href="https://github.com/gre/diaporama-maker">Diaporama Maker</a>
+        to easily generate slideshows... or write your own <code>diaporama.json</code>.
+      </p>
+      <p>
+        use <a href="https://github.com/gre/diaporama">Diaporama</a> library to run the slideshow.
+      </p>
+    </blockquote>
+
+    <div id="diaporamaContainer">
+      <div id="diaporama"></div>
+      <div id="controls"></div>
+    </div>
+
+    <section>
+      <header>
+        <div style="float:right">
+          Next transition:
+          <a id="transitionAuthor" href="#"></a>
+        </div>
+        <strong>Current slide:</strong>
+      </header>
+      <pre style="height: 400px"><code class="json" id="currentSlide"></code></pre>
+    </section>
+
+    <details>
+      <summary>How does it work??</summary>
+
+      <h3>The Slideshow is fully described by this JSON:</h3>
+      <pre><code class="json" id="data"></code></pre>
+
+      <h3>and executed on this page by this snippet:</h3>
+      <pre><code class="js">
+var Diaporama = require("diaporama");
+var GlslTransitions = require("glsl-transitions");
+var data = require("./diaporama.json");
+data.transitions = GlslTransitions;
+var diaporama = Diaporama(document.getElementById("diaporama"), data, {
+  autoplay: true,
+  loop: true
+});
+function resize () {
+  // Responsive diaporama
+  var width = Math.min(800, document.body.clientWidth);
+  var height = Math.round(0.75 * width);
+  diaporama.width = width;
+  diaporama.height = height;
+}
+window.addEventListener("resize", resize);
+resize();
+window.diaporama = diaporama; // Play with diaporama in the Web Console
+      </code></pre>
+    </details>
+
+    <h2><strong>Diaporama</strong>, JavaScript library to perform slideshow on the web</h2>
+
+    <p class="important">
+      <a href="https://github.com/gre/diaporama">Repository</a> -
+      <a href="http://gre.gitbooks.io/diaporama/content/">Gitbook</a>
+    </p>
+
+    <h3>Key features</h3>
+    <ul>
+    <li><strong>Minimal and unopinionated library</strong>. <em>Diaporama</em> focuses on rendering the slideshow. Up to you to hook it to any event (window resize, touch events, keyboard,...) based on your needs.</li>
+    <li><strong>Descriptive:</strong> The slideshow is described in a <a href="http://gre.gitbooks.io/diaporama/content/docs/format.html">JSON format</a>.</li>
+    <li><strong>Simple <a href="http://gre.gitbooks.io/diaporama/content/docs/api.html">API</a></strong>. the Diaporama API mimic the HTML5 Video API for a better learning curve. You can set some <a href="http://gre.gitbooks.io/diaporama/content/docs/props.html">Properties</a> and the library will always be in sync with your changes (and update efficiently with the minimal changes). There is also <a href="http://gre.gitbooks.io/diaporama/content/docs/events.html">Events</a>.</li>
+    <li><a href="http://gre.gitbooks.io/diaporama/content/docs/vdom.html">Easily interoperable with React or any VDOM library</a>.</li>
+    <li><strong>Videos</strong> support. allowing to define multiple video formats and image fallback.</li>
+    <li><strong>Texts, Images and Shapes</strong> support – using <a href="https://github.com/gre/slide2d">slide2d</a> which exposes everything Canvas can do.</li>
+    <li><strong><a href="https://github.com/gre/kenburns">Kenburns</a> effect</strong> on images/videos with configurable animation from/to and easing function.</li>
+    <li>Customizable <strong>transition effects</strong> using GLSL Transitions created on <a href="http://glsl.io/">GLSL.io</a> (or your own)</li>
+    <li><strong>Works everywhere</strong>. <em>Diaporama</em> is implemented with WebGL (hardware accelerated) but also have DOM fallback (widely supported).</li>
+    <li><strong>Retina-ready</strong>. By default, the library use <code>devicePixelRatio</code> as canvas resolution. N.B.: This has a cost in term of performance, so if you want you can just give <code>1</code>. You can also responsively adapt it based on the canvas area.</li>
+    <li><strong>Responsive</strong>: <em>Diaporama</em> works with any resolution and any ratio. The original image ratios are always preserved (crop to fit).</li>
+    </ul>
+
+    <h2><strong>Diaporama Maker</strong>, WYSIWYG for Diaporama</h2>
+
+    <p class="important">
+      <a href="https://github.com/gre/diaporama-maker">Repository</a> -
+      <a href="http://gre.gitbooks.io/diaporama-maker/content/">Gitbook</a> -
+      <a href="http://diaporama.glsl.io/">live demo</a>
+    </p>
+
+    <a href="http://diaporama.glsl.io/">
+      <img src="https://camo.githubusercontent.com/24978a582c5230b1f033a7565d8942053999535d/687474703a2f2f692e696d6775722e636f6d2f4f45594d526a782e6a7067" alt="diaporama.glsl.io" />
+    </a>
+
+    <h2><strong>transitions.GLSL.io</strong>, open collection of transitions</h2>
+
+
+    <p class="important">
+      <a href="http://transitions.glsl.io">Web Application</a> -
+      <a href="https://github.com/glslio/transitions.glsl.io">Repository</a>
+    </p>
+
+    <a href="http://transitions.glsl.io">
+      <img src="https://cloud.githubusercontent.com/assets/211411/8890560/91778110-3305-11e5-842b-fd754b347c6e.png" />
+    </a>
+
+    <article>
+
+      <h1>History</h1>
+
+      <p>Last year, I've created <a href="http://transitions.glsl.io/">transitions.GLSL.io</a>, an universal collection of transitions.
+      This came from the frustration that every software is implementing its own transitions, whereas we could just share a common open collection.
+      GLSL is widely supported (WebGL, OpenGL), therefore we can now provide implementations for CLIs (ffmpeg,...) and Movie Maker softwares (iMovie, ...).<br/>
+      On <a href="http://transitions.glsl.io/">transitions.GLSL.io</a>, transitions are created by people (via creating Gists).
+      </p>
+
+      <p><a href="https://github.com/gre/diaporama">Diaporama</a> provides a web use case for this GLSL Transitions idea.
+        I've then started <a href="https://github.com/gre/diaporama-maker">Diaporama Maker</a> by experimenting with React and ends working on a complete Slideshow Editor.<br/></p>
+
+      <h1>Call For Contributors</h1>
+
+      <p>There is in my mind a long way to go to finish the journey I've started but the path is pretty clear. However I think alone will be tough to do everything! Here is a few ideas:</p>
+
+      <ul>
+      <li><a href="https://github.com/gre/glsl-transition">https://github.com/gre/glsl-transition</a> is the reference implementation of GLSL Transition in WebGL. <strong>I would be amazed if you could provide more implementations!</strong> (for instance bringing support with ffmpeg and GUI movie softwares).</li>
+      <li>I would love to see crazier transitions on <a href="http://transitions.glsl.io/">transitions.GLSL.io</a>. Can you imagine some "flames" transitions, and more colorful kind of transitions?</li>
+      <li>Any contribution on the projects would be very welcomed and appreciated :)</li>
+      <li>Finally, I would love to hear about new ideas and use-cases.</li>
+      </ul>
+
+      <h1>Thank you!</h1>
+      <p>You can help me making Diaporama and GLSL Transitions an open solution that we could use for web and beyond.
+      I'm looking forward to your contributions :)</p>
+
+      <footer>
+      <p>I'm Gaëtan Renaudeau and you can <a href="https://twitter.com/greweb" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @greweb</a></p>
+      </footer>
+    </article>
+
+  </div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script src="bundle.js"></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</body>
+</html>
