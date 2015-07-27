@@ -4,6 +4,9 @@ Diaporama is an image/video/content slideshow engine providing high quality anim
 
 [![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
 
+
+**[DEMO](http://greweb.me/diaporama/)**
+
 Related Projects
 ---------------
 
@@ -13,10 +16,6 @@ Related Projects
 - [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
 - [`slide2d`](https://github.com/gre/slide2d): Express vectorial content in JSON using canvas2d directives.
 
-Example Page
---------
-
-**http://greweb.me/diaporama/**
 
 Diaporama Key features
 ------------
