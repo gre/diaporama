@@ -113,6 +113,27 @@ a:hover {
   text-decoration: underline;
 }
 
+nav {
+  padding: 10px;
+}
+nav a {
+  font-size: 1.4em;
+  margin: 0.2em 1em;
+  padding: 0.2em 0;
+  opacity: 0.5;
+  color: #ccc;
+}
+nav a:hover {
+  opacity: 0.8;
+  text-decoration: inherit;
+  color: #fe0;
+}
+nav a.active, nav a.active:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: #fe0;
+}
+
 #wrapper {
   max-width: 800px;
   margin: 10px auto;
