@@ -1,1 +1,1 @@
-module.exports = require("./lib/Diaporama");
+module.exports = require("./lib");

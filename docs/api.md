@@ -44,6 +44,7 @@ var diaporama = Diaporama(container, data, props)
 - `next([duration])` : set `currentTime` to the time of the next slide. If duration is provided, there is a transition to go to the next slide time.
 - `prev([duration])` : set `currentTime` to the time of the previous slide. If duration is provided, there is a transition to go to the previous slide time.
 - `jump(slideIndex, [duration])` : set `currentTime` to jump to a specific slide by its index.  If duration is provided, there is a transition to go to the requested slide time.
+- `feed(observable, opts)`: give an observable (stream) to feed the diaporama timeline over time. The observed values can be a slide OR an array of slides. *Note: an observable has a `subscribe(onNext,onError,onCompleted)` method that returns a disposable (with a `dispose()` function). You can use RxJS with `feed()`.*
 
 ### Events:
 
