@@ -24,7 +24,7 @@ to have enough images loaded to play the diaporama without pauses.
 
 ### `data` (object)
 
-This property reflects the Diaporama Data, object described by the [JSON Diaporama Format](docs/format.md).
+This property reflects the Diaporama Data, object described by the [JSON Diaporama Format](./format.md).
 
 ### `width` (number in pixels)
 
