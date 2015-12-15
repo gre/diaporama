@@ -1,16 +1,16 @@
 ![](https://cloud.githubusercontent.com/assets/211411/7667405/7e5c14f0-fc06-11e4-8a96-8b3297728e28.png) Diaporama
 =========
-Diaporama is an image/video/content slideshow engine providing high quality animation effects including [Kenburns](http://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/glslio/glsl-transition).
+Diaporama is an image/video/content slideshow engine providing high quality animation effects including [Kenburns](https://github.com/gre/kenburns) effect and [GLSL Transitions](https://github.com/gre/glsl-transition).
 
-[![](https://nodei.co/npm/diaporama.png)](http://npmjs.org/package/diaporama)
+[![](https://nodei.co/npm/diaporama.png)](https://www.npmjs.com/package/diaporama)
 
 **[-> DEMO <-](http://greweb.me/diaporama/)**
 
 Related Projects
 ---------------
 
-- **[`diaporama-maker`](http://github.com/gre/diaporama-maker): application to create Diaporama slideshows.**
-- [`diaporama-react`](http://github.com/glslio/diaporama-react): Use React with Diaporama.
+- **[`diaporama-maker`](https://github.com/gre/diaporama-maker): application to create Diaporama slideshows.**
+- [`diaporama-react`](https://github.com/glslio/diaporama-react): Use React with Diaporama.
 - [`kenburns`](http://github.com/gre/kenburns): KenBurns effect for the Web.
 - [`glsl-transition`](https://github.com/glslio/glsl-transition): Perform a GLSL Transition.
 - [`slide2d`](https://github.com/gre/slide2d): Express vectorial content in JSON using canvas2d directives.
@@ -34,7 +34,7 @@ Diaporama Key features
 Gitbooks Full Documentation
 ------------
 
-[**http://gre.gitbooks.io/diaporama/content/**](http://gre.gitbooks.io/diaporama/content/)
+[**https://gre.gitbooks.io/diaporama/content/**](https://gre.gitbooks.io/diaporama/content/)
 
 
 Current state of browser support
