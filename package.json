@@ -49,6 +49,7 @@
     "browserify": "^9.0.3",
     "derequire": "^2.0.0",
     "eslint": "git://github.com/gre/eslint.git",
+    "glslify": "^5.0.2",
     "q": "^1.2.0",
     "tape": "^4.0.0",
     "testling": "^1.7.1",
