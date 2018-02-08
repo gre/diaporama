@@ -13,6 +13,7 @@ function destroy () {
 function create (data, options) {
   destroy();
   var div = document.createElement("div");
+  div.id = 'container';
   div.style.position = "fixed";
   div.style.top = 0;
   div.style.left = 0;
