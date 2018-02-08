@@ -29,5 +29,10 @@ function (t, api, diaporama) {
     t.equal(diaporama.loop, false);
     t.equal(diaporama.autoplay, true);
     t.equal(diaporama.paused, true, "After some time, the diaporama should pause because loop is disabled.");
+
+    diaporama.destroy();
+    var div = document.getElementById('container');
+    var hasChildren = div.children && div.children.length > 0
+    t.equal(hasChildren, false, "Diaporama should remove its canvas from the DOM");
   });
 });
